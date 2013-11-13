@@ -1,0 +1,29 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="dist">
+    <output-path>$PROJECT_DIR$/out/artifacts/dist</output-path>
+    <root id="root">
+      <element id="directory" name="tasks">
+        <element id="directory" name="lib">
+          <element id="zip-archive" name="tasks-api.jar">
+            <element id="module-output" name="tasks-api" />
+          </element>
+          <element id="zip-archive" name="tasks-core.jar">
+            <element id="module-output" name="tasks-core" />
+            <element id="module-production-resource-output" name="tasks-core" />
+          </element>
+          <element id="file-copy" path="$PROJECT_DIR$/tasks-core/lib/axis-1.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/tasks-core/lib/axis-jaxrpc-1.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/tasks-core/lib/axis-saaj-1.3.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/tasks-core/lib/commons-discovery-0.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/tasks-core/lib/json-path-0.8.0.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/tasks-core/lib/json-smart-1.1.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/tasks-core/lib/markdownj-core-0.4.2-SNAPSHOT.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/tasks-core/lib/wsdl4j-1.4.jar" />
+          <element id="zip-archive" name="tasks-java.jar">
+            <element id="module-output" name="tasks-java" />
+          </element>
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
