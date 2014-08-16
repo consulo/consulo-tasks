@@ -1,5 +1,20 @@
 package com.intellij.tasks.youtrack;
 
+import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.CONSTANT;
+import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.KEYWORD;
+import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.STRING;
+import static com.intellij.openapi.editor.HighlighterColors.BAD_CHARACTER;
+import static com.intellij.openapi.editor.HighlighterColors.TEXT;
+
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.util.Key;
@@ -10,19 +25,6 @@ import com.intellij.tasks.impl.TaskUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.hash.LinkedHashMap;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.*;
-import static com.intellij.openapi.editor.HighlighterColors.BAD_CHARACTER;
-import static com.intellij.openapi.editor.HighlighterColors.TEXT;
 
 /**
  * Auxiliary class for extracting data from YouTrack intellisense responses.
@@ -56,13 +58,8 @@ public class YouTrackIntellisense {
     private final int myMaxSize;
 
     private SizeLimitedCache(int max) {
-      super((int)(max / 0.75) + 1);
+      super((int)(max / 0.75) + 1, true);
       myMaxSize = max;
-    }
-
-    @Override
-    protected boolean shouldMoveEntryToTopWhenReading() {
-      return true;
     }
 
     @Override
