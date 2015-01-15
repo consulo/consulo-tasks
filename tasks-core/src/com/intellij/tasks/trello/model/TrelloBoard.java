@@ -16,62 +16,63 @@
 
 package com.intellij.tasks.trello.model;
 
-import com.intellij.util.xmlb.annotations.Attribute;
-import com.intellij.util.xmlb.annotations.Tag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.intellij.util.xmlb.annotations.Attribute;
+import com.intellij.util.xmlb.annotations.Tag;
 
 /**
  * @author Mikhail Golubev
  */
 
+@SuppressWarnings("UnusedDeclaration")
 @Tag("TrelloBoard")
-public class TrelloBoard extends TrelloModel {
+public class TrelloBoard extends TrelloModel
+{
 
-  private boolean closed, pinned;
-  private String idOrganization;
-  private String name;
-  private String url;
+	public static final String REQUIRED_FIELDS = "closed,name,idOrganization";
 
-  /**
-   * Serialization constructor
-   */
-  @SuppressWarnings("UnusedDeclaration")
-  public TrelloBoard() {
-  }
+	private boolean closed;
+	private String idOrganization;
+	private String name;
 
-  @Override
-  public String toString() {
-    return String.format("TrelloBoard(id='%s', name='%s')", getId(), getName());
-  }
+	/**
+	 * Serialization constructor
+	 */
+	@SuppressWarnings("UnusedDeclaration")
+	public TrelloBoard()
+	{
+	}
 
-  public boolean isClosed() {
-    return closed;
-  }
+	@Override
+	public String toString()
+	{
+		return String.format("TrelloBoard(id='%s', name='%s')", getId(), getName());
+	}
 
-  public boolean isPinned() {
-    return pinned;
-  }
+	public boolean isClosed()
+	{
+		return closed;
+	}
 
-  @Nullable
-  public String getIdOrganization() {
-    return idOrganization;
-  }
+	@Nullable
+	public String getIdOrganization()
+	{
+		return idOrganization;
+	}
 
-  @NotNull
-  @Attribute("name")
-  @Override
-  public String getName() {
-    return name;
-  }
+	@NotNull
+	@Attribute("name")
+	@Override
+	public String getName()
+	{
+		return name;
+	}
 
-  @Override
-  public void setName(@NotNull String name) {
-    this.name = name;
-  }
+	@Override
+	public void setName(@NotNull String name)
+	{
+		this.name = name;
+	}
 
-  @NotNull
-  public String getUrl() {
-    return url;
-  }
 }

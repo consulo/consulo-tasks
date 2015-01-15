@@ -16,154 +16,155 @@
 
 package com.intellij.tasks.trello.model;
 
-import com.google.gson.annotations.SerializedName;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.xmlb.annotations.Attribute;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import static com.intellij.tasks.trello.model.TrelloLabel.LabelColor;
 
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.intellij.tasks.trello.model.TrelloLabel.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.google.gson.annotations.SerializedName;
+import com.intellij.util.Function;
+import com.intellij.util.containers.ContainerUtil;
+import com.intellij.util.xmlb.annotations.Attribute;
 
 /**
  * @author Mikhail Golubev
  */
-public class TrelloCard extends TrelloModel {
+@SuppressWarnings("UnusedDeclaration")
+public class TrelloCard extends TrelloModel
+{
 
-  private String idBoard, idList;
-  private int idShort;
-  private List<String> idMembers, idMembersVoted, idChecklists;
-  private String name;
-  @SerializedName("desc")
-  private String description;
-  private String url, shortUrl;
-  @SerializedName("due")
-  private Date dueDate;
-  private boolean closed;
-  private double pos;
-  private List<TrelloLabel> labels;
-  @SerializedName("actions")
-  private List<TrelloCommentAction> comments = ContainerUtil.emptyList();
-  /**
-   * This field is not part of card representation downloaded from server
-   * and set explicitly in {@code com.intellij.tasks.trello.TrelloRepository}
-   */
-  private boolean isVisible = true;
+	public static final String REQUIRED_FIELDS = "closed,desc,idMembers,idBoard,idList,labels,name,url,dateLastActivity";
 
-  /**
-   * Serialization constructor
-   */
-  @SuppressWarnings("UnusedDeclaration")
-  public TrelloCard() {
-  }
+	private String idBoard, idList;
+	private List<String> idMembers;
+	private String name;
+	@SerializedName("desc")
+	private String description;
+	private String url;
+	private boolean closed;
+	private Date dateLastActivity;
+	private List<TrelloLabel> labels;
+	@SerializedName("actions")
+	private List<TrelloCommentAction> comments = ContainerUtil.emptyList();
+	/**
+	 * This field is not part of card representation downloaded from server
+	 * and set explicitly in {@code com.intellij.tasks.trello.TrelloRepository}
+	 */
+	private boolean isVisible = true;
 
-  @Override
-  public String toString() {
-    return String.format("TrelloCard(id='%s', name='%s')", getId(), name);
-  }
+	/**
+	 * Serialization constructor
+	 */
+	@SuppressWarnings("UnusedDeclaration")
+	public TrelloCard()
+	{
+	}
 
-  @NotNull
-  public String getIdBoard() {
-    return idBoard;
-  }
+	@Override
+	public String toString()
+	{
+		return String.format("TrelloCard(id='%s', name='%s')", getId(), name);
+	}
 
-  @NotNull
-  public String getIdList() {
-    return idList;
-  }
+	@NotNull
+	public String getIdBoard()
+	{
+		return idBoard;
+	}
 
-  @NotNull
-  public List<String> getIdMembers() {
-    return idMembers;
-  }
+	@NotNull
+	public String getIdList()
+	{
+		return idList;
+	}
 
-  @NotNull
-  @Attribute("name")
-  @Override
-  public String getName() {
-    return name;
-  }
+	@NotNull
+	public List<String> getIdMembers()
+	{
+		return idMembers;
+	}
 
-  @Override
-  public void setName(String name) {
-    this.name = name;
-  }
+	@NotNull
+	@Attribute("name")
+	@Override
+	public String getName()
+	{
+		return name;
+	}
 
-  public int getIdShort() {
-    return idShort;
-  }
+	@Override
+	public void setName(@NotNull String name)
+	{
+		this.name = name;
+	}
 
-  @NotNull
-  public List<String> getIdMembersVoted() {
-    return idMembersVoted;
-  }
+	@NotNull
+	public String getDescription()
+	{
+		return description;
+	}
 
-  @NotNull
-  public List<String> getIdChecklists() {
-    return idChecklists;
-  }
+	@NotNull
+	public String getUrl()
+	{
+		return url;
+	}
 
-  @NotNull
-  public String getDescription() {
-    return description;
-  }
+	public boolean isClosed()
+	{
+		return closed;
+	}
 
-  @Nullable
-  public Date getDueDate() {
-    return dueDate;
-  }
+	@NotNull
+	public List<TrelloLabel> getLabels()
+	{
+		return labels;
+	}
 
-  @NotNull
-  public String getUrl() {
-    return url;
-  }
+	@NotNull
+	public List<TrelloCommentAction> getComments()
+	{
+		return comments;
+	}
 
-  @Nullable
-  public String getShortUrl() {
-    return shortUrl;
-  }
+	/**
+	 * @return colors of labels with special {@link LabelColor#NO_COLOR} value excluded
+	 */
+	@NotNull
+	public Set<LabelColor> getColors()
+	{
+		if(labels == null || labels.isEmpty())
+		{
+			return EnumSet.noneOf(LabelColor.class);
+		}
+		return EnumSet.copyOf(ContainerUtil.mapNotNull(labels, new Function<TrelloLabel, LabelColor>()
+		{
+			@Override
+			public LabelColor fun(TrelloLabel label)
+			{
+				final LabelColor color = label.getColor();
+				return color == LabelColor.NO_COLOR ? null : color;
+			}
+		}));
+	}
 
-  public boolean isClosed() {
-    return closed;
-  }
+	public boolean isVisible()
+	{
+		return isVisible;
+	}
 
-  public double getPos() {
-    return pos;
-  }
+	public void setVisible(boolean visible)
+	{
+		isVisible = visible;
+	}
 
-  @NotNull
-  public List<TrelloLabel> getLabels() {
-    return labels;
-  }
-
-  @NotNull
-  public List<TrelloCommentAction> getComments() {
-    return comments;
-  }
-
-  @NotNull
-  public Set<LabelColor> getColors() {
-    if (labels == null || labels.isEmpty()) {
-      return EnumSet.noneOf(LabelColor.class);
-    }
-    return EnumSet.copyOf(ContainerUtil.map(labels, new Function<TrelloLabel, LabelColor>() {
-      @Override
-      public LabelColor fun(TrelloLabel label) {
-        return label.getColor();
-      }
-    }));
-  }
-
-  public boolean isVisible() {
-    return isVisible;
-  }
-
-  public void setVisible(boolean visible) {
-    isVisible = visible;
-  }
+	@Nullable
+	public Date getDateLastActivity()
+	{
+		return dateLastActivity;
+	}
 }

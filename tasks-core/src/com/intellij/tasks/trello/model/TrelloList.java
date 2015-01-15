@@ -16,69 +16,79 @@
 
 package com.intellij.tasks.trello.model;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.util.xmlb.annotations.Transient;
 
 /**
  * @author Mikhail Golubev
  */
+@SuppressWarnings("UnusedDeclaration")
 @Tag("TrelloList")
-public class TrelloList extends TrelloModel {
-  private boolean closed;
-  private String idBoard;
-  private String name;
-  private double pos;
-  /**
-   * This field is not part of REST responses. It will be set explicitly to show in UI, that
-   * selected list doesn't belong to specified board anymore.
-   *
-   * @see com.intellij.tasks.trello.TrelloRepositoryEditor
-   */
-  private boolean moved;
+public class TrelloList extends TrelloModel
+{
 
-  /**
-   * Serialization constructor
-   */
-  @SuppressWarnings("UnusedDeclaration")
-  public TrelloList() {
-  }
+	public static final String REQUIRED_FIELDS = "closed,name,idBoard";
 
-  @Override
-  public String toString() {
-    return String.format("TrelloList(id='%s' name='%s')", getId(), getName());
-  }
+	private boolean closed;
+	private String idBoard;
+	private String name;
+	/**
+	 * This field is not part of REST responses. It will be set explicitly to show in UI, that
+	 * selected list doesn't belong to specified board anymore.
+	 *
+	 * @see com.intellij.tasks.trello.TrelloRepositoryEditor
+	 */
+	private boolean myMoved;
 
-  public boolean isClosed() {
-    return closed;
-  }
+	/**
+	 * Serialization constructor
+	 */
+	@SuppressWarnings("UnusedDeclaration")
+	public TrelloList()
+	{
+	}
 
-  @NotNull
-  public String getIdBoard() {
-    return idBoard;
-  }
+	@Override
+	public String toString()
+	{
+		return String.format("TrelloList(id='%s' name='%s')", getId(), getName());
+	}
 
-  @NotNull
-  @Attribute("name")
-  @Override
-  public String getName() {
-    return name;
-  }
+	public boolean isClosed()
+	{
+		return closed;
+	}
 
-  @Override
-  public void setName(@NotNull String name) {
-    this.name = name;
-  }
+	@NotNull
+	public String getIdBoard()
+	{
+		return idBoard;
+	}
 
-  public double getPos() {
-    return pos;
-  }
+	@NotNull
+	@Attribute("name")
+	@Override
+	public String getName()
+	{
+		return name;
+	}
 
-  public boolean isMoved() {
-    return moved;
-  }
+	@Override
+	public void setName(@NotNull String name)
+	{
+		this.name = name;
+	}
 
-  public void setMoved(boolean moved) {
-    this.moved = moved;
-  }
+	@Transient
+	public boolean isMoved()
+	{
+		return myMoved;
+	}
+
+	public void setMoved(boolean moved)
+	{
+		this.myMoved = moved;
+	}
 }

@@ -16,80 +16,53 @@
 
 package com.intellij.tasks.trello.model;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 /**
  * @author Mikhail Golubev
  */
 
 @Tag("TrelloUser")
-public class TrelloUser extends TrelloModel {
+public class TrelloUser extends TrelloModel
+{
 
-  private String username, fullName, initials, email;
-  private List<String> idBoards, idOrganizations;
-  private String url;
+	public static final String REQUIRED_FIELDS = "username";
 
-  /**
-   * Serialization constructor
-   */
-  @SuppressWarnings("UnusedDeclaration")
-  public TrelloUser() {
-  }
+	private String username;
 
-  @Override
-  public String toString() {
-    return String.format("TrelloUser(id='%s' username='%s')", getId(), username);
-  }
+	/**
+	 * Serialization constructor
+	 */
+	@SuppressWarnings("UnusedDeclaration")
+	public TrelloUser()
+	{
+	}
 
-  @NotNull
-  @Attribute("name")
-  @Override
-  public String getName() {
-    return getUsername();
-  }
+	@Override
+	public String toString()
+	{
+		return String.format("TrelloUser(id='%s' username='%s')", getId(), username);
+	}
 
-  @Override
-  public void setName(@NotNull String name) {
-    username = name;
-  }
+	@NotNull
+	@Attribute("name")
+	@Override
+	public String getName()
+	{
+		return getUsername();
+	}
 
-  @NotNull
-  public String getUsername() {
-    return username;
-  }
+	@Override
+	public void setName(@NotNull String name)
+	{
+		username = name;
+	}
 
-  @NotNull
-  public String getFullName() {
-    return fullName;
-  }
-
-  @NotNull
-  public String getInitials() {
-    return initials;
-  }
-
-  @Nullable
-  public String getEmail() {
-    return email;
-  }
-
-  @NotNull
-  public List<String> getIdBoards() {
-    return idBoards;
-  }
-
-  @NotNull
-  public List<String> getIdOrganizations() {
-    return idOrganizations;
-  }
-
-  @NotNull
-  public String getUrl() {
-    return url;
-  }
+	@NotNull
+	public String getUsername()
+	{
+		return username;
+	}
 }

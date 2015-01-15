@@ -15,45 +15,57 @@
  */
 package com.intellij.tasks.trello.model;
 
-import org.jetbrains.annotations.NotNull;
+import java.awt.Color;
 
-import java.awt.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Mikhail Golubev
  */
-public class TrelloLabel {
-  public enum LabelColor {
+public class TrelloLabel
+{
+	public enum LabelColor
+	{
 
-    GREEN(new Color(0x34b27d)),
-    YELLOW(new Color(0xdbdb57)),
-    ORANGE(new Color(0xE09952)),
-    RED(new Color(0xcb4d4d)),
-    PURPLE(new Color(0x9933cc)),
-    BLUE(new Color(0x4d77cb));
+		GREEN(new Color(0x34b27d)),
+		YELLOW(new Color(0xdbdb57)),
+		ORANGE(new Color(0xE09952)),
+		RED(new Color(0xcb4d4d)),
+		PURPLE(new Color(0x9933cc)),
+		BLUE(new Color(0x4d77cb)),
+		SKY(new Color(0x33cee6)),
+		LIME(new Color(0x45e660)),
+		PINK(new Color(0xff78cb)),
+		BLACK(new Color(0x4d4d4d)),
+		NO_COLOR(null);
 
-    private final Color color;
+		private final Color color;
 
-    LabelColor(Color c) {
-      this.color = c;
-    }
+		LabelColor(@Nullable Color c)
+		{
+			this.color = c;
+		}
 
-    public Color getColor() {
-      return color;
-    }
-  }
+		public Color getColor()
+		{
+			return color;
+		}
+	}
 
-  private String name;
+	private String name;
 
-  private LabelColor color;
+	private LabelColor color;
 
-  @NotNull
-  public String getName() {
-    return name;
-  }
+	@NotNull
+	public String getName()
+	{
+		return name;
+	}
 
-  @NotNull
-  public LabelColor getColor() {
-    return color;
-  }
+	@Nullable
+	public LabelColor getColor()
+	{
+		return color;
+	}
 }
