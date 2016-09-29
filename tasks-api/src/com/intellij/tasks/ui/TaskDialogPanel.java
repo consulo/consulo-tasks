@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2010 JetBrains s.r.o.
+ * Copyright 2000-2016 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.tasks;
+package com.intellij.tasks.ui;
+
+import javax.swing.JComponent;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.openapi.ui.ValidationInfo;
 
 /**
- * Predefined common task states were used before {@link CustomTaskState} was introduced.
- *
  * @author Dmitry Avdeev
  */
-public enum TaskState
+public abstract class TaskDialogPanel
 {
-	SUBMITTED("Submitted"),
-	OPEN("Open"),
-	IN_PROGRESS("In Progress"),
-	REOPENED("Reopened"),
-	RESOLVED("Resolved"),
 
-	OTHER("Other");
-
-	private String myPresentableName;
-
-	TaskState(@NotNull String presentableName)
-	{
-		myPresentableName = presentableName;
-	}
-
+	//@NotNull
+	//@Nls(capitalization = Nls.Capitalization.Title)
+	//public abstract String getName();
+	//
 	@NotNull
-	public String getPresentableName()
+	public abstract JComponent getPanel();
+
+	@Nullable
+	public JComponent getPreferredFocusedComponent()
 	{
-		return myPresentableName;
+		return null;
 	}
+
+	@Nullable
+	public ValidationInfo validate()
+	{
+		return null;
+	}
+
+	public abstract void commit();
 }

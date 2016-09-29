@@ -16,115 +16,180 @@
 
 package com.intellij.tasks;
 
-import com.intellij.openapi.util.text.StringUtil;
+import java.util.Date;
+
+import javax.swing.Icon;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.util.Date;
+import com.intellij.openapi.util.text.StringUtil;
 
 /**
  * @author Dmitry Avdeev
  */
-public abstract class Task {
+public abstract class Task
+{
 
-  public static Task[] EMPTY_ARRAY = new Task[0];
+	public static Task[] EMPTY_ARRAY = new Task[0];
 
-  /**
-   * Task identifier, e.g. IDEA-00001
-   * @return unique id
-   */
-  @NotNull
-  public abstract String getId();
+	/**
+	 * Global unique task identifier, e.g. IDEA-00001. It's important that its format is consistent with
+	 * {@link TaskRepository#extractId(String)}, because otherwise task won't be updated on its activation.
+	 * Note that this ID is used to find issues and to compare them, so (ideally) it has to be unique.
+	 * <p>
+	 * In some cases task server doesn't offer such global ID (but, for instance, pair (project-name, per-project-id) instead) or it's not
+	 * what users want to see in UI (e.g. notorious <tt>id</tt> and <tt>iid</tt> in Gitlab). In this case you should generate artificial ID
+	 * for internal usage and implement {@link #getPresentableId()}.
+	 *
+	 * @return unique global ID as described
+	 * @see #getPresentableId()
+	 * @see TaskRepository#extractId(String)
+	 * @see TaskManager#activateTask(Task, boolean)
+	 */
+	@NotNull
+	public abstract String getId();
 
-  /**
-   * Short task description.
-   * @return description
-   */
-  @NotNull
-  public abstract String getSummary();
 
-  @Nullable
-  public abstract String getDescription();
+	/**
+	 * @return ID in the form that is suitable for commit messages, dialogs, completion items, etc.
+	 */
+	@NotNull
+	public String getPresentableId()
+	{
+		return getId();
+	}
 
-  @NotNull
-  public abstract Comment[] getComments();
+	/**
+	 * Short task description.
+	 *
+	 * @return description
+	 */
+	@NotNull
+	public abstract String getSummary();
 
-  @NotNull
-  public abstract Icon getIcon();
+	@Nullable
+	public abstract String getDescription();
 
-  @NotNull
-  public abstract TaskType getType();
+	@NotNull
+	public abstract Comment[] getComments();
 
-  @Nullable
-  public abstract Date getUpdated();
+	@NotNull
+	public abstract Icon getIcon();
 
-  @Nullable
-  public abstract Date getCreated();
+	@NotNull
+	public abstract TaskType getType();
 
-  public abstract boolean isClosed();
+	@Nullable
+	public abstract Date getUpdated();
 
-  @Nullable
-  public String getCustomIcon() {
-    return null;
-  }
+	@Nullable
+	public abstract Date getCreated();
 
-  /**
-   * @return true if bugtracking issue is associated
-   */
-  public abstract boolean isIssue();
+	public abstract boolean isClosed();
 
-  @Nullable
-  public abstract String getIssueUrl();
+	@Nullable
+	public String getCustomIcon()
+	{
+		return null;
+	}
 
-  /**
-   * @return null if no issue is associated
-   * @see #isIssue()
-   */
-  @Nullable
-  public TaskRepository getRepository() {
-    return null;
-  }
+	/**
+	 * @return true if bugtracking issue is associated
+	 */
+	public abstract boolean isIssue();
 
-  @Nullable
-  public TaskState getState() {
-    return null;
-  }
+	@Nullable
+	public abstract String getIssueUrl();
 
-  @Override
-  public final String toString() {
-    String text;
-    if (isIssue()) {
-      text = getId() + ": " + getSummary();
-    } else {
-      text = getSummary();
-    }
-    return StringUtil.first(text, 60, true);
-  }
+	/**
+	 * @return null if no issue is associated
+	 * @see #isIssue()
+	 */
+	@Nullable
+	public TaskRepository getRepository()
+	{
+		return null;
+	}
 
-  public String getPresentableName() {
-    return toString();
-  }
+	@Nullable
+	public TaskState getState()
+	{
+		return null;
+	}
 
-  @Override
-  public final boolean equals(Object obj) {
-    return obj instanceof Task && ((Task)obj).getId().equals(getId());
-  }
+	@Override
+	public final String toString()
+	{
+		String text;
+		if(isIssue())
+		{
+			text = getPresentableId() + ": " + getSummary();
+		}
+		else
+		{
+			text = getSummary();
+		}
+		return StringUtil.first(text, 60, true);
+	}
 
-  @Override
-  public final int hashCode() {
-    return getId().hashCode();
-  }
+	public String getPresentableName()
+	{
+		return toString();
+	}
 
-  @NotNull
-  public String getNumber() {
-    int i = getId().lastIndexOf('-');
-    return i > 0 ? getId().substring(i + 1) : getId();
-  }
+	@Override
+	public final boolean equals(Object obj)
+	{
+		return obj instanceof Task && ((Task) obj).getId().equals(getId());
+	}
 
-  @Nullable
-  public String getProject() {
-    int i = getId().lastIndexOf('-');
-    return i > 0 ? getId().substring(0, i) : null;
-  }
+	@Override
+	public final int hashCode()
+	{
+		return getId().hashCode();
+	}
+
+	/**
+	 * <b>Per-project</b> issue identifier. Default behavior is to extract project name from task's ID.
+	 * If your service doesn't provide issue ID in format <tt>PROJECT-123</tt> be sure to initialize it manually,
+	 * as it will be used to format commit messages.
+	 *
+	 * @return project-wide issue identifier
+	 * @see #getId()
+	 * @see TaskRepository#getCommitMessageFormat()
+	 */
+	@NotNull
+	public String getNumber()
+	{
+		return extractNumberFromId(getId());
+	}
+
+	@NotNull
+	protected static String extractNumberFromId(@NotNull String id)
+	{
+		int i = id.lastIndexOf('-');
+		return i > 0 ? id.substring(i + 1) : id;
+	}
+
+	/**
+	 * Name of the project task belongs to. Default behavior is to extract project name from task's ID.
+	 * If your service doesn't provide issue ID in format <tt>PROJECT-123</tt> be sure to initialize it manually,
+	 * as it will be used to format commit messages.
+	 *
+	 * @return name of the project
+	 * @see #getId()
+	 * @see TaskRepository#getCommitMessageFormat()
+	 */
+	@Nullable
+	public String getProject()
+	{
+		return extractProjectFromId(getId());
+	}
+
+	@Nullable
+	protected static String extractProjectFromId(@NotNull String id)
+	{
+		int i = id.lastIndexOf('-');
+		return i > 0 ? id.substring(0, i) : null;
+	}
 }

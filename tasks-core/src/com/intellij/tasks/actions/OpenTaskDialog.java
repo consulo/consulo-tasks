@@ -16,6 +16,21 @@
 
 package com.intellij.tasks.actions;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.options.binding.BindControl;
 import com.intellij.openapi.options.binding.ControlBinder;
@@ -23,182 +38,197 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.ValidationInfo;
-import com.intellij.openapi.vcs.AbstractVcs;
-import com.intellij.openapi.vcs.VcsType;
-import com.intellij.tasks.*;
+import com.intellij.tasks.CustomTaskState;
+import com.intellij.tasks.Task;
+import com.intellij.tasks.TaskManager;
+import com.intellij.tasks.TaskRepository;
+import com.intellij.tasks.TaskType;
 import com.intellij.tasks.impl.TaskManagerImpl;
+import com.intellij.tasks.impl.TaskStateCombo;
 import com.intellij.tasks.impl.TaskUtil;
+import com.intellij.tasks.ui.TaskDialogPanel;
+import com.intellij.tasks.ui.TaskDialogPanelProvider;
 import com.intellij.ui.components.JBCheckBox;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Dmitry Avdeev
  */
-public class OpenTaskDialog extends DialogWrapper {
-  private final static Logger LOG = Logger.getInstance("#com.intellij.tasks.actions.SimpleOpenTaskDialog");
+public class OpenTaskDialog extends DialogWrapper
+{
+	private final static Logger LOG = Logger.getInstance("#com.intellij.tasks.actions.SimpleOpenTaskDialog");
+	private static final String UPDATE_STATE_ENABLED = "tasks.open.task.update.state.enabled";
 
-  private JPanel myPanel;
-  @BindControl(value = "clearContext", instant = true)
-  private JCheckBox myClearContext;
-  private JCheckBox myMarkAsInProgressBox;
-  private JLabel myTaskNameLabel;
-  private JPanel myVcsPanel;
-  private JTextField myBranchName;
-  private JTextField myChangelistName;
-  private JBCheckBox myCreateBranch;
-  private JBCheckBox myCreateChangelist;
+	private JPanel myPanel;
+	@BindControl(value = "clearContext", instant = true)
+	private JCheckBox myClearContext;
+	private JLabel myTaskNameLabel;
+	private JBCheckBox myUpdateState;
+	private TaskStateCombo myTaskStateCombo;
+	private JPanel myAdditionalPanel;
 
-  private final Project myProject;
-  private final Task myTask;
+	private final Project myProject;
+	private final Task myTask;
+	private final List<TaskDialogPanel> myPanels;
 
-  public OpenTaskDialog(@NotNull final Project project, @NotNull final Task task) {
-    super(project, false);
-    myProject = project;
-    myTask = task;
-    TaskManagerImpl taskManager = (TaskManagerImpl)TaskManager.getManager(myProject);
-    setTitle("Open Task");
-    myTaskNameLabel.setText(TaskUtil.getTrimmedSummary(task));
-    myTaskNameLabel.setIcon(task.getIcon());
+	public OpenTaskDialog(@NotNull final Project project, @NotNull final Task task)
+	{
+		super(project, false);
+		myProject = project;
+		myTask = task;
+		setTitle("Open Task");
+		myTaskNameLabel.setText(TaskUtil.getTrimmedSummary(task));
+		myTaskNameLabel.setIcon(task.getIcon());
 
-    TaskManagerImpl manager = (TaskManagerImpl)TaskManager.getManager(project);
-    ControlBinder binder = new ControlBinder(manager.getState());
-    binder.bindAnnotations(this);
-    binder.reset();
+		TaskManagerImpl taskManager = (TaskManagerImpl) TaskManager.getManager(myProject);
+		ControlBinder binder = new ControlBinder(taskManager.getState());
+		binder.bindAnnotations(this);
+		binder.reset();
 
-    TaskRepository repository = task.getRepository();
-    myMarkAsInProgressBox.setSelected(manager.getState().markAsInProgress);
-    if (repository == null || !repository.getRepositoryType().getPossibleTaskStates().contains(TaskState.IN_PROGRESS)) {
-      myMarkAsInProgressBox.setVisible(false);
-    }
+		if(!TaskStateCombo.stateUpdatesSupportedFor(task))
+		{
+			myUpdateState.setVisible(false);
+			myTaskStateCombo.setVisible(false);
+		}
+		final boolean stateUpdatesEnabled = PropertiesComponent.getInstance(project).getBoolean(UPDATE_STATE_ENABLED, false);
+		myUpdateState.setSelected(stateUpdatesEnabled);
+		myUpdateState.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				final boolean selected = myUpdateState.isSelected();
+				PropertiesComponent.getInstance(project).setValue(UPDATE_STATE_ENABLED, String.valueOf(selected));
+				updateFields();
+				if(selected)
+				{
+					myTaskStateCombo.scheduleUpdateOnce();
+				}
+			}
+		});
 
-    TaskManagerImpl.Config state = taskManager.getState();
-    myClearContext.setSelected(state.clearContext);
+		TaskManagerImpl.Config state = taskManager.getState();
+		myClearContext.setSelected(state.clearContext);
 
-    AbstractVcs vcs = manager.getActiveVcs();
-    if (vcs == null) {
-      myVcsPanel.setVisible(false);
-    }
-    else {
-      ActionListener listener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          updateFields();
-        }
-      };
-      myCreateChangelist.addActionListener(listener);
-      myCreateBranch.addActionListener(listener);
-      myCreateChangelist.setSelected(manager.getState().createChangelist);
-      myCreateBranch.setSelected(manager.getState().createBranch);
+		updateFields();
+		if(myUpdateState.isSelected())
+		{
+			myTaskStateCombo.scheduleUpdateOnce();
+		}
 
-      if (vcs.getType() != VcsType.distributed) {
-        myCreateBranch.setSelected(false);
-        myCreateBranch.setVisible(false);
-        myBranchName.setVisible(false);
-      }
+		myAdditionalPanel.setLayout(new BoxLayout(myAdditionalPanel, BoxLayout.Y_AXIS));
+		myPanels = TaskDialogPanelProvider.getOpenTaskPanels(project, task);
+		for(TaskDialogPanel panel : myPanels)
+		{
+			myAdditionalPanel.add(panel.getPanel());
+		}
+		init();
+	}
 
-      myBranchName.setText(taskManager.suggestBranchName(task));
-      myChangelistName.setText(taskManager.getChangelistName(task));
-      updateFields();
-    }
-    init();
-  }
+	private void updateFields()
+	{
+		myTaskStateCombo.setEnabled(myUpdateState.isSelected());
+	}
 
-  private void updateFields() {
-    myBranchName.setEnabled(myCreateBranch.isSelected());
-    myChangelistName.setEnabled(myCreateChangelist.isSelected());
-  }
+	@Override
+	protected void doOKAction()
+	{
+		createTask();
+		super.doOKAction();
+	}
 
+	public void createTask()
+	{
+		final TaskManagerImpl taskManager = (TaskManagerImpl) TaskManager.getManager(myProject);
 
-  @Override
-  protected void doOKAction() {
-    createTask();
-    super.doOKAction();
-  }
+		if(myUpdateState.isSelected())
+		{
+			final CustomTaskState taskState = myTaskStateCombo.getSelectedState();
+			final TaskRepository repository = myTask.getRepository();
+			if(repository != null && taskState != null)
+			{
+				try
+				{
+					repository.setTaskState(myTask, taskState);
+					repository.setPreferredOpenTaskState(taskState);
+				}
+				catch(Exception ex)
+				{
+					Messages.showErrorDialog(myProject, ex.getMessage(), "Cannot Set State For Issue");
+					LOG.warn(ex);
+				}
+			}
+		}
+		taskManager.activateTask(myTask, isClearContext());
+		if(myTask.getType() == TaskType.EXCEPTION && AnalyzeTaskStacktraceAction.hasTexts(myTask))
+		{
+			AnalyzeTaskStacktraceAction.analyzeStacktrace(myTask, myProject);
+		}
 
-  public void createTask() {
-    TaskManagerImpl taskManager = (TaskManagerImpl)TaskManager.getManager(myProject);
+		for(TaskDialogPanel panel : myPanels)
+		{
+			panel.commit();
+		}
+	}
 
-    taskManager.getState().markAsInProgress = isMarkAsInProgress();
-    taskManager.getState().createChangelist = myCreateChangelist.isSelected();
-    taskManager.getState().createBranch = myCreateBranch.isSelected();
+	private boolean isClearContext()
+	{
+		return myClearContext.isSelected();
+	}
 
-    TaskRepository repository = myTask.getRepository();
-    if (isMarkAsInProgress() && repository != null) {
-      try {
-        repository.setTaskState(myTask, TaskState.IN_PROGRESS);
-      }
-      catch (Exception ex) {
-        Messages.showErrorDialog(myProject, "Could not set state for " + myTask.getId(), "Error");
-        LOG.warn(ex);
-      }
-    }
-    LocalTask activeTask = taskManager.getActiveTask();
-    LocalTask localTask = taskManager.activateTask(myTask, isClearContext());
-    if (myCreateChangelist.isSelected()) {
-      taskManager.createChangeList(localTask, myChangelistName.getText());
-    }
-    if (myCreateBranch.isSelected()) {
-      taskManager.createBranch(localTask, activeTask, myBranchName.getText());
-    }
-    if (myTask.getType() == TaskType.EXCEPTION && AnalyzeTaskStacktraceAction.hasTexts(myTask)) {
-      AnalyzeTaskStacktraceAction.analyzeStacktrace(myTask, myProject);
-    }
-  }
+	@NonNls
+	protected String getDimensionServiceKey()
+	{
+		return "SimpleOpenTaskDialog";
+	}
 
-  @Nullable
-  @Override
-  protected ValidationInfo doValidate() {
-    if (myCreateBranch.isSelected()) {
-      String branchName = myBranchName.getText().trim();
-      if (branchName.isEmpty()) {
-        return new ValidationInfo("Branch name should not be empty", myBranchName);
-      }
-      else if (branchName.contains(" ")) {
-        return new ValidationInfo("Branch name should not contain spaces");
-      }
-      else {
-        return null;
-      }
-    }
-    if (myCreateChangelist.isSelected()) {
-      if (myChangelistName.getText().trim().isEmpty()) {
-        return new ValidationInfo("Changelist name should not be empty");
-      }
-    }
-    return null;
-  }
+	@Override
+	public JComponent getPreferredFocusedComponent()
+	{
+		for(TaskDialogPanel panel : myPanels)
+		{
+			final JComponent component = panel.getPreferredFocusedComponent();
+			if(component != null)
+			{
+				return component;
+			}
+		}
+		if(myTaskStateCombo.isVisible() && myTaskStateCombo.isEnabled())
+		{
+			return myTaskStateCombo.getComboBox();
+		}
+		return null;
+	}
 
-  private boolean isClearContext() {
-    return myClearContext.isSelected();
-  }
+	@Nullable
+	@Override
+	protected ValidationInfo doValidate()
+	{
+		for(TaskDialogPanel panel : myPanels)
+		{
+			ValidationInfo validate = panel.validate();
+			if(validate != null)
+			{
+				return validate;
+			}
+		}
+		return null;
+	}
 
-  private boolean isMarkAsInProgress() {
-    return myMarkAsInProgressBox.isSelected() && myMarkAsInProgressBox.isVisible();
-  }
+	protected JComponent createCenterPanel()
+	{
+		return myPanel;
+	}
 
-  @NonNls
-  protected String getDimensionServiceKey() {
-    return "SimpleOpenTaskDialog";
-  }
-
-  @Override
-  public JComponent getPreferredFocusedComponent() {
-    if (myCreateBranch.isSelected()) {
-      return myBranchName;
-    }
-    else if (myCreateChangelist.isSelected()) {
-      return myChangelistName;
-    }
-    else return null;
-  }
-
-  protected JComponent createCenterPanel() {
-    return myPanel;
-  }
+	private void createUIComponents()
+	{
+		myTaskStateCombo = new TaskStateCombo(myProject, myTask)
+		{
+			@Nullable
+			@Override
+			protected CustomTaskState getPreferredState(@NotNull TaskRepository repository, @NotNull Collection<CustomTaskState> available)
+			{
+				return repository.getPreferredOpenTaskState();
+			}
+		};
+	}
 }

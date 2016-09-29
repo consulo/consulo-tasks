@@ -15,6 +15,7 @@
  */
 package com.intellij.tasks;
 
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import javax.swing.Icon;
@@ -25,6 +26,10 @@ import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.openapi.vcs.impl.CancellableRunnable;
+import com.intellij.tasks.impl.BaseRepository;
+import com.intellij.util.Function;
+import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.intellij.util.xmlb.annotations.Transient;
@@ -35,7 +40,7 @@ import com.intellij.util.xmlb.annotations.Transient;
  *
  * @author Dmitry Avdeev
  * @see TaskRepositoryType
- * @see com.intellij.tasks.impl.BaseRepository
+ * @see BaseRepository
  */
 @Tag("server")
 public abstract class TaskRepository
@@ -50,7 +55,7 @@ public abstract class TaskRepository
 	 * Supporting this feature means that server implements some kind of issues filtering.
 	 * It may be special query language like the one used in YouTrack or mere plain
 	 * text search.
-	 * <p/>
+	 * <p>
 	 * If server supports this feature it MUST return tasks already filtered according
 	 * to {@code query} parameter from {@link #getIssues}} method, otherwise they will
 	 * be filtered internally in {@link TaskManager#getIssues}.
@@ -119,7 +124,7 @@ public abstract class TaskRepository
 
 	/**
 	 * Returns an object that can test connection.
-	 * {@link com.intellij.openapi.vcs.impl.CancellableRunnable#cancel()} should cancel the process.
+	 * {@link CancellableRunnable#cancel()} should cancel the process.
 	 *
 	 * @return null if not supported
 	 */
@@ -157,7 +162,7 @@ public abstract class TaskRepository
 
 	/**
 	 * Retrieve tasks from server using its own pagination capabilities and also filtering out closed issues.
-	 * <p/>
+	 * <p>
 	 * Previously used approach with filtering tasks on client side leads to non-filled up popup in "Open Task" action and, as result,
 	 * missing tasks and various issues with caching.
 	 *
@@ -179,6 +184,56 @@ public abstract class TaskRepository
 	}
 
 	/**
+	 * Retrieve states available for task from server. One of these states will be passed later to {@link #setTaskState(Task, TaskState)}.
+	 *
+	 * @param task task to update
+	 * @return set of available states
+	 */
+	@NotNull
+	public Set<CustomTaskState> getAvailableTaskStates(@NotNull Task task) throws Exception
+	{
+		//noinspection unchecked
+		return ContainerUtil.map2Set(getRepositoryType().getPossibleTaskStates(), new Function<TaskState, CustomTaskState>()
+		{
+			@Override
+			public CustomTaskState fun(TaskState state)
+			{
+				return CustomTaskState.fromPredefined(state);
+			}
+		});
+	}
+
+	/**
+	 * Remember state used when opening task most recently.
+	 *
+	 * @param state preferred task state
+	 */
+	public abstract void setPreferredOpenTaskState(@Nullable CustomTaskState state);
+
+	/**
+	 * Task state that was used last time when opening task.
+	 *
+	 * @return preferred task state
+	 */
+	@Nullable
+	public abstract CustomTaskState getPreferredOpenTaskState();
+
+	/**
+	 * Remember state used when closing task most recently.
+	 *
+	 * @param state preferred task state
+	 */
+	public abstract void setPreferredCloseTaskState(@Nullable CustomTaskState state);
+
+	/**
+	 * Task state that was used last time when closing task.
+	 *
+	 * @return preferred task state
+	 */
+	@Nullable
+	public abstract CustomTaskState getPreferredCloseTaskState();
+
+	/**
 	 * @param id task ID. Don't forget to define {@link #extractId(String)}, if your server uses not <tt>PROJECT-123</tt> format for task IDs.
 	 * @return found task or {@code null} otherwise. Basically you should return {@code null} on e.g. 404 error and throw exception with
 	 * information about failure in other cases.
@@ -190,22 +245,52 @@ public abstract class TaskRepository
 	@NotNull
 	public abstract TaskRepository clone();
 
+	/**
+	 * Attempts to extract server ID of the issue from the ID of local task (probably restored from project settings).
+	 * It's perfectly legal to return the argument unchanged, e.g. YouTrack repository does so for ID of form <tt>IDEA-123</tt>.
+	 * <p>
+	 * Basically this method works as filter that tells what repository local task belongs to. If it returns not {@code null},
+	 * this repository is attached to that local task and is used then to refresh it via {@link #findTask(String)},
+	 * update its state via {@link #setTaskState(Task, CustomTaskState)}, etc. Because the decision is based only on syntactic
+	 * structure of ID, this approach works poorly in case of several repositories with similar issue IDs, e.g. JIRA and YouTrack,
+	 * and so it's a subject of change in future.
+	 *
+	 * @param taskName ID of the task to check
+	 * @return extracted ID of the issue or {@code null} if it doesn't look as issue ID of this tracker
+	 */
 	@Nullable
 	public abstract String extractId(@NotNull String taskName);
 
+
 	/**
-	 * Update state of the task on server. Don't forget to add {@link #STATE_UPDATING} in {@link #getFeatures()} and
-	 * supported states in {@link TaskRepositoryType#getPossibleTaskStates()}.
-	 *
-	 * @param task  issue to update
-	 * @param state new state of the issue
-	 * @see com.intellij.tasks.TaskRepositoryType#getPossibleTaskStates()
-	 * @see com.intellij.tasks.TaskRepository#getFeatures()
+	 * @deprecated Use {@link #setTaskState(Task, CustomTaskState)} instead.
 	 */
+	@Deprecated
 	public void setTaskState(@NotNull Task task, @NotNull TaskState state) throws Exception
 	{
 		throw new UnsupportedOperationException("Setting task to state " + state + " is not supported");
 	}
+
+	/**
+	 * Update state of the task on server. It's guaranteed that only issues returned by {@link #getAvailableTaskStates(Task)}
+	 * will be passed here.
+	 * <p>
+	 * Don't forget to add {@link #STATE_UPDATING} in {@link #getFeatures()} and supported states in {@link #getAvailableTaskStates(Task)}.
+	 *
+	 * @param task  issue to update
+	 * @param state new state of the issue
+	 * @see TaskRepositoryType#getPossibleTaskStates()
+	 * @see TaskRepository#getFeatures()
+	 */
+	public void setTaskState(@NotNull Task task, @NotNull CustomTaskState state) throws Exception
+	{
+		if(state.isPredefined())
+		{
+			//noinspection ConstantConditions
+			setTaskState(task, state.asPredefined());
+		}
+	}
+
 
 	// for serialization
 	public TaskRepository()
@@ -256,8 +341,7 @@ public abstract class TaskRepository
 		{
 			return false;
 		}
-		if(getCommitMessageFormat() != null ? !getCommitMessageFormat().equals(that.getCommitMessageFormat()) : that.getCommitMessageFormat() !=
-				null)
+		if(getCommitMessageFormat() != null ? !getCommitMessageFormat().equals(that.getCommitMessageFormat()) : that.getCommitMessageFormat() != null)
 		{
 			return false;
 		}
@@ -299,6 +383,12 @@ public abstract class TaskRepository
 	protected boolean myShouldFormatCommitMessage;
 	protected String myCommitMessageFormat = "{id} {summary}";
 
+	@Override
+	public String toString()
+	{
+		return getClass().getSimpleName() + "(URL='" + myUrl + "')";
+	}
+
 	private static String trimTrailingSlashes(String url)
 	{
 		if(url == null)
@@ -318,7 +408,7 @@ public abstract class TaskRepository
 	@Nullable
 	public String getTaskComment(@NotNull Task task)
 	{
-		return isShouldFormatCommitMessage() ? myCommitMessageFormat.replace("{id}", task.getId()).replace("{summary}", task.getSummary()) : null;
+		return isShouldFormatCommitMessage() ? myCommitMessageFormat.replace("{id}", task.getPresentableId()).replace("{summary}", task.getSummary()) : null;
 	}
 
 	public String getComment()

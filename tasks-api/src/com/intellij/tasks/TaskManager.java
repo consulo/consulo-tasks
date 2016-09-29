@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2010 JetBrains s.r.o.
+ * Copyright 2000-2015 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.AbstractVcs;
@@ -58,12 +59,7 @@ public abstract class TaskManager
 	 * @deprecated Use {@link #getIssues(String, int, int, boolean, com.intellij.openapi.progress.ProgressIndicator, boolean)}
 	 */
 	@Deprecated
-	public List<Task> getIssues(@Nullable String query,
-			int max,
-			long since,
-			boolean forceRequest,
-			boolean withClosed,
-			@NotNull final ProgressIndicator cancelled)
+	public List<Task> getIssues(@Nullable String query, int max, long since, boolean forceRequest, boolean withClosed, @NotNull final ProgressIndicator cancelled)
 	{
 		throw new UnsupportedOperationException("Deprecated: should not be called");
 	}
@@ -81,12 +77,7 @@ public abstract class TaskManager
 	 * @param forceRequest whether to download issues anew or use already cached ones.
 	 * @return tasks collected from all active repositories
 	 */
-	public List<Task> getIssues(@Nullable String query,
-			int offset,
-			int limit,
-			boolean withClosed,
-			@NotNull ProgressIndicator indicator,
-			boolean forceRequest)
+	public List<Task> getIssues(@Nullable String query, int offset, int limit, boolean withClosed, @NotNull ProgressIndicator indicator, boolean forceRequest)
 	{
 		return getIssues(query, offset + limit, 0, forceRequest, withClosed, indicator);
 	}
@@ -141,8 +132,12 @@ public abstract class TaskManager
 
 	public abstract void removeTask(LocalTask task);
 
+	@Deprecated // use {@code com.intellij.tasks.TaskManager.addTaskListener(com.intellij.tasks.TaskListener, com.intellij.openapi.Disposable)}
 	public abstract void addTaskListener(TaskListener listener);
 
+	public abstract void addTaskListener(@NotNull TaskListener listener, @NotNull Disposable parentDisposable);
+
+	@Deprecated // use {@code com.intellij.tasks.TaskManager.addTaskListener(com.intellij.tasks.TaskListener, com.intellij.openapi.Disposable)}
 	public abstract void removeTaskListener(TaskListener listener);
 	// repositories management
 

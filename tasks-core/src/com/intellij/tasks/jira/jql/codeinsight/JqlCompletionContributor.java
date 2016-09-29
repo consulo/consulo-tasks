@@ -1,6 +1,13 @@
 package com.intellij.tasks.jira.jql.codeinsight;
 
-import com.intellij.codeInsight.completion.*;
+import static com.intellij.patterns.PlatformPatterns.psiElement;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.codeInsight.completion.CompletionContributor;
+import com.intellij.codeInsight.completion.CompletionParameters;
+import com.intellij.codeInsight.completion.CompletionResultSet;
+import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.completion.util.ParenthesesInsertHandler;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.diagnostic.Logger;
@@ -16,10 +23,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.tasks.jira.jql.JqlTokenTypes;
 import com.intellij.tasks.jira.jql.psi.*;
 import com.intellij.util.ProcessingContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import static com.intellij.patterns.PlatformPatterns.psiElement;
+import consulo.codeInsight.completion.CompletionProvider;
 
 /**
  * @author Mikhail Golubev
@@ -240,7 +244,7 @@ public class JqlCompletionContributor extends CompletionContributor {
            new JqlKeywordCompletionProvider("empty", "null"));
   }
 
-  private static class JqlKeywordCompletionProvider extends CompletionProvider<CompletionParameters> {
+  private static class JqlKeywordCompletionProvider implements CompletionProvider {
     private final String[] myKeywords;
 
     private JqlKeywordCompletionProvider(String... keywords) {
@@ -248,7 +252,7 @@ public class JqlCompletionContributor extends CompletionContributor {
     }
 
     @Override
-    protected void addCompletions(@NotNull CompletionParameters parameters,
+    public void addCompletions(@NotNull CompletionParameters parameters,
                                   ProcessingContext context,
                                   @NotNull CompletionResultSet result) {
       for (String keyword : myKeywords) {
@@ -257,10 +261,11 @@ public class JqlCompletionContributor extends CompletionContributor {
     }
   }
 
-  private static class JqlFunctionCompletionProvider extends CompletionProvider<CompletionParameters> {
+  private static class JqlFunctionCompletionProvider implements CompletionProvider
+  {
 
     @Override
-    protected void addCompletions(@NotNull CompletionParameters parameters,
+	public void addCompletions(@NotNull CompletionParameters parameters,
                                   ProcessingContext context,
                                   @NotNull CompletionResultSet result) {
       JqlFieldType operandType;
@@ -312,7 +317,7 @@ public class JqlCompletionContributor extends CompletionContributor {
     }
   }
 
-  private static class JqlFieldCompletionProvider extends CompletionProvider<CompletionParameters> {
+  private static class JqlFieldCompletionProvider implements CompletionProvider {
     private final JqlFieldType myFieldType;
 
     private JqlFieldCompletionProvider(JqlFieldType fieldType) {
@@ -320,7 +325,7 @@ public class JqlCompletionContributor extends CompletionContributor {
     }
 
     @Override
-    protected void addCompletions(@NotNull CompletionParameters parameters,
+	public void addCompletions(@NotNull CompletionParameters parameters,
                                   ProcessingContext context,
                                   @NotNull CompletionResultSet result) {
       for (String field : JqlStandardField.allOfType(myFieldType)) {

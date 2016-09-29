@@ -1,8 +1,9 @@
 package com.intellij.tasks.impl;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +14,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
+import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.ui.ListCellRendererWrapper;
 import com.intellij.util.ArrayUtil;
 
@@ -38,14 +39,20 @@ public class TaskUiUtil
 	{
 		protected T myResult;
 		protected Exception myException;
-		private final ModalityState myModalityState = ModalityState.current();
+		private final ModalityState myModalityState;
 
 		/**
 		 * Should be called only from EDT, so current modality state can be captured.
 		 */
 		protected RemoteFetchTask(@Nullable Project project, @NotNull String title)
 		{
+			this(project, title, ModalityState.current());
+		}
+
+		protected RemoteFetchTask(@Nullable Project project, @NotNull String title, @NotNull ModalityState modalityState)
+		{
 			super(project, title);
+			myModalityState = modalityState;
 		}
 
 		@Override
@@ -64,20 +71,13 @@ public class TaskUiUtil
 
 		/**
 		 * {@link #onSuccess()} can't be used for this purpose, because it doesn't consider current modality state
-		 * which will prevent UI updating in modal dialog (e.g. in {@link com.intellij.tasks.config.TaskRepositoryEditor}).
+		 * which will prevent UI updating in modal dialog (e.g. in {@link TaskRepositoryEditor}).
 		 */
 		@Nullable
 		@Override
 		public final NotificationInfo notifyFinished()
 		{
-			ApplicationManager.getApplication().invokeLater(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					updateUI();
-				}
-			}, myModalityState);
+			ApplicationManager.getApplication().invokeLater(() -> updateUI(), myModalityState);
 			return null;
 		}
 
@@ -91,13 +91,13 @@ public class TaskUiUtil
 	 * Auxiliary remote fetcher designed to simplify updating of combo boxes in repository editors, which is
 	 * indeed a rather common task.
 	 */
-	public static abstract class ComboBoxUpdater<T> extends RemoteFetchTask<List<T>>
+	public static abstract class ComboBoxUpdater<T> extends RemoteFetchTask<Collection<T>>
 	{
-		protected final ComboBox myComboBox;
+		protected final JComboBox myComboBox;
 
-		public ComboBoxUpdater(@Nullable Project project, @NotNull String title, @NotNull ComboBox comboBox)
+		public ComboBoxUpdater(@Nullable Project project, @NotNull String title, @NotNull JComboBox comboBox)
 		{
-			super(project, title);
+			super(project, title, ModalityState.any());
 			myComboBox = comboBox;
 		}
 
@@ -114,13 +114,23 @@ public class TaskUiUtil
 
 		/**
 		 * Return item to select after every combo box update. Default implementation select item, returned by {@link #getExtraItem()}.
+		 * If returned value is not present in the list it will be added depending on policy set by {@link #addSelectedItemIfMissing()}.
 		 *
 		 * @return selected combo box item
+		 * @see #addSelectedItemIfMissing()
 		 */
 		@Nullable
 		public T getSelectedItem()
 		{
 			return getExtraItem();
+		}
+
+		/**
+		 * @return whether value returned by {@link #getSelectedItem()} should be forcibly added to the combo box.
+		 */
+		protected boolean addSelectedItemIfMissing()
+		{
+			return false;
 		}
 
 		@SuppressWarnings("unchecked")
@@ -144,18 +154,37 @@ public class TaskUiUtil
 				{
 					if(!selected.equals(extra) && !myResult.contains(selected))
 					{
-						myComboBox.addItem(selected);
+						if(addSelectedItemIfMissing())
+						{
+							myComboBox.addItem(selected);
+							myComboBox.setSelectedItem(selected);
+						}
+						else
+						{
+							selectFirstItem();
+						}
 					}
-					myComboBox.setSelectedItem(selected);
+					else
+					{
+						myComboBox.setSelectedItem(selected);
+					}
 				}
-				else if(myComboBox.getItemCount() > 0)
+				else
 				{
-					myComboBox.setSelectedIndex(0);
+					selectFirstItem();
 				}
 			}
 			else
 			{
 				handleError();
+			}
+		}
+
+		private void selectFirstItem()
+		{
+			if(myComboBox.getItemCount() > 0)
+			{
+				myComboBox.setSelectedIndex(0);
 			}
 		}
 
@@ -166,7 +195,7 @@ public class TaskUiUtil
 	}
 
 	/**
-	 * Very simple wrapper around {@link com.intellij.ui.ListCellRendererWrapper} useful for
+	 * Very simple wrapper around {@link ListCellRendererWrapper} useful for
 	 * combo boxes where each item has plain text representation with special message for
 	 * {@code null} value.
 	 */

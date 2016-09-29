@@ -1,3 +1,18 @@
+/*
+ * Copyright 2000-2015 JetBrains s.r.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.intellij.tasks.impl;
 
 import java.io.UnsupportedEncodingException;
@@ -12,11 +27,9 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.tasks.TaskRepositoryType;
 import com.intellij.tasks.config.TaskSettings;
 import com.intellij.util.net.HttpConfigurable;
-import com.intellij.util.net.ssl.CertificateManager;
 
 /**
  * Base class for HTTP-based repositories.
@@ -65,11 +78,6 @@ public abstract class BaseRepositoryImpl extends BaseRepository
 	{
 		HttpClient client = new HttpClient(new MultiThreadedHttpConnectionManager());
 		configureHttpClient(client);
-		// After CertificateManager became application service it no longer "automagically" preliminarily
-		// initializes default SSL context as required for trackers written in httpclient 3.x.
-		// Clients that use httpclient 4.x (see NewBaseRepositoryImpl.getHttpClient) install SSL context explicitly though.
-		// This workaround allows to install context properly as soon as HTTP client is needed.
-		ServiceManager.getService(CertificateManager.class);
 		return client;
 	}
 
@@ -92,7 +100,7 @@ public abstract class BaseRepositoryImpl extends BaseRepository
 			if(proxy.PROXY_AUTHENTICATION)
 			{
 				AuthScope authScope = new AuthScope(proxy.PROXY_HOST, proxy.PROXY_PORT);
-				Credentials credentials = getCredentials(proxy.PROXY_LOGIN, proxy.getPlainProxyPassword(), proxy.PROXY_HOST);
+				Credentials credentials = getCredentials(proxy.getProxyLogin(), proxy.getPlainProxyPassword(), proxy.PROXY_HOST);
 				client.getState().setProxyCredentials(authScope, credentials);
 			}
 		}
