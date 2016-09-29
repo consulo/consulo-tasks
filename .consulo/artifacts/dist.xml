@@ -2,7 +2,7 @@
   <artifact build-on-make="true" name="dist">
     <output-path>$PROJECT_DIR$/out/artifacts/dist</output-path>
     <root id="root">
-      <element id="directory" name="tasks">
+      <element id="directory" name="com.intellij.tasks">
         <element id="directory" name="lib">
           <element id="zip-archive" name="tasks-api.jar">
             <element id="module-output" name="tasks-api" />
