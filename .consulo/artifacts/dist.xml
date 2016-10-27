@@ -22,6 +22,7 @@
           <element id="zip-archive" name="tasks-java.jar">
             <element id="module-output" name="tasks-java" />
           </element>
+          <element id="library" level="project" name="commons-httpclient" />
         </element>
       </element>
     </root>

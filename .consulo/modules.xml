@@ -18,6 +18,7 @@
           <orderEntry type="module-extension-sdk" extension-id="java" />
           <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
           <orderEntry type="sourceFolder" />
+          <orderEntry type="library" exploded="" name="commons-httpclient" level="project" />
         </module-layer>
       </module>
       <module name="tasks-core" dirurl="file://$PROJECT_DIR$/tasks-core" current-layer="Default">
