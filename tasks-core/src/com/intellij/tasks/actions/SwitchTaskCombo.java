@@ -19,6 +19,7 @@ package com.intellij.tasks.actions;
 import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.actionSystem.ex.ComboBoxAction;
+import com.intellij.openapi.actionSystem.ex.ComboBoxButton;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopup;
@@ -56,7 +57,7 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware {
   }
 
   public JComponent createCustomComponent(final Presentation presentation) {
-    return new ComboBoxButton(presentation) {
+    return new ComboBoxButton(this, presentation) {
       public void addNotify() {
         super.addNotify();
         final IdeFrame frame = UIUtil.getParentOfType(IdeFrame.class, this);
