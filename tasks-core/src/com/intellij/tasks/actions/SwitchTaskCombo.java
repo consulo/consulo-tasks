@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2011 JetBrains s.r.o.
+ * Copyright 2000-2015 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,102 +16,94 @@
 
 package com.intellij.tasks.actions;
 
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.ide.DataManager;
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.actionSystem.ex.ComboBoxAction;
+import com.intellij.openapi.actionSystem.ex.ComboBoxButton;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopup;
 import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.wm.IdeFrame;
-import com.intellij.openapi.wm.impl.IdeFrameImpl;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.config.TaskSettings;
-import com.intellij.util.IJSwingUtilities;
-import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
 
 /**
  * @author Dmitry Avdeev
  */
-public class SwitchTaskCombo extends ComboBoxAction implements DumbAware {
+public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
+{
 
-  private static final Key<ComboBoxButton> BUTTON_KEY = Key.create("SWITCH_TASK_BUTTON");
+	public JComponent createCustomComponent(final Presentation presentation)
+	{
+		ComboBoxButton button = new ComboBoxButton(this, presentation)
+		{
+			@Override
+			protected JBPopup createPopup(Runnable onDispose)
+			{
+				return SwitchTaskAction.createPopup(DataManager.getInstance().getDataContext(this), onDispose, false);
+			}
+		};
+		button.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));
+		return button;
+	}
 
-  @Override
-  public void actionPerformed(AnActionEvent e) {
-    final IdeFrameImpl ideFrame = findFrame(e);
-    final ComboBoxButton button = (ComboBoxButton)ideFrame.getRootPane().getClientProperty(BUTTON_KEY);
-    if (button == null || !button.isShowing()) return;
-    button.showPopup();
-  }
+	@NotNull
+	@Override
+	protected DefaultActionGroup createPopupActionGroup(JComponent button)
+	{
+		return new DefaultActionGroup();
+	}
 
-  private static IdeFrameImpl findFrame(AnActionEvent e) {
-    return IJSwingUtilities.findParentOfType(e.getData(PlatformDataKeys.CONTEXT_COMPONENT), IdeFrameImpl.class);
-  }
+	@Override
+	public void update(AnActionEvent e)
+	{
+		Presentation presentation = e.getPresentation();
+		Project project = e.getData(CommonDataKeys.PROJECT);
+		ComboBoxButton button = (ComboBoxButton) presentation.getClientProperty(CUSTOM_COMPONENT_PROPERTY);
+		if(project == null || project.isDefault() || project.isDisposed() || button == null)
+		{
+			presentation.setEnabled(false);
+			presentation.setText("");
+			presentation.setIcon(null);
+		}
+		else
+		{
+			TaskManager taskManager = TaskManager.getManager(project);
+			LocalTask activeTask = taskManager.getActiveTask();
+			presentation.setVisible(true);
+			presentation.setEnabled(true);
 
-  public JComponent createCustomComponent(final Presentation presentation) {
-    return new ComboBoxButton(presentation) {
-      public void addNotify() {
-        super.addNotify();
-        final IdeFrame frame = UIUtil.getParentOfType(IdeFrame.class, this);
-        assert frame != null;
-        frame.getComponent().getRootPane().putClientProperty(BUTTON_KEY, this);
-      }
+			if(isImplicit(activeTask) && taskManager.getAllRepositories().length == 0 && !TaskSettings.getInstance().ALWAYS_DISPLAY_COMBO)
+			{
+				presentation.setVisible(false);
+			}
+			else
+			{
+				String s = getText(activeTask);
+				presentation.setText(s);
+				presentation.setIcon(activeTask.getIcon());
+				presentation.setDescription(activeTask.getSummary());
+			}
+		}
+	}
 
-      @Override
-      protected JBPopup createPopup(Runnable onDispose) {
-        return SwitchTaskAction.createPopup(DataManager.getInstance().getDataContext(this), onDispose, false);
-      }
-    };
-  }
+	private static boolean isImplicit(LocalTask activeTask)
+	{
+		return activeTask.isDefault() && Comparing.equal(activeTask.getCreated(), activeTask.getUpdated());
+	}
 
-  @NotNull
-  @Override
-  protected DefaultActionGroup createPopupActionGroup(JComponent button) {
-    return new DefaultActionGroup();
-  }
-
-  @Override
-  public void update(AnActionEvent e) {
-    Project project = e.getData(CommonDataKeys.PROJECT);
-    Presentation presentation = e.getPresentation();
-    if (project == null || project.isDisposed() || (ActionPlaces.MAIN_MENU.equals(e.getPlace()) && findFrame(e) == null)) {
-      presentation.setEnabled(false);
-      presentation.setText("");
-      presentation.setIcon(null);
-    }
-    else {
-      TaskManager taskManager = TaskManager.getManager(project);
-      LocalTask activeTask = taskManager.getActiveTask();
-      presentation.setVisible(true);
-      presentation.setEnabled(true);
-
-      if (isImplicit(activeTask) &&
-          taskManager.getAllRepositories().length == 0 &&
-          !TaskSettings.getInstance().ALWAYS_DISPLAY_COMBO) {
-        presentation.setVisible(false);
-      }
-      else {
-        String s = getText(activeTask);
-        presentation.setText(s);
-        presentation.setIcon(activeTask.getIcon());
-        presentation.setDescription(activeTask.getSummary());
-      }
-    }
-  }
-
-  private static boolean isImplicit(LocalTask activeTask) {
-    return activeTask.isDefault() && Comparing.equal(activeTask.getCreated(), activeTask.getUpdated());
-  }
-
-  private static String getText(LocalTask activeTask) {
-    String text = activeTask.getPresentableName();
-    return StringUtil.first(text, 50, true);
-  }
+	private static String getText(LocalTask activeTask)
+	{
+		String text = activeTask.getPresentableName();
+		return StringUtil.first(text, 50, true);
+	}
 }

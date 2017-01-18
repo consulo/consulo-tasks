@@ -140,7 +140,7 @@ public class TaskUtil
 		String canonicalForm = String.format("%sT%s.%s%s", datePart, timePart, milliseconds, timezone);
 		try
 		{
-			return DateFormatUtil.ISO8601_DATE_FORMAT.parse(canonicalForm);
+			return DateFormatUtil.getIso8601Format().parse(canonicalForm);
 		}
 		catch(ParseException e)
 		{
@@ -150,7 +150,7 @@ public class TaskUtil
 
 	public static String formatDate(@NotNull Date date)
 	{
-		return DateFormatUtil.ISO8601_DATE_FORMAT.format(date);
+		return DateFormatUtil.getIso8601Format().format(date);
 	}
 
 	/**
