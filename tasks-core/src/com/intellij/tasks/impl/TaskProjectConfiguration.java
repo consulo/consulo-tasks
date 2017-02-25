@@ -31,9 +31,7 @@ import java.util.List;
 /**
 * @author Dmitry Avdeev
 */
-@State(
-  name = "TaskProjectConfiguration",
-  storages = {@Storage( file = StoragePathMacros.PROJECT_FILE)})
+@State(name = "TaskProjectConfiguration", storages = @Storage(file = StoragePathMacros.PROJECT_CONFIG_DIR + "/misc.xml"))
 public class TaskProjectConfiguration implements PersistentStateComponent<TaskProjectConfiguration> {
 
   @Tag("server")
