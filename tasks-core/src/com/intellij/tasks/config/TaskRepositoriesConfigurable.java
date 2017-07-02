@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JComponent;
@@ -45,7 +46,6 @@ import com.intellij.util.Consumer;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ConcurrentFactoryMap;
 import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.containers.FactoryMap;
 
 /**
  * @author Dmitry Avdeev
@@ -70,7 +70,7 @@ public class TaskRepositoriesConfigurable extends BaseConfigurable implements Co
 
   private final Consumer<TaskRepository> myChangeListener;
   @SuppressWarnings({"MismatchedQueryAndUpdateOfCollection"})
-  private final FactoryMap<TaskRepository, String> myRepoNames = new ConcurrentFactoryMap<TaskRepository, String>() {
+  private final Map<TaskRepository, String> myRepoNames = new ConcurrentFactoryMap<TaskRepository, String>() {
 
     private int count;
     @Override
