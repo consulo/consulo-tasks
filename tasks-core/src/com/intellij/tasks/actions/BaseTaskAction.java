@@ -16,17 +16,15 @@
 
 package com.intellij.tasks.actions;
 
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskManager;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 /**
  * @author Dmitry Avdeev
@@ -50,7 +48,7 @@ public abstract class BaseTaskAction extends AnAction implements DumbAware {
 
   @Nullable
   public static Project getProject(@Nullable AnActionEvent event) {
-    return event == null ? null : CommonDataKeys.PROJECT.getData(event.getDataContext());
+    return event == null ? null : event.getProject();
   }
 
   @Nullable

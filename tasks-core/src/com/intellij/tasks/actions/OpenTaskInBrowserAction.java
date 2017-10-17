@@ -16,14 +16,12 @@
 
 package com.intellij.tasks.actions;
 
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.TaskManager;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Dmitry Avdeev
@@ -55,7 +53,7 @@ public class OpenTaskInBrowserAction extends BaseTaskAction {
 
   @Nullable
   private static String getIssueUrl(AnActionEvent event) {
-    Project project = CommonDataKeys.PROJECT.getData(event.getDataContext());
+    Project project = event.getProject();
     return project == null ? null : TaskManager.getManager(project).getActiveTask().getIssueUrl();
   }
 }
