@@ -89,7 +89,7 @@
 
 	<extensionPoints>
 		<extensionPoint name="repositoryType" interface="com.intellij.tasks.TaskRepositoryType"/>
-		<extensionPoint area="CONSULO_PROJECT" name="contextProvider" interface="com.intellij.tasks.context.WorkingContextProvider"/>
+		<extensionPoint area="PROJECT" name="contextProvider" interface="com.intellij.tasks.context.WorkingContextProvider"/>
 		<extensionPoint name="dialogPanelProvider" interface="com.intellij.tasks.ui.TaskDialogPanelProvider"/>
 	</extensionPoints>
 
@@ -124,6 +124,7 @@
 		<tasks.repositoryType implementation="com.intellij.tasks.mantis.MantisRepositoryType"/>
 		<tasks.repositoryType implementation="com.intellij.tasks.generic.GenericRepositoryType"/>
 		<tasks.repositoryType implementation="com.intellij.tasks.trello.TrelloRepositoryType"/>
+		<tasks.repositoryType implementation="com.intellij.tasks.gitlab.GitlabRepositoryType"/>
 
 		<!-- JQL support -->
 		<fileTypeFactory implementation="com.intellij.tasks.jira.jql.JqlFileTypeFactory"/>
