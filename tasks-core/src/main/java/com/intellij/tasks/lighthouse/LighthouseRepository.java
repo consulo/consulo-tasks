@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -18,8 +20,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.Ref;
@@ -34,6 +34,7 @@ import com.intellij.tasks.impl.BaseRepositoryImpl;
 import com.intellij.util.NullableFunction;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Tag;
+import consulo.awt.TargetAWT;
 import icons.TasksIcons;
 
 /**
@@ -172,7 +173,7 @@ public class LighthouseRepository extends BaseRepositoryImpl {
       @Nonnull
       @Override
       public Icon getIcon() {
-        return TasksIcons.Lighthouse;
+        return TargetAWT.to(TasksIcons.Lighthouse);
       }
 
       @Nonnull

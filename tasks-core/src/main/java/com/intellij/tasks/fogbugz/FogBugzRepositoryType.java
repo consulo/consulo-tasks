@@ -15,12 +15,12 @@
  */
 package com.intellij.tasks.fogbugz;
 
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.impl.BaseRepositoryType;
-import icons.TasksIcons;
 import javax.annotation.Nonnull;
 
-import javax.swing.*;
+import com.intellij.tasks.TaskRepository;
+import com.intellij.tasks.impl.BaseRepositoryType;
+import consulo.ui.image.Image;
+import icons.TasksIcons;
 
 /**
  * @author mkennedy
@@ -35,7 +35,7 @@ public class FogBugzRepositoryType extends BaseRepositoryType<FogBugzRepository>
 
   @Nonnull
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     return TasksIcons.Fogbugz;
   }
 

@@ -1,20 +1,16 @@
 package com.intellij.tasks.youtrack;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.io.StreamUtil;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.*;
-import com.intellij.tasks.impl.BaseRepository;
-import com.intellij.tasks.impl.BaseRepositoryImpl;
-import com.intellij.tasks.impl.LocalTaskImpl;
-import com.intellij.tasks.impl.TaskUtil;
-import com.intellij.util.NullableFunction;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.text.VersionComparatorUtil;
-import com.intellij.util.xmlb.annotations.MapAnnotation;
-import com.intellij.util.xmlb.annotations.Property;
-import com.intellij.util.xmlb.annotations.Tag;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.Date;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+
 import org.apache.axis.utils.XMLChar;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -25,16 +21,28 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.util.Date;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.util.Comparing;
+import com.intellij.openapi.util.io.StreamUtil;
+import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.tasks.Comment;
+import com.intellij.tasks.LocalTask;
+import com.intellij.tasks.Task;
+import com.intellij.tasks.TaskRepository;
+import com.intellij.tasks.TaskRepositoryType;
+import com.intellij.tasks.TaskState;
+import com.intellij.tasks.TaskType;
+import com.intellij.tasks.impl.BaseRepository;
+import com.intellij.tasks.impl.BaseRepositoryImpl;
+import com.intellij.tasks.impl.LocalTaskImpl;
+import com.intellij.tasks.impl.TaskUtil;
+import com.intellij.util.NullableFunction;
+import com.intellij.util.containers.ContainerUtil;
+import com.intellij.util.text.VersionComparatorUtil;
+import com.intellij.util.xmlb.annotations.MapAnnotation;
+import com.intellij.util.xmlb.annotations.Property;
+import com.intellij.util.xmlb.annotations.Tag;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Dmitry Avdeev
@@ -251,7 +259,7 @@ public class YouTrackRepository extends BaseRepositoryImpl {
       @Nonnull
       @Override
       public Icon getIcon() {
-        return LocalTaskImpl.getIconFromType(getType(), isIssue());
+        return TargetAWT.to(LocalTaskImpl.getIconFromType(getType(), isIssue()));
       }
 
       @Nonnull

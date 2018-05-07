@@ -40,6 +40,7 @@ import com.intellij.tasks.impl.TaskManagerImpl;
 import com.intellij.testFramework.IdeaTestCase;
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.awt.TargetAWT;
 import icons.TasksIcons;
 
 /**
@@ -426,7 +427,7 @@ public class TaskVcsTest extends CodeInsightFixtureTestCase {
       @Nonnull
       @Override
       public Icon getIcon() {
-        return TasksIcons.Unknown;
+        return TargetAWT.to(TasksIcons.Unknown);
       }
 
       @Nonnull

@@ -1,5 +1,13 @@
 package com.intellij.tasks.actions;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
+import javax.swing.JPanel;
+
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.gotoByName.ChooseByNameBase;
 import com.intellij.openapi.project.Project;
@@ -8,7 +16,6 @@ import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.doc.TaskPsiElement;
-import com.intellij.ui.LayeredIcon;
 import com.intellij.ui.SimpleColoredComponent;
 import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.ui.speedSearch.SpeedSearchUtil;
@@ -16,10 +23,9 @@ import com.intellij.util.text.Matcher;
 import com.intellij.util.text.MatcherHolder;
 import com.intellij.util.ui.EmptyIcon;
 import com.intellij.util.ui.UIUtil;
+import consulo.awt.TargetAWT;
+import consulo.ui.image.ImageEffects;
 import icons.TasksIcons;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Evgeny Zakrevsky
@@ -62,7 +68,7 @@ public class TaskCellRenderer extends DefaultListCellRenderer implements Matcher
     }
     else if (GotoTaskAction.CREATE_NEW_TASK_ACTION == value) {
       final SimpleColoredComponent c = new SimpleColoredComponent();
-      c.setIcon(LayeredIcon.create(TasksIcons.Unknown, AllIcons.Actions.New));
+      c.setIcon(TargetAWT.to(ImageEffects.folded(TasksIcons.Unknown, AllIcons.Actions.New)));
       c.append(GotoTaskAction.CREATE_NEW_TASK_ACTION.getActionText());
       panel.add(c, BorderLayout.CENTER);
     }

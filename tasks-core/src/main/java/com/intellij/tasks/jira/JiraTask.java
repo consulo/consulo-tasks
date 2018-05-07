@@ -16,19 +16,25 @@
 
 package com.intellij.tasks.jira;
 
-import com.intellij.tasks.*;
+import java.util.Date;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+
+import com.intellij.tasks.Comment;
+import com.intellij.tasks.Task;
+import com.intellij.tasks.TaskRepository;
+import com.intellij.tasks.TaskState;
+import com.intellij.tasks.TaskType;
 import com.intellij.tasks.jira.model.JiraComment;
 import com.intellij.tasks.jira.model.JiraIssue;
 import com.intellij.tasks.jira.model.JiraIssueType;
 import com.intellij.tasks.jira.model.JiraStatus;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.awt.TargetAWT;
 import icons.TasksIcons;
-import javax.annotation.Nonnull;
-
-import javax.annotation.Nullable;
-import javax.swing.*;
-import java.util.Date;
 
 /**
  * @author Dmitry Avdeev
@@ -74,9 +80,9 @@ public class JiraTask extends Task {
     String iconUrl = issueType.getIconUrl();
     // iconUrl will be null in JIRA versions prior 5.x.x
     final Icon icon = iconUrl == null
-                      ? TasksIcons.Jira
+                      ? TargetAWT.to(TasksIcons.Jira)
                       : isClosed() ? CachedIconLoader.getDisabledIcon(iconUrl) : CachedIconLoader.getIcon(iconUrl);
-    return icon != null ? icon : TasksIcons.Other;
+    return icon != null ? icon : TargetAWT.to(TasksIcons.Other);
   }
 
   @Nonnull

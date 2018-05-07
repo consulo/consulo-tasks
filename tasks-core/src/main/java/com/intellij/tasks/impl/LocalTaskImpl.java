@@ -21,11 +21,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.text.StringUtil;
@@ -41,6 +40,8 @@ import com.intellij.util.xmlb.annotations.AbstractCollection;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Property;
 import com.intellij.util.xmlb.annotations.Tag;
+import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 
 /**
@@ -313,10 +314,10 @@ public class LocalTaskImpl extends LocalTask
 		{
 			return IconLoader.getIcon(customIcon, LocalTask.class);
 		}
-		return getIconFromType(myType, isIssue());
+		return TargetAWT.to(getIconFromType(myType, isIssue()));
 	}
 
-	public static Icon getIconFromType(TaskType type, boolean issue)
+	public static Image getIconFromType(TaskType type, boolean issue)
 	{
 		switch(type)
 		{

@@ -12,6 +12,7 @@ import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
 import com.intellij.tasks.gitlab.model.GitlabIssue;
 import com.intellij.tasks.gitlab.model.GitlabProject;
+import consulo.awt.TargetAWT;
 import icons.TasksIcons;
 
 /**
@@ -70,7 +71,7 @@ public class GitlabTask extends Task {
   @Nonnull
   @Override
   public Icon getIcon() {
-    return TasksIcons.Gitlab;
+    return TargetAWT.to(TasksIcons.Gitlab);
   }
 
   @Nonnull

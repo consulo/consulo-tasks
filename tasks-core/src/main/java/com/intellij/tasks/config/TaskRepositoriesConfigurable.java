@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -15,7 +16,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.jetbrains.annotations.Nls;
-import javax.annotation.Nullable;
 import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -46,6 +46,7 @@ import com.intellij.util.Consumer;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ConcurrentFactoryMap;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Dmitry Avdeev
@@ -96,7 +97,7 @@ public class TaskRepositoriesConfigurable extends BaseConfigurable implements Co
     for (final TaskRepositoryType repositoryType : groups) {
       for (final TaskRepositorySubtype subtype : (List<TaskRepositorySubtype>)repositoryType.getAvailableSubtypes()) {
         String description = "New " + subtype.getName() + " server";
-        createActions.add(new IconWithTextAction(subtype.getName(), description, subtype.getIcon()) {
+        createActions.add(new IconWithTextAction(subtype.getName(), description, TargetAWT.to(subtype.getIcon())) {
           @Override
           public void actionPerformed(AnActionEvent e) {
             TaskRepository repository = repositoryType.createRepository(subtype);
@@ -120,7 +121,7 @@ public class TaskRepositoriesConfigurable extends BaseConfigurable implements Co
         if (!repositories.isEmpty()) {
           group.add(AnSeparator.getInstance());
           for (final TaskRepository repository : repositories) {
-            group.add(new IconWithTextAction(repository.getUrl(), repository.getUrl(), repository.getIcon()) {
+            group.add(new IconWithTextAction(repository.getUrl(), repository.getUrl(), TargetAWT.to(repository.getIcon())) {
               @Override
               public void actionPerformed(AnActionEvent e) {
                 addRepository(repository);
@@ -176,7 +177,7 @@ public class TaskRepositoriesConfigurable extends BaseConfigurable implements Co
       @Override
       protected void customizeCellRenderer(JList list, Object value, int index, boolean selected, boolean hasFocus) {
         TaskRepository repository = (TaskRepository)value;
-        setIcon(repository.getIcon());
+        setIcon(TargetAWT.to(repository.getIcon()));
         append(repository.getPresentableName(), SimpleTextAttributes.REGULAR_ATTRIBUTES);
       }
     });

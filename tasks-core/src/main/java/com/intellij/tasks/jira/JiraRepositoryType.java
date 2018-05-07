@@ -1,15 +1,16 @@
 package com.intellij.tasks.jira;
 
+import java.util.EnumSet;
+
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.TaskState;
 import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
-import java.util.EnumSet;
 
 /**
  * @author Dmitry Avdeev
@@ -25,7 +26,7 @@ public class JiraRepositoryType extends BaseRepositoryType<JiraRepository> {
   }
 
   @Nonnull
-  public Icon getIcon() {
+  public Image getIcon() {
     return TasksIcons.Jira;
   }
 

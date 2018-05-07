@@ -1,16 +1,17 @@
 package com.intellij.tasks.youtrack;
 
+import java.util.EnumSet;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.TaskState;
 import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
-import javax.annotation.Nonnull;
-
-import javax.annotation.Nullable;
-import javax.swing.*;
-import java.util.EnumSet;
 
 /**
  * @author Dmitry Avdeev
@@ -23,7 +24,7 @@ public class YouTrackRepositoryType extends BaseRepositoryType<YouTrackRepositor
   }
 
   @Nonnull
-  public Icon getIcon() {
+  public Image getIcon() {
     return TasksIcons.Youtrack;
   }
 

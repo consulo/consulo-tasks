@@ -12,6 +12,7 @@ import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
 import com.intellij.tasks.redmine.model.RedmineIssue;
 import com.intellij.tasks.redmine.model.RedmineProject;
+import consulo.awt.TargetAWT;
 import icons.TasksIcons;
 
 /**
@@ -76,7 +77,7 @@ public class RedmineTask extends Task
 	@Override
 	public Icon getIcon()
 	{
-		return TasksIcons.Redmine;
+		return TargetAWT.to(TasksIcons.Redmine);
 	}
 
 	@Nonnull

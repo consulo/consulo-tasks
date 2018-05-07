@@ -19,11 +19,9 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
+import javax.annotation.Nullable;
 
 import org.intellij.lang.annotations.MagicConstant;
-
-import javax.annotation.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.text.StringUtil;
@@ -34,6 +32,7 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.intellij.util.xmlb.annotations.Transient;
+import consulo.ui.image.Image;
 
 /**
  * This class describes bug-tracking server.
@@ -110,7 +109,7 @@ public abstract class TaskRepository
 		return StringUtil.isEmpty(getUrl()) ? "<undefined>" : getUrl();
 	}
 
-	public Icon getIcon()
+	public Image getIcon()
 	{
 		return getRepositoryType().getIcon();
 	}

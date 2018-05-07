@@ -15,12 +15,12 @@
  */
 package com.intellij.tasks.jira.jql;
 
-import com.intellij.openapi.fileTypes.LanguageFileType;
-import icons.TasksIcons;
 import javax.annotation.Nonnull;
-
 import javax.annotation.Nullable;
-import javax.swing.*;
+
+import com.intellij.openapi.fileTypes.LanguageFileType;
+import consulo.ui.image.Image;
+import icons.TasksIcons;
 
 /**
  * @author Mikhail Golubev
@@ -35,7 +35,7 @@ public class JqlFileType extends LanguageFileType {
 
   @Nonnull
   @Override
-  public String getName() {
+  public String getId() {
     return "JQL";
   }
 
@@ -53,7 +53,7 @@ public class JqlFileType extends LanguageFileType {
 
   @Nullable
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     return TasksIcons.Jira;
   }
 }

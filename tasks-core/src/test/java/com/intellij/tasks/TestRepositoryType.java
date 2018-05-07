@@ -15,14 +15,14 @@
  */
 package com.intellij.tasks;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.config.BaseRepositoryEditor;
 import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.util.Consumer;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
 
 /**
  * @author Dmitry Avdeev
@@ -37,7 +37,7 @@ public class TestRepositoryType extends TaskRepositoryType<TestRepository> {
 
   @Nonnull
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     return TasksIcons.Unknown;
   }
 

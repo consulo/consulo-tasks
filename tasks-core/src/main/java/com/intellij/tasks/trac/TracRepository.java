@@ -15,6 +15,24 @@
  */
 package com.intellij.tasks.trac;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+
+import org.apache.xmlrpc.CommonsXmlRpcTransport;
+import org.apache.xmlrpc.XmlRpc;
+import org.apache.xmlrpc.XmlRpcClient;
+import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.XmlRpcRequest;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
@@ -24,16 +42,8 @@ import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Tag;
+import consulo.awt.TargetAWT;
 import icons.TasksIcons;
-import org.apache.xmlrpc.*;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
 
 /**
  * @author Dmitry Avdeev
@@ -154,7 +164,7 @@ public class TracRepository extends BaseRepositoryImpl {
       @Nonnull
       @Override
       public Icon getIcon() {
-        return TasksIcons.Trac;
+        return TargetAWT.to(TasksIcons.Trac);
       }
 
       @Nonnull

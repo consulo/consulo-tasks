@@ -1,22 +1,23 @@
 package com.intellij.tasks.generic;
 
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import org.jdom.Document;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.JDOMUtil;
-import com.intellij.tasks.TaskRepositorySubtype;
 import com.intellij.tasks.TaskRepository;
+import com.intellij.tasks.TaskRepositorySubtype;
 import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
 import com.intellij.util.xmlb.XmlSerializer;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
-import org.jdom.Document;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * User: Evgeny.Zakrevsky
@@ -32,7 +33,7 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
 
   @Nonnull
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     return AllIcons.General.Web;
   }
 
@@ -67,9 +68,9 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
 
   public class GenericSubtype implements TaskRepositorySubtype {
     private final String myName;
-    private final Icon myIcon;
+    private final Image myIcon;
 
-    GenericSubtype(String name, Icon icon) {
+    GenericSubtype(String name, Image icon) {
       myName = name;
       myIcon = icon;
     }
@@ -80,7 +81,7 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
     }
 
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return myIcon;
     }
 

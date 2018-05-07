@@ -16,12 +16,9 @@
 
 package com.intellij.tasks.trello;
 
-import com.intellij.tasks.trello.model.TrelloLabel;
-import com.intellij.util.ui.UIUtil;
-import icons.TasksIcons;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
@@ -31,6 +28,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+import com.intellij.tasks.trello.model.TrelloLabel;
+import com.intellij.util.ui.UIUtil;
+import consulo.awt.TargetAWT;
+import icons.TasksIcons;
 
 public class TrelloIconBuilder {
   private final Map<Set<TrelloLabel.LabelColor>, Image> CACHE = new HashMap<Set<TrelloLabel.LabelColor>, Image>();
@@ -44,7 +49,7 @@ public class TrelloIconBuilder {
 
   public Icon buildIcon(Set<TrelloLabel.LabelColor> colorSet) {
     if (colorSet.isEmpty()) {
-      return TasksIcons.Trello;
+      return TargetAWT.to(TasksIcons.Trello);
     }
     Image image = CACHE.get(colorSet);
     if (image == null) {

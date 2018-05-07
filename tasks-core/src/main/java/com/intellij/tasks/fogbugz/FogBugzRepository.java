@@ -15,29 +15,35 @@
  */
 package com.intellij.tasks.fogbugz;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.*;
-import com.intellij.tasks.impl.BaseRepository;
-import com.intellij.tasks.impl.BaseRepositoryImpl;
-import com.intellij.util.NotNullFunction;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.xmlb.annotations.Tag;
-import icons.TasksIcons;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import java.util.Date;
-import java.util.List;
+import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.tasks.Comment;
+import com.intellij.tasks.Task;
+import com.intellij.tasks.TaskRepository;
+import com.intellij.tasks.TaskRepositoryType;
+import com.intellij.tasks.TaskType;
+import com.intellij.tasks.impl.BaseRepository;
+import com.intellij.tasks.impl.BaseRepositoryImpl;
+import com.intellij.util.NotNullFunction;
+import com.intellij.util.containers.ContainerUtil;
+import com.intellij.util.xmlb.annotations.Tag;
+import consulo.awt.TargetAWT;
+import icons.TasksIcons;
 
 /**
  * @author mkennedy
@@ -172,7 +178,7 @@ public class FogBugzRepository extends BaseRepositoryImpl {
       @Nonnull
       @Override
       public Icon getIcon() {
-        return TasksIcons.Fogbugz;
+        return TargetAWT.to(TasksIcons.Fogbugz);
       }
 
       @Nonnull

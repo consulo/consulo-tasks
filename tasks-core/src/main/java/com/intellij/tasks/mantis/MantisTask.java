@@ -1,15 +1,17 @@
 package com.intellij.tasks.mantis;
 
+import java.util.Date;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
+import consulo.awt.TargetAWT;
 import icons.TasksIcons;
-import javax.annotation.Nonnull;
-
-import javax.annotation.Nullable;
-import javax.swing.*;
-import java.util.Date;
 
 public class MantisTask extends Task {
   private final String myId;
@@ -60,7 +62,7 @@ public class MantisTask extends Task {
   @Nonnull
   @Override
   public Icon getIcon() {
-    return TasksIcons.Mantis;
+    return TargetAWT.to(TasksIcons.Mantis);
   }
 
   @Nonnull

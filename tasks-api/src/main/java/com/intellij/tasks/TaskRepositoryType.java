@@ -15,17 +15,18 @@
  */
 package com.intellij.tasks;
 
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.util.Consumer;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
+import consulo.ui.image.Image;
 
 /**
  * The main extension point for issue tracking integration.
@@ -44,7 +45,7 @@ public abstract class TaskRepositoryType<T extends TaskRepository> implements Ta
   public abstract String getName();
 
   @Nonnull
-  public abstract Icon getIcon();
+  public abstract Image getIcon();
 
   @Nullable
   public String getAdvertiser() { return null; }

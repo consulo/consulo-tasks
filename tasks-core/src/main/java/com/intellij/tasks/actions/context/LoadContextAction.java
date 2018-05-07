@@ -16,7 +16,25 @@
 
 package com.intellij.tasks.actions.context;
 
-import com.intellij.openapi.actionSystem.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.KeyStroke;
+
+import com.intellij.openapi.actionSystem.ActionGroup;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupAdapter;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
@@ -36,13 +54,8 @@ import com.intellij.util.Function;
 import com.intellij.util.NullableFunction;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.text.DateFormatUtil;
+import consulo.awt.TargetAWT;
 import icons.TasksIcons;
-import javax.annotation.Nonnull;
-
-import javax.annotation.Nullable;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.util.*;
 
 /**
  * @author Dmitry Avdeev
@@ -84,7 +97,7 @@ public class LoadContextAction extends BaseTaskAction {
 
           @Override
           Icon getIcon() {
-            return TasksIcons.SavedContext;
+            return TargetAWT.to(TasksIcons.SavedContext);
           }
         };
       }

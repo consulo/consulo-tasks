@@ -1,5 +1,24 @@
 package com.intellij.tasks.generic;
 
+import static com.intellij.tasks.generic.GenericRepositoryUtil.concat;
+import static com.intellij.tasks.generic.GenericRepositoryUtil.substituteTemplateVariables;
+import static com.intellij.tasks.generic.TemplateVariable.FactoryVariable;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.io.StreamUtil;
@@ -13,21 +32,7 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.net.HTTPMethod;
 import com.intellij.util.xmlb.annotations.AbstractCollection;
 import com.intellij.util.xmlb.annotations.Tag;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.io.InputStream;
-import java.util.*;
-
-import static com.intellij.tasks.generic.GenericRepositoryUtil.concat;
-import static com.intellij.tasks.generic.GenericRepositoryUtil.substituteTemplateVariables;
-import static com.intellij.tasks.generic.TemplateVariable.*;
+import consulo.ui.image.Image;
 
 /**
  * @author Evgeny.Zakrevsky
@@ -341,7 +346,7 @@ public class GenericRepository extends BaseRepositoryImpl {
   }
 
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     if (mySubtypeName == null) {
       return super.getIcon();
     }

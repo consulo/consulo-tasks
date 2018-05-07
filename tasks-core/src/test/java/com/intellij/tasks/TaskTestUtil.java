@@ -1,14 +1,16 @@
 package com.intellij.tasks;
 
-import com.intellij.tasks.impl.TaskUtil;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import static junit.framework.Assert.assertTrue;
 
-import javax.swing.*;
 import java.util.Date;
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+
+import com.intellij.tasks.impl.TaskUtil;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Mikhail Golubev
@@ -137,7 +139,7 @@ public class TaskTestUtil {
     @Nonnull
     @Override
     public Icon getIcon() {
-      return myIcon == null? myRepository.getIcon() : myIcon;
+      return myIcon == null? TargetAWT.to(myRepository.getIcon()) : myIcon;
     }
 
     @Nonnull

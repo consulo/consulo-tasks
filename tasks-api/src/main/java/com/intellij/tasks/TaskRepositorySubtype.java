@@ -15,7 +15,7 @@
  */
 package com.intellij.tasks;
 
-import javax.swing.*;
+import consulo.ui.image.Image;
 
 /**
  * This auxiliary interface was added to support creation of configured generic repositories.
@@ -23,10 +23,11 @@ import javax.swing.*;
  *
  * @author Mikhail Golubev
  */
-public interface TaskRepositorySubtype {
-  String getName();
+public interface TaskRepositorySubtype
+{
+	String getName();
 
-  Icon getIcon();
+	Image getIcon();
 
-  TaskRepository createRepository();
+	TaskRepository createRepository();
 }

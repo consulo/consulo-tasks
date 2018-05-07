@@ -1,6 +1,7 @@
 package com.intellij.tasks.youtrack.lang;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,7 +39,7 @@ public class YouTrackFileType extends LanguageFileType {
 
   @Nullable
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     return TasksIcons.Youtrack;
   }
 }
