@@ -8,8 +8,8 @@ import com.intellij.tasks.jira.JiraUtil;
 import com.intellij.tasks.jira.model.JiraIssue;
 import com.intellij.tasks.jira.model.JiraResponseWrapper;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class JiraRestApi2 extends JiraRestApi {
     super(repository);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   protected GetMethod getMultipleIssuesSearchMethod(String jql, int max) {
     GetMethod method = super.getMultipleIssuesSearchMethod(jql, max);
@@ -37,14 +37,14 @@ public class JiraRestApi2 extends JiraRestApi {
     return method;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   protected List<JiraIssue> parseIssues(String response) {
     JiraResponseWrapper.Issues<JiraIssueApi2> wrapper = JiraUtil.GSON.fromJson(response, ISSUES_WRAPPER_TYPE);
     return new ArrayList<JiraIssue>(wrapper.getIssues());
   }
 
-  @NotNull
+  @Nonnull
   @Override
   protected GetMethod getSingleIssueSearchMethod(String key) {
     final GetMethod method = super.getSingleIssueSearchMethod(key);
@@ -59,7 +59,7 @@ public class JiraRestApi2 extends JiraRestApi {
     return JiraUtil.GSON.fromJson(response, JiraIssueApi2.class);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getVersionName() {
     return "2.0";

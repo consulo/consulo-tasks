@@ -2,8 +2,8 @@ package com.intellij.tasks.jira.jql.codeinsight;
 
 import static com.intellij.patterns.PlatformPatterns.psiElement;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
@@ -252,9 +252,9 @@ public class JqlCompletionContributor extends CompletionContributor {
     }
 
     @Override
-    public void addCompletions(@NotNull CompletionParameters parameters,
+    public void addCompletions(@Nonnull CompletionParameters parameters,
                                   ProcessingContext context,
-                                  @NotNull CompletionResultSet result) {
+                                  @Nonnull CompletionResultSet result) {
       for (String keyword : myKeywords) {
         result.addElement(LookupElementBuilder.create(keyword).withBoldness(true));
       }
@@ -265,9 +265,9 @@ public class JqlCompletionContributor extends CompletionContributor {
   {
 
     @Override
-	public void addCompletions(@NotNull CompletionParameters parameters,
+	public void addCompletions(@Nonnull CompletionParameters parameters,
                                   ProcessingContext context,
-                                  @NotNull CompletionResultSet result) {
+                                  @Nonnull CompletionResultSet result) {
       JqlFieldType operandType;
       boolean listFunctionExpected;
       PsiElement curElem = parameters.getPosition();
@@ -325,9 +325,9 @@ public class JqlCompletionContributor extends CompletionContributor {
     }
 
     @Override
-	public void addCompletions(@NotNull CompletionParameters parameters,
+	public void addCompletions(@Nonnull CompletionParameters parameters,
                                   ProcessingContext context,
-                                  @NotNull CompletionResultSet result) {
+                                  @Nonnull CompletionResultSet result) {
       for (String field : JqlStandardField.allOfType(myFieldType)) {
         result.addElement(LookupElementBuilder.create(field));
       }

@@ -16,7 +16,7 @@
 
 package com.intellij.tasks.trello.model;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.intellij.util.xmlb.annotations.Transient;
@@ -61,13 +61,13 @@ public class TrelloList extends TrelloModel
 		return closed;
 	}
 
-	@NotNull
+	@Nonnull
 	public String getIdBoard()
 	{
 		return idBoard;
 	}
 
-	@NotNull
+	@Nonnull
 	@Attribute("name")
 	@Override
 	public String getName()
@@ -76,7 +76,7 @@ public class TrelloList extends TrelloModel
 	}
 
 	@Override
-	public void setName(@NotNull String name)
+	public void setName(@Nonnull String name)
 	{
 		this.name = name;
 	}

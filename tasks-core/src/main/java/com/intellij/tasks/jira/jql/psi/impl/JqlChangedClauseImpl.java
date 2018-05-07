@@ -3,13 +3,13 @@ package com.intellij.tasks.jira.jql.psi.impl;
 import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.JqlChangedClause;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlChangedClauseImpl extends JqlClauseWithHistoryPredicatesImpl implements JqlChangedClause {
-  public JqlChangedClauseImpl(@NotNull ASTNode node) {
+  public JqlChangedClauseImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -18,7 +18,7 @@ public class JqlChangedClauseImpl extends JqlClauseWithHistoryPredicatesImpl imp
     visitor.visitJqlChangedClause(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Type getType() {
     return Type.CHANGED;

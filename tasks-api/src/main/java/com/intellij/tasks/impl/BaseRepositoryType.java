@@ -15,19 +15,20 @@
  */
 package com.intellij.tasks.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.TaskRepositoryType;
 import com.intellij.tasks.config.BaseRepositoryEditor;
 import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.util.Consumer;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Dmitry Avdeev
  */
 public abstract class BaseRepositoryType<T extends BaseRepository> extends TaskRepositoryType<T> {
 
-  @NotNull
+  @Nonnull
   public TaskRepositoryEditor createEditor(final T repository, Project project, final Consumer<T> changeListener) {
     return new BaseRepositoryEditor<T>(project, repository, changeListener);
   }

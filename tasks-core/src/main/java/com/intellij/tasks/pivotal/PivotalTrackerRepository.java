@@ -21,8 +21,8 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.io.InputStream;
@@ -156,13 +156,13 @@ public class PivotalTrackerRepository extends BaseRepositoryImpl {
         return id != null ? getUrl() + "/story/show/" + id : null;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getId() {
         return myProjectId + "-" + id;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getSummary() {
         return summary;
@@ -172,19 +172,19 @@ public class PivotalTrackerRepository extends BaseRepositoryImpl {
         return description;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Comment[] getComments() {
         return comments;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Icon getIcon() {
         return IconLoader.getIcon(getCustomIcon(), LocalTask.class);
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public TaskType getType() {
         return TaskType.OTHER;
@@ -215,7 +215,7 @@ public class PivotalTrackerRepository extends BaseRepositoryImpl {
         return getId() + ": " + getSummary();
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getCustomIcon() {
         return "/icons/pivotal/" + type + ".png";

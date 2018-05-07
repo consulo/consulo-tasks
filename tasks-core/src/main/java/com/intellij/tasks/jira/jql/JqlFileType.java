@@ -17,9 +17,9 @@ package com.intellij.tasks.jira.jql;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 
 /**
@@ -33,19 +33,19 @@ public class JqlFileType extends LanguageFileType {
     super(JqlLanguage.INSTANCE);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "JQL";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDescription() {
     return "JIRA query language";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDefaultExtension() {
     return DEFAULT_EXTENSION;

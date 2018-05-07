@@ -12,9 +12,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.util.Key;
@@ -71,32 +72,32 @@ public class YouTrackIntellisense {
   private static final Map<Pair<String, Integer>, Response> ourCache =
     Collections.synchronizedMap(new SizeLimitedCache<Pair<String, Integer>, Response>(CACHE_SIZE));
 
-  @NotNull
-  private static TextAttributes getAttributeByStyleClass(@NotNull String styleClass) {
+  @Nonnull
+  private static TextAttributes getAttributeByStyleClass(@Nonnull String styleClass) {
     final TextAttributes attr = TEXT_ATTRIBUTES.get(styleClass);
     return attr == null ? TEXT.getDefaultAttributes() : attr;
   }
 
-  @NotNull
-  public List<HighlightRange> fetchHighlighting(@NotNull String query, int caret) throws Exception {
+  @Nonnull
+  public List<HighlightRange> fetchHighlighting(@Nonnull String query, int caret) throws Exception {
     LOG.debug("Requesting highlighting");
     return fetch(query, caret, true).getHighlightRanges();
   }
 
-  @NotNull
-  public List<CompletionItem> fetchCompletion(@NotNull String query, int caret) throws Exception {
+  @Nonnull
+  public List<CompletionItem> fetchCompletion(@Nonnull String query, int caret) throws Exception {
     LOG.debug("Requesting completion");
     return fetch(query, caret, false).getCompletionItems();
   }
 
   private final YouTrackRepository myRepository;
 
-  public YouTrackIntellisense(@NotNull YouTrackRepository repository) {
+  public YouTrackIntellisense(@Nonnull YouTrackRepository repository) {
     myRepository = repository;
   }
 
-  @NotNull
-  private Response fetch(@NotNull String query, int caret, boolean ignoreCaret) throws Exception {
+  @Nonnull
+  private Response fetch(@Nonnull String query, int caret, boolean ignoreCaret) throws Exception {
     LOG.debug("Query: '" + query + "' caret at: " + caret);
     final Pair<String, Integer> lookup = Pair.create(query, caret);
     Response response = null;
@@ -136,10 +137,10 @@ public class YouTrackIntellisense {
     private List<HighlightRange> myHighlightRanges;
     private List<CompletionItem> myCompletionItems;
 
-    public Response(@NotNull InputStream stream) throws Exception {
+    public Response(@Nonnull InputStream stream) throws Exception {
       final Element root = new SAXBuilder().build(stream).getRootElement();
       TaskUtil.prettyFormatXmlToLog(LOG, root);
-      @NotNull final Element highlight = root.getChild("highlight");
+      @Nonnull final Element highlight = root.getChild("highlight");
       //assert highlight != null : "no '/IntelliSense/highlight' element in YouTrack response";
       myHighlightRanges = ContainerUtil.map(highlight.getChildren("range"), new Function<Element, HighlightRange>() {
         @Override
@@ -148,7 +149,7 @@ public class YouTrackIntellisense {
         }
       });
 
-      @NotNull final Element suggest = root.getChild("suggest");
+      @Nonnull final Element suggest = root.getChild("suggest");
       //assert suggest != null : "no '/IntelliSense/suggest' element in YouTrack response";
       myCompletionItems = ContainerUtil.map(suggest.getChildren("item"), new Function<Element, CompletionItem>() {
         @Override
@@ -158,12 +159,12 @@ public class YouTrackIntellisense {
       });
     }
 
-    @NotNull
+    @Nonnull
     public List<HighlightRange> getHighlightRanges() {
       return myHighlightRanges;
     }
 
-    @NotNull
+    @Nonnull
     public List<CompletionItem> getCompletionItems() {
       return myCompletionItems;
     }
@@ -176,7 +177,7 @@ public class YouTrackIntellisense {
     private int myStart, myEnd;
     private String myStyleClass;
 
-    public HighlightRange(@NotNull Element rangeElement) {
+    public HighlightRange(@Nonnull Element rangeElement) {
       //assert "range".equals(rangeElement.getName());
       myStart = Integer.valueOf(rangeElement.getChildText("start"));
       myEnd = Integer.valueOf(rangeElement.getChildText("end"));
@@ -191,22 +192,22 @@ public class YouTrackIntellisense {
       return myEnd;
     }
 
-    @NotNull
+    @Nonnull
     public String getStyleClass() {
       return StringUtil.notNullize(myStyleClass);
     }
 
-    @NotNull
+    @Nonnull
     public TextRange getRange() {
       return new TextRange(myStart, myEnd);
     }
 
-    @NotNull
+    @Nonnull
     public TextRange getTextRange() {
       return TextRange.create(myStart, myEnd);
     }
 
-    @NotNull
+    @Nonnull
     public TextAttributes getTextAttributes() {
       return getAttributeByStyleClass(myStyleClass);
     }
@@ -224,7 +225,7 @@ public class YouTrackIntellisense {
     private String myOption;
     private String myStyleClass;
 
-    public CompletionItem(@NotNull Element item) {
+    public CompletionItem(@Nonnull Element item) {
       //assert "item".equals(item.getName())
       final Element match = item.getChild("match");
       myMatchRange = new TextRange(Integer.parseInt(match.getAttributeValue("start")),
@@ -240,12 +241,12 @@ public class YouTrackIntellisense {
       myCaretPosition = Integer.valueOf(item.getChildText("caret"));
     }
 
-    @NotNull
+    @Nonnull
     public TextRange getMatchRange() {
       return myMatchRange;
     }
 
-    @NotNull
+    @Nonnull
     public TextRange getCompletionRange() {
       return myCompletionRange;
     }
@@ -254,32 +255,32 @@ public class YouTrackIntellisense {
       return myCaretPosition;
     }
 
-    @NotNull
+    @Nonnull
     public String getDescription() {
       return myDescription;
     }
 
-    @NotNull
+    @Nonnull
     public String getSuffix() {
       return StringUtil.notNullize(mySuffix);
     }
 
-    @NotNull
+    @Nonnull
     public String getPrefix() {
       return StringUtil.notNullize(myPrefix);
     }
 
-    @NotNull
+    @Nonnull
     public String getOption() {
       return myOption;
     }
 
-    @NotNull
+    @Nonnull
     public String getStyleClass() {
       return StringUtil.notNullize(myStyleClass);
     }
 
-    @NotNull
+    @Nonnull
     TextAttributes getTextAttributes() {
       return getAttributeByStyleClass(myStyleClass);
     }

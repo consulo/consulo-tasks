@@ -20,7 +20,7 @@ import com.intellij.execution.impl.RunManagerImpl;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Dmitry Avdeev
@@ -34,12 +34,12 @@ public class RunConfigurationsContextProvider extends WorkingContextProvider {
     myManager = manager;
   }
 
-  @NotNull
+  @Nonnull
   public String getId() {
     return "runConfigurations";
   }
 
-  @NotNull
+  @Nonnull
   public String getDescription() {
     return "Run Configurations";
   }

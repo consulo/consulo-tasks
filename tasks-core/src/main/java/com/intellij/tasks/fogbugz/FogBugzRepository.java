@@ -30,8 +30,8 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -82,7 +82,7 @@ public class FogBugzRepository extends BaseRepositoryImpl {
     final XPath commentPath = XPath.newInstance("events/event");
     @SuppressWarnings("unchecked") final List<Element> nodes = (List<Element>)path.selectNodes(document);
     final List<Task> tasks = ContainerUtil.mapNotNull(nodes, new NotNullFunction<Element, Task>() {
-      @NotNull
+      @Nonnull
       @Override
       public Task fun(Element element) {
         return createCase(element, commentPath);
@@ -102,20 +102,20 @@ public class FogBugzRepository extends BaseRepositoryImpl {
     return TaskType.OTHER;
   }
 
-  @NotNull
+  @Nonnull
   private Task createCase(final Element element, final XPath commentPath) {
     final String id = element.getAttributeValue("ixBug");
     final String title = element.getChildTextTrim("sTitle");
     final TaskType type = getType(element);
     return new Task() {
 
-      @NotNull
+      @Nonnull
       @Override
       public String getId() {
         return id;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getSummary() {
         return title;
@@ -127,7 +127,7 @@ public class FogBugzRepository extends BaseRepositoryImpl {
         return null;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       @SuppressWarnings("unchecked")
       public Comment[] getComments() {
@@ -139,7 +139,7 @@ public class FogBugzRepository extends BaseRepositoryImpl {
           throw new RuntimeException("Error selecting comment nodes", e);
         }
         List<Comment> comments = ContainerUtil.mapNotNull(nodes, new NotNullFunction<Element, Comment>() {
-          @NotNull
+          @Nonnull
           @Override
           public Comment fun(Element element) {
             return createComment(element);
@@ -169,13 +169,13 @@ public class FogBugzRepository extends BaseRepositoryImpl {
         return comments.toArray(new Comment[comments.size()]);
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Icon getIcon() {
         return TasksIcons.Fogbugz;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public TaskType getType() {
         return type;
@@ -273,8 +273,8 @@ public class FogBugzRepository extends BaseRepositoryImpl {
     };
   }
 
-  @NotNull
-  private static Date parseDate(@NotNull String string) {
+  @Nonnull
+  private static Date parseDate(@Nonnull String string) {
     try {
       return DatatypeFactory.newInstance().newXMLGregorianCalendar(string).toGregorianCalendar().getTime();
     }

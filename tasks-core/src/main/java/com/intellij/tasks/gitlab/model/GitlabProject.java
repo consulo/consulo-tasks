@@ -3,7 +3,7 @@ package com.intellij.tasks.gitlab.model;
 import com.google.gson.annotations.SerializedName;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Only required fields are declared.

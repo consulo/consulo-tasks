@@ -1,16 +1,17 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.JqlClause;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlNotClause;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlNotClauseImpl extends JqlElementImpl implements JqlNotClause {
-  public JqlNotClauseImpl(@NotNull ASTNode node) {
+  public JqlNotClauseImpl(@Nonnull ASTNode node) {
     super(node);
   }
 

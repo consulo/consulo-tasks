@@ -9,8 +9,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
@@ -160,7 +160,7 @@ public class RedmineRepositoryEditor extends BaseRepositoryEditor<RedmineReposit
 		public final RedmineProject myProject;
 		public final int myLevel;
 
-		public RedmineProjectItem(@NotNull RedmineProject project, int level)
+		public RedmineProjectItem(@Nonnull RedmineProject project, int level)
 		{
 			myProject = project;
 			myLevel = level;
@@ -217,9 +217,9 @@ public class RedmineRepositoryEditor extends BaseRepositoryEditor<RedmineReposit
 			return currentProject != null ? new RedmineProjectItem(currentProject, -1) : null;
 		}
 
-		@NotNull
+		@Nonnull
 		@Override
-		protected List<RedmineProjectItem> fetch(@NotNull ProgressIndicator indicator) throws Exception
+		protected List<RedmineProjectItem> fetch(@Nonnull ProgressIndicator indicator) throws Exception
 		{
 			// Seems that Redmine always return its project hierarchy in DFS order.
 			// So it's easy to find level of each project using stack of parents.

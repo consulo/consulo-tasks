@@ -1,7 +1,8 @@
 package com.intellij.tasks;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.util.xmlb.annotations.Attribute;
 
 /**
@@ -20,7 +21,7 @@ public class CustomTaskState
 	{
 	}
 
-	public CustomTaskState(@NotNull String id, @NotNull String name)
+	public CustomTaskState(@Nonnull String id, @Nonnull String name)
 	{
 		myId = id;
 		myPresentableName = name;
@@ -33,7 +34,7 @@ public class CustomTaskState
 	 * @see TaskRepository#setTaskState(Task, CustomTaskState)
 	 */
 	@Attribute("id")
-	@NotNull
+	@Nonnull
 	public String getId()
 	{
 		return myId;
@@ -42,7 +43,7 @@ public class CustomTaskState
 	/**
 	 * For serialization purposes only.
 	 */
-	public void setId(@NotNull String id)
+	public void setId(@Nonnull String id)
 	{
 		myId = id;
 	}
@@ -51,7 +52,7 @@ public class CustomTaskState
 	 * Text that describes this state and will be shown to user in UI (unlike ID it's not necessarily unique).
 	 */
 	@Attribute("name")
-	@NotNull
+	@Nonnull
 	public String getPresentableName()
 	{
 		return myPresentableName;
@@ -60,7 +61,7 @@ public class CustomTaskState
 	/**
 	 * For serialization purposes only.
 	 */
-	public void setPresentableName(@NotNull String name)
+	public void setPresentableName(@Nonnull String name)
 	{
 		myPresentableName = name;
 	}
@@ -98,8 +99,8 @@ public class CustomTaskState
 	 * @see #isPredefined()
 	 * @see TaskRepository#getAvailableTaskStates(Task)
 	 */
-	@NotNull
-	public static CustomTaskState fromPredefined(@NotNull TaskState state)
+	@Nonnull
+	public static CustomTaskState fromPredefined(@Nonnull TaskState state)
 	{
 		final CustomTaskState result = new CustomTaskState(state.name(), state.getPresentableName());
 		result.setPredefined(true);

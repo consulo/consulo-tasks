@@ -7,7 +7,7 @@ import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.EnumSet;
@@ -17,19 +17,19 @@ import java.util.EnumSet;
  */
 public class PivotalTrackerRepositoryType extends BaseRepositoryType<PivotalTrackerRepository> {
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "PivotalTracker";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Pivotal;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new PivotalTrackerRepository(this);
@@ -45,7 +45,7 @@ public class PivotalTrackerRepositoryType extends BaseRepositoryType<PivotalTrac
     return EnumSet.of(TaskState.SUBMITTED, TaskState.OPEN, TaskState.RESOLVED, TaskState.OTHER, TaskState.IN_PROGRESS);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(PivotalTrackerRepository repository,
                                            Project project,

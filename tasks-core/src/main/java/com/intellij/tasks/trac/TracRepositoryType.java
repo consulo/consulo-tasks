@@ -21,7 +21,7 @@ import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -30,19 +30,19 @@ import javax.swing.*;
  */
 public class TracRepositoryType extends BaseRepositoryType<TracRepository> {
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "Trac";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Trac;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new TracRepository(this);
@@ -53,7 +53,7 @@ public class TracRepositoryType extends BaseRepositoryType<TracRepository> {
     return TracRepository.class;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(TracRepository repository,
                                            Project project,

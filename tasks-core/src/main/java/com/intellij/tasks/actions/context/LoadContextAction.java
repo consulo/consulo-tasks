@@ -37,9 +37,9 @@ import com.intellij.util.NullableFunction;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.text.DateFormatUtil;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
@@ -205,7 +205,7 @@ public class LoadContextAction extends BaseTaskAction {
         loadAction.actionPerformed(e);
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public AnAction[] getChildren(@Nullable AnActionEvent e) {
         return new AnAction[]{loadAction,

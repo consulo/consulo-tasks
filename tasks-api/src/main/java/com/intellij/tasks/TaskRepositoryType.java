@@ -19,8 +19,8 @@ import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.util.Consumer;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -40,28 +40,28 @@ public abstract class TaskRepositoryType<T extends TaskRepository> implements Ta
     return EP_NAME.getExtensions();
   }
 
-  @NotNull
+  @Nonnull
   public abstract String getName();
 
-  @NotNull
+  @Nonnull
   public abstract Icon getIcon();
 
   @Nullable
   public String getAdvertiser() { return null; }
 
-  @NotNull
+  @Nonnull
   public abstract TaskRepositoryEditor createEditor(T repository, Project project, Consumer<T> changeListener);
 
   public List<TaskRepositorySubtype> getAvailableSubtypes() {
     return Arrays.asList((TaskRepositorySubtype)this);
   }
 
-  @NotNull
+  @Nonnull
   public TaskRepository createRepository(TaskRepositorySubtype subtype) {
     return subtype.createRepository();
   }
 
-  @NotNull
+  @Nonnull
   public abstract TaskRepository createRepository();
 
   public abstract Class<T> getRepositoryClass();

@@ -1,14 +1,14 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev
  */
 public interface JqlFunctionCall extends JqlOperand {
-  @NotNull
+  @Nonnull
   JqlIdentifier getFunctionName();
 
-  @NotNull
+  @Nonnull
   JqlArgumentList getArgumentList();
 }

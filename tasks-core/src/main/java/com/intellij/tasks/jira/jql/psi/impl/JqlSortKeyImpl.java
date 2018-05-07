@@ -5,13 +5,13 @@ import com.intellij.psi.PsiElement;
 import com.intellij.tasks.jira.jql.JqlTokenTypes;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlSortKey;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlSortKeyImpl extends JqlElementImpl implements JqlSortKey {
-  public JqlSortKeyImpl(@NotNull ASTNode node) {
+  public JqlSortKeyImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -20,7 +20,7 @@ public class JqlSortKeyImpl extends JqlElementImpl implements JqlSortKey {
     visitor.visitJqlSortKey(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getFieldName() {
     PsiElement fieldNode = getFirstChild();

@@ -15,8 +15,8 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.text.VersionComparatorUtil;
 import com.intellij.util.xmlb.annotations.Tag;
 import org.apache.axis.utils.StringUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.xml.rpc.ServiceException;
 import java.math.BigInteger;
@@ -76,7 +76,7 @@ public class MantisRepository extends BaseRepositoryImpl {
   public Task[] getIssues(@Nullable final String query,
                           final int max,
                           final long since,
-                          @NotNull final ProgressIndicator cancelled) throws Exception {
+                          @Nonnull final ProgressIndicator cancelled) throws Exception {
     MantisConnectPortType soap = createSoap();
     List<Task> tasks = new ArrayList<Task>(max);
     int page = 1;
@@ -148,7 +148,7 @@ public class MantisRepository extends BaseRepositoryImpl {
         return data.getDescription();
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Comment[] getComments() {
         IssueNoteData[] notes = data.getNotes();

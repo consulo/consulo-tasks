@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -28,8 +29,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.options.binding.BindControl;
@@ -70,7 +71,7 @@ public class OpenTaskDialog extends DialogWrapper
 	private final Task myTask;
 	private final List<TaskDialogPanel> myPanels;
 
-	public OpenTaskDialog(@NotNull final Project project, @NotNull final Task task)
+	public OpenTaskDialog(@Nonnull final Project project, @Nonnull final Task task)
 	{
 		super(project, false);
 		myProject = project;
@@ -225,7 +226,7 @@ public class OpenTaskDialog extends DialogWrapper
 		{
 			@Nullable
 			@Override
-			protected CustomTaskState getPreferredState(@NotNull TaskRepository repository, @NotNull Collection<CustomTaskState> available)
+			protected CustomTaskState getPreferredState(@Nonnull TaskRepository repository, @Nonnull Collection<CustomTaskState> available)
 			{
 				return repository.getPreferredOpenTaskState();
 			}

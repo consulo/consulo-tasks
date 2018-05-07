@@ -1,7 +1,7 @@
 package com.intellij.tasks.jira.model;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Date;
 import java.util.List;
@@ -14,22 +14,22 @@ public abstract class JiraIssue {
     return String.format("JiraIssue(key=%s, summary='%s')", getKey(), getSummary());
   }
 
-  @NotNull
+  @Nonnull
   public abstract String getKey();
 
-  @NotNull
+  @Nonnull
   public abstract String getIssueUrl();
 
-  @NotNull
+  @Nonnull
   public abstract String getSummary();
 
   @Nullable
   public abstract String getDescription();
 
-  @NotNull
+  @Nonnull
   public abstract Date getCreated();
 
-  @NotNull
+  @Nonnull
   public abstract Date getUpdated();
 
   @Nullable
@@ -38,7 +38,7 @@ public abstract class JiraIssue {
   @Nullable
   public abstract Date getDueDate();
 
-  @NotNull
+  @Nonnull
   public abstract JiraIssueType getIssueType();
 
   @Nullable
@@ -47,9 +47,9 @@ public abstract class JiraIssue {
   @Nullable
   public abstract JiraUser getReporter();
 
-  @NotNull
+  @Nonnull
   public abstract List<JiraComment> getComments();
 
-  @NotNull
+  @Nonnull
   public abstract JiraStatus getStatus();
 }

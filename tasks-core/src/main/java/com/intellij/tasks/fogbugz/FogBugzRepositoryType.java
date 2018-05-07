@@ -18,7 +18,7 @@ package com.intellij.tasks.fogbugz;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -27,19 +27,19 @@ import javax.swing.*;
  */
 public class FogBugzRepositoryType extends BaseRepositoryType<FogBugzRepository> {
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "FogBugz";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Fogbugz;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new FogBugzRepository(this);

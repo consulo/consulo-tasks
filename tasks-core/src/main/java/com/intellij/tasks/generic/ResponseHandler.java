@@ -3,9 +3,9 @@ package com.intellij.tasks.generic;
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.Task;
 import com.intellij.util.xmlb.annotations.Transient;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 
 /**
@@ -28,31 +28,31 @@ public abstract class ResponseHandler implements Cloneable {
     // empty
   }
 
-  public ResponseHandler(@NotNull GenericRepository repository) {
+  public ResponseHandler(@Nonnull GenericRepository repository) {
     myRepository = repository;
   }
 
-  public void setRepository(@NotNull GenericRepository repository) {
+  public void setRepository(@Nonnull GenericRepository repository) {
     myRepository = repository;
   }
 
-  @NotNull
+  @Nonnull
   @Transient
   public GenericRepository getRepository() {
     return myRepository;
   }
 
-  @NotNull
-  public abstract JComponent getConfigurationComponent(@NotNull Project project);
+  @Nonnull
+  public abstract JComponent getConfigurationComponent(@Nonnull Project project);
 
-  @NotNull
+  @Nonnull
   public abstract ResponseType getResponseType();
 
-  @NotNull
-  public abstract Task[] parseIssues(@NotNull String response, int max) throws Exception;
+  @Nonnull
+  public abstract Task[] parseIssues(@Nonnull String response, int max) throws Exception;
 
   @Nullable
-  public abstract Task parseIssue(@NotNull String response) throws Exception;
+  public abstract Task parseIssue(@Nonnull String response) throws Exception;
 
   public abstract boolean isConfigured();
 

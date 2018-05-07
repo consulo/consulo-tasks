@@ -7,8 +7,8 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
@@ -97,9 +97,9 @@ public class GitlabRepositoryEditor extends BaseRepositoryEditor<GitlabRepositor
       return myRepository.getCurrentProject();
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    protected List<GitlabProject> fetch(@NotNull ProgressIndicator indicator) throws Exception {
+    protected List<GitlabProject> fetch(@Nonnull ProgressIndicator indicator) throws Exception {
       return myRepository.fetchProjects();
     }
   }

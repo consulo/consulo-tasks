@@ -30,8 +30,8 @@ import com.intellij.ui.ColoredListCellRenderer;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -149,7 +149,7 @@ public class VcsOpenTaskPanel extends TaskDialogPanel {
     myChangelistName.setEnabled(myCreateChangelist.isSelected());
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JComponent getPanel() {
     return myPanel;
@@ -235,7 +235,7 @@ public class VcsOpenTaskPanel extends TaskDialogPanel {
     }
 
     @Override
-    protected void customizeCellRenderer(@NotNull JList list,
+    protected void customizeCellRenderer(@Nonnull JList list,
                                          VcsTaskHandler.TaskInfo value,
                                          int index,
                                          boolean selected,

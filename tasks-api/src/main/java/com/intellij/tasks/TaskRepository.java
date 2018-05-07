@@ -18,11 +18,12 @@ package com.intellij.tasks;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 import org.intellij.lang.annotations.MagicConstant;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.text.StringUtil;
@@ -155,7 +156,7 @@ public abstract class TaskRepository
 	 * @deprecated To be removed in IDEA 14. Use {@link #getIssues(String, int, int, boolean, ProgressIndicator)} instead.
 	 */
 	@Deprecated
-	public Task[] getIssues(@Nullable String query, int max, long since, @NotNull ProgressIndicator cancelled) throws Exception
+	public Task[] getIssues(@Nullable String query, int max, long since, @Nonnull ProgressIndicator cancelled) throws Exception
 	{
 		return getIssues(query, max, since);
 	}
@@ -178,7 +179,7 @@ public abstract class TaskRepository
 		return getIssues(query, offset + limit, 0);
 	}
 
-	public Task[] getIssues(@Nullable String query, int offset, int limit, boolean withClosed, @NotNull ProgressIndicator cancelled) throws Exception
+	public Task[] getIssues(@Nullable String query, int offset, int limit, boolean withClosed, @Nonnull ProgressIndicator cancelled) throws Exception
 	{
 		return getIssues(query, offset, limit, withClosed);
 	}
@@ -189,8 +190,8 @@ public abstract class TaskRepository
 	 * @param task task to update
 	 * @return set of available states
 	 */
-	@NotNull
-	public Set<CustomTaskState> getAvailableTaskStates(@NotNull Task task) throws Exception
+	@Nonnull
+	public Set<CustomTaskState> getAvailableTaskStates(@Nonnull Task task) throws Exception
 	{
 		//noinspection unchecked
 		return ContainerUtil.map2Set(getRepositoryType().getPossibleTaskStates(), new Function<TaskState, CustomTaskState>()
@@ -240,9 +241,9 @@ public abstract class TaskRepository
 	 * @throws Exception
 	 */
 	@Nullable
-	public abstract Task findTask(@NotNull String id) throws Exception;
+	public abstract Task findTask(@Nonnull String id) throws Exception;
 
-	@NotNull
+	@Nonnull
 	public abstract TaskRepository clone();
 
 	/**
@@ -259,14 +260,14 @@ public abstract class TaskRepository
 	 * @return extracted ID of the issue or {@code null} if it doesn't look as issue ID of this tracker
 	 */
 	@Nullable
-	public abstract String extractId(@NotNull String taskName);
+	public abstract String extractId(@Nonnull String taskName);
 
 
 	/**
 	 * @deprecated Use {@link #setTaskState(Task, CustomTaskState)} instead.
 	 */
 	@Deprecated
-	public void setTaskState(@NotNull Task task, @NotNull TaskState state) throws Exception
+	public void setTaskState(@Nonnull Task task, @Nonnull TaskState state) throws Exception
 	{
 		throw new UnsupportedOperationException("Setting task to state " + state + " is not supported");
 	}
@@ -282,7 +283,7 @@ public abstract class TaskRepository
 	 * @see TaskRepositoryType#getPossibleTaskStates()
 	 * @see TaskRepository#getFeatures()
 	 */
-	public void setTaskState(@NotNull Task task, @NotNull CustomTaskState state) throws Exception
+	public void setTaskState(@Nonnull Task task, @Nonnull CustomTaskState state) throws Exception
 	{
 		if(state.isPredefined())
 		{
@@ -375,7 +376,7 @@ public abstract class TaskRepository
 		return myCommitMessageFormat;
 	}
 
-	public void setCommitMessageFormat(@NotNull String commitMessageFormat)
+	public void setCommitMessageFormat(@Nonnull String commitMessageFormat)
 	{
 		myCommitMessageFormat = commitMessageFormat;
 	}
@@ -406,7 +407,7 @@ public abstract class TaskRepository
 	}
 
 	@Nullable
-	public String getTaskComment(@NotNull Task task)
+	public String getTaskComment(@Nonnull Task task)
 	{
 		return isShouldFormatCommitMessage() ? myCommitMessageFormat.replace("{id}", task.getPresentableId()).replace("{summary}", task.getSummary()) : null;
 	}
@@ -416,7 +417,7 @@ public abstract class TaskRepository
 		return "{id} (e.g. FOO-001), {summary}, {number} (e.g. 001), {project} (e.g. FOO)";
 	}
 
-	public void updateTimeSpent(@NotNull LocalTask task, @NotNull String timeSpent, @NotNull String comment) throws Exception
+	public void updateTimeSpent(@Nonnull LocalTask task, @Nonnull String timeSpent, @Nonnull String comment) throws Exception
 	{
 		throw new UnsupportedOperationException();
 	}

@@ -1,15 +1,17 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlQueryImpl extends JqlElementImpl implements JqlQuery {
-  public JqlQueryImpl(@NotNull ASTNode node) {
+  public JqlQueryImpl(@Nonnull ASTNode node) {
     super(node);
   }
 

@@ -1,8 +1,9 @@
 package com.intellij.tasks.generic;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.util.xmlb.annotations.Attribute;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Editable variable which name can be used as placeholder and auto completed in EditorFields of
@@ -24,7 +25,7 @@ public class TemplateVariable {
   private boolean myHidden;
   private boolean myShownOnFirstTab;
 
-  public TemplateVariable(@NotNull @NonNls String name, @NotNull @NonNls String value) {
+  public TemplateVariable(@Nonnull @NonNls String name, @Nonnull @NonNls String value) {
     myName = name;
     myValue = String.valueOf(value);
     myReadOnly = false;
@@ -51,31 +52,31 @@ public class TemplateVariable {
     myShownOnFirstTab = other.isShownOnFirstTab();
   }
 
-  public void setName(@NotNull @NonNls String name) {
+  public void setName(@Nonnull @NonNls String name) {
     myName = name;
   }
 
-  public void setValue(@NotNull @NonNls String value) {
+  public void setValue(@Nonnull @NonNls String value) {
     myValue = value;
   }
 
-  @NotNull
+  @Nonnull
   public String getName() {
     return myName;
   }
 
-  @NotNull
+  @Nonnull
   public String getValue() {
     return myValue;
   }
 
   // TODO: actually not used in UI
-  @NotNull
+  @Nonnull
   public String getDescription() {
     return myDescription;
   }
 
-  public void setDescription(@NotNull @NonNls String description) {
+  public void setDescription(@Nonnull @NonNls String description) {
     myDescription = description;
   }
 
@@ -123,27 +124,27 @@ public class TemplateVariable {
    */
   public abstract static class FactoryVariable extends TemplateVariable {
 
-    protected FactoryVariable(@NotNull @NonNls String name) {
+    protected FactoryVariable(@Nonnull @NonNls String name) {
       this(name, false);
     }
 
-    public FactoryVariable(@NotNull @NonNls String name, boolean hidden) {
+    public FactoryVariable(@Nonnull @NonNls String name, boolean hidden) {
       super(name, "");
       setHidden(hidden);
     }
 
 
-    @NotNull
+    @Nonnull
     @Override
     public abstract String getValue();
 
     @Override
-    public final void setName(@NotNull String name) {
+    public final void setName(@Nonnull String name) {
       throw new UnsupportedOperationException("Name of predefined variable can't be changed");
     }
 
     @Override
-    public final void setValue(@NotNull String value) {
+    public final void setValue(@Nonnull String value) {
       throw new UnsupportedOperationException("Value of predefined variable can't be changed explicitly");
     }
 

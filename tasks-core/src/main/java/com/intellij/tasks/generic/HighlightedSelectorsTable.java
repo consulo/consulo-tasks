@@ -22,8 +22,8 @@ import com.intellij.ui.table.TableView;
 import com.intellij.util.ui.AbstractTableCellEditor;
 import com.intellij.util.ui.ColumnInfo;
 import com.intellij.util.ui.ListTableModel;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
@@ -34,9 +34,9 @@ import java.util.List;
 
 class HighlightedSelectorsTable extends TableView<Selector> {
 
-  public HighlightedSelectorsTable(@NotNull final FileType valueFileType,
-                                   @NotNull final Project project,
-                                   @NotNull final List<Selector> selectors) {
+  public HighlightedSelectorsTable(@Nonnull final FileType valueFileType,
+                                   @Nonnull final Project project,
+                                   @Nonnull final List<Selector> selectors) {
     super(new ListTableModel<Selector>(new ColumnInfo[]{
       new ColumnInfo<Selector, String>("Name") {
         @Nullable

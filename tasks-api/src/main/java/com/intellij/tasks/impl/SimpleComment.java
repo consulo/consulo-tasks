@@ -16,8 +16,8 @@
 package com.intellij.tasks.impl;
 
 import com.intellij.tasks.Comment;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Date;
 
@@ -29,7 +29,7 @@ public class SimpleComment extends Comment {
   private final String myAuthor;
   private final Date myDate;
 
-  public SimpleComment(@Nullable Date date, @Nullable String author, @NotNull String text) {
+  public SimpleComment(@Nullable Date date, @Nullable String author, @Nonnull String text) {
     myDate = date;
     myAuthor = author;
     myText = text;

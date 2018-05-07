@@ -25,8 +25,8 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.NTCredentials;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.tasks.TaskRepositoryType;
 import com.intellij.tasks.config.TaskSettings;
 import com.intellij.util.net.HttpConfigurable;
@@ -57,7 +57,7 @@ public abstract class BaseRepositoryImpl extends BaseRepository
 		myClient = other.myClient;
 	}
 
-	protected static String encodeUrl(@NotNull String s)
+	protected static String encodeUrl(@Nonnull String s)
 	{
 		try
 		{

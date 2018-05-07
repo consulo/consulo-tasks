@@ -18,7 +18,7 @@ package com.intellij.tasks.integration;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.generic.GenericRepository;
 import com.intellij.tasks.generic.GenericRepositoryType;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import static com.intellij.tasks.TaskTestUtil.TaskBuilder;
 import static com.intellij.tasks.TaskTestUtil.assertTasksEqual;
@@ -64,7 +64,7 @@ public class AssemblaIntegrationTest extends GenericSubtypeTestCase {
     "</ticket>\n" +
     "</tickets>";
 
-  @NotNull
+  @Nonnull
   @Override
   protected GenericRepository createRepository(GenericRepositoryType genericType) {
     return (GenericRepository)genericType.new AssemblaRepository().createRepository();

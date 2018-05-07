@@ -22,8 +22,8 @@ import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
 import com.intellij.tasks.trello.model.TrelloCard;
 import com.intellij.tasks.trello.model.TrelloCommentAction;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.Date;
@@ -43,13 +43,13 @@ public class TrelloTask extends Task {
     myRepository = repository;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getId() {
     return myCard.getId();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getSummary() {
     return myCard.getName();
@@ -61,20 +61,20 @@ public class TrelloTask extends Task {
     return myCard.getDescription();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Comment[] getComments() {
     List<TrelloCommentAction> comments = myCard.getComments();
     return comments.toArray(new Comment[comments.size()]);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return iconBuilder.buildIcon(myCard.getColors());
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskType getType() {
     return TaskType.OTHER;

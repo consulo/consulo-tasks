@@ -1,8 +1,9 @@
 package com.intellij.tasks.generic;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
@@ -10,8 +11,10 @@ import org.jetbrains.annotations.NotNull;
 
 @Tag("selector")
 public final class Selector {
-  @NotNull private String myName;
-  @NotNull private String myPath;
+  @Nonnull
+  private String myName;
+  @Nonnull
+  private String myPath;
 
 
   /**
@@ -22,11 +25,11 @@ public final class Selector {
     // empty
   }
 
-  public Selector(@NotNull String name) {
+  public Selector(@Nonnull String name) {
     this(name, "");
   }
 
-  public Selector(@NotNull String name, @NotNull String path) {
+  public Selector(@Nonnull String name, @Nonnull String path) {
     myName = name;
     myPath = path;
   }
@@ -37,22 +40,22 @@ public final class Selector {
   }
 
   @Attribute("name")
-  @NotNull
+  @Nonnull
   public String getName() {
     return myName;
   }
 
   @Attribute("path")
-  @NotNull
+  @Nonnull
   public String getPath() {
     return myPath;
   }
 
-  public void setName(@NotNull String name) {
+  public void setName(@Nonnull String name) {
     myName = name;
   }
 
-  public void setPath(@NotNull String path) {
+  public void setPath(@Nonnull String path) {
     myPath = path;
   }
 

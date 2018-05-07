@@ -15,6 +15,8 @@
  */
 package com.intellij.tasks.context;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
@@ -25,7 +27,6 @@ import com.intellij.xdebugger.XDebuggerManager;
 import com.intellij.xdebugger.impl.breakpoints.XBreakpointBase;
 import com.intellij.xdebugger.impl.breakpoints.XBreakpointManagerImpl;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Dmitry Avdeev
@@ -39,13 +40,13 @@ public class XDebuggerBreakpointsContextProvider extends WorkingContextProvider 
     myBreakpointManager = (XBreakpointManagerImpl)xDebuggerManager.getBreakpointManager();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getId() {
     return "xDebugger";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDescription() {
     return "XDebugger breakpoints";

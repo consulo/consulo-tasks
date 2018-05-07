@@ -2,10 +2,10 @@ package com.intellij.tasks.gitlab;
 
 import java.util.Date;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
@@ -22,7 +22,7 @@ public class GitlabTask extends Task {
   private final GitlabRepository myRepository;
   private final GitlabProject myProject;
 
-  public GitlabTask(@NotNull GitlabRepository repository, @NotNull GitlabIssue issue) {
+  public GitlabTask(@Nonnull GitlabRepository repository, @Nonnull GitlabIssue issue) {
     myRepository = repository;
     myIssue = issue;
 
@@ -35,7 +35,7 @@ public class GitlabTask extends Task {
     myProject = project;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getId() {
     // Will be in form <projectId>:<issueId>
@@ -43,13 +43,13 @@ public class GitlabTask extends Task {
     return String.valueOf(myIssue.getId());
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getPresentableId() {
     return "#" + myIssue.getLocalId();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getSummary() {
     return myIssue.getTitle();
@@ -61,19 +61,19 @@ public class GitlabTask extends Task {
     return null;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Comment[] getComments() {
     return Comment.EMPTY_ARRAY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Gitlab;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskType getType() {
     return TaskType.BUG;
@@ -101,7 +101,7 @@ public class GitlabTask extends Task {
     return true;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getNumber() {
     return String.valueOf(myIssue.getLocalId());

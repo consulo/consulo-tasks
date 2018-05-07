@@ -20,7 +20,7 @@ import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 
 /**
@@ -37,14 +37,14 @@ public abstract class WorkingContextProvider {
    *
    * @return provider's name
    */
-  @NotNull
+  @Nonnull
   public abstract String getId();
 
   /**
    * Short description (for UI)
    * @return
    */
-  @NotNull
+  @Nonnull
   public abstract String getDescription();
 
   /**

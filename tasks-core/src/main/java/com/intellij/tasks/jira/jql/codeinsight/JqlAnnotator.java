@@ -6,7 +6,7 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.tasks.jira.jql.psi.*;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.CONSTANT;
 
@@ -25,7 +25,7 @@ import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.CONST
  */
 public class JqlAnnotator implements Annotator {
   @Override
-  public void annotate(@NotNull PsiElement element, final @NotNull AnnotationHolder holder) {
+  public void annotate(@Nonnull PsiElement element, final @Nonnull AnnotationHolder holder) {
     // error checks
     element.accept(new JqlElementVisitor() {
       @Override

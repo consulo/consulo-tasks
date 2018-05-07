@@ -10,14 +10,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import com.google.gson.Gson;
 import com.intellij.openapi.util.Comparing;
@@ -46,7 +48,7 @@ public class RedmineRepository extends NewBaseRepositoryImpl
 
 	public static final RedmineProject UNSPECIFIED_PROJECT = new RedmineProject()
 	{
-		@NotNull
+		@Nonnull
 		@Override
 		public String getName()
 		{
@@ -123,7 +125,7 @@ public class RedmineRepository extends NewBaseRepositoryImpl
 		return true;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public RedmineRepository clone()
 	{
@@ -241,7 +243,7 @@ public class RedmineRepository extends NewBaseRepositoryImpl
 
 	@Nullable
 	@Override
-	public Task findTask(@NotNull String id) throws Exception
+	public Task findTask(@Nonnull String id) throws Exception
 	{
 		ensureProjectsDiscovered();
 		HttpGet method = new HttpGet(getRestApiUrl("issues", id + ".json"));
@@ -295,7 +297,7 @@ public class RedmineRepository extends NewBaseRepositoryImpl
 
 	@Nullable
 	@Override
-	public String extractId(@NotNull String taskName)
+	public String extractId(@Nonnull String taskName)
 	{
 		return ID_PATTERN.matcher(taskName).matches() ? taskName : null;
 	}
@@ -317,7 +319,7 @@ public class RedmineRepository extends NewBaseRepositoryImpl
 		myCurrentProject = project != null && project.getId() == -1 ? UNSPECIFIED_PROJECT : project;
 	}
 
-	@NotNull
+	@Nonnull
 	public List<RedmineProject> getProjects()
 	{
 		try
@@ -341,7 +343,7 @@ public class RedmineRepository extends NewBaseRepositoryImpl
 
 	@TestOnly
 	@Transient
-	public void setProjects(@NotNull List<RedmineProject> projects)
+	public void setProjects(@Nonnull List<RedmineProject> projects)
 	{
 		myProjects = projects;
 	}

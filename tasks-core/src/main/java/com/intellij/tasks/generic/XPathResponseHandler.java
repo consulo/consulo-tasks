@@ -8,8 +8,8 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.io.StringReader;
 import java.util.List;
@@ -34,9 +34,9 @@ public final class XPathResponseHandler extends SelectorBasedResponseHandler {
     super(repository);
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  protected List<Object> selectTasksList(@NotNull String response, int max) throws Exception {
+  protected List<Object> selectTasksList(@Nonnull String response, int max) throws Exception {
     Document document = new SAXBuilder(false).build(new StringReader(response));
     Element root = document.getRootElement();
     XPath xPath = lazyCompile(getSelector(TASKS).getPath());
@@ -51,7 +51,7 @@ public final class XPathResponseHandler extends SelectorBasedResponseHandler {
 
   @Nullable
   @Override
-  protected String selectString(@NotNull Selector selector, @NotNull Object context) throws Exception {
+  protected String selectString(@Nonnull Selector selector, @Nonnull Object context) throws Exception {
     if (StringUtil.isEmpty(selector.getPath())) {
       return null;
     }
@@ -63,8 +63,8 @@ public final class XPathResponseHandler extends SelectorBasedResponseHandler {
     return s;
   }
 
-  @NotNull
-  private XPath lazyCompile(@NotNull String path) throws Exception {
+  @Nonnull
+  private XPath lazyCompile(@Nonnull String path) throws Exception {
     XPath xPath = myCompiledCache.get(path);
     if (xPath == null) {
       try {
@@ -78,7 +78,7 @@ public final class XPathResponseHandler extends SelectorBasedResponseHandler {
     return xPath;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public ResponseType getResponseType() {
     return ResponseType.XML;

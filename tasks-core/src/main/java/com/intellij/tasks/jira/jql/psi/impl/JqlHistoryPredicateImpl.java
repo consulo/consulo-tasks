@@ -6,14 +6,14 @@ import com.intellij.tasks.jira.jql.JqlTokenTypes;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlHistoryPredicate;
 import com.intellij.tasks.jira.jql.psi.JqlOperand;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlHistoryPredicateImpl extends JqlElementImpl implements JqlHistoryPredicate {
-  public JqlHistoryPredicateImpl(@NotNull ASTNode node) {
+  public JqlHistoryPredicateImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -22,7 +22,7 @@ public class JqlHistoryPredicateImpl extends JqlElementImpl implements JqlHistor
     visitor.visitJqlHistoryPredicate(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Type getType() {
     PsiElement keyword = findChildByType(JqlTokenTypes.HISTORY_PREDICATES);

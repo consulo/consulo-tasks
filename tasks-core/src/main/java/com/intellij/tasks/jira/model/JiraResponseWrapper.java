@@ -15,9 +15,8 @@
  */
 package com.intellij.tasks.jira.model;
 
-import com.intellij.tasks.jira.model.api2.JiraIssueApi2;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -51,7 +50,7 @@ public abstract class JiraResponseWrapper {
   public static class Issues<T extends JiraIssue> extends JiraResponseWrapper {
     private List<T> issues = ContainerUtil.emptyList();
 
-    @NotNull
+    @Nonnull
     public List<T> getIssues() {
       return issues;
     }
@@ -60,7 +59,7 @@ public abstract class JiraResponseWrapper {
   public static class Comments extends JiraResponseWrapper {
     private List<JiraComment> comments = ContainerUtil.emptyList();
 
-    @NotNull
+    @Nonnull
     public List<JiraComment> getComments() {
       return comments;
     }

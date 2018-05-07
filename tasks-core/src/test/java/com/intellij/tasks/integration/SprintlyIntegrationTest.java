@@ -3,7 +3,8 @@ package com.intellij.tasks.integration;
 import static com.intellij.tasks.TaskTestUtil.TaskBuilder;
 import static com.intellij.tasks.TaskTestUtil.assertTasksEqual;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.tasks.Task;
 import com.intellij.tasks.generic.GenericRepository;
 import com.intellij.tasks.generic.GenericRepositoryType;
@@ -175,7 +176,7 @@ public class SprintlyIntegrationTest extends GenericSubtypeTestCase {
       task);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   protected GenericRepository createRepository(GenericRepositoryType genericType) {
     return (GenericRepository)genericType.new SprintlyRepository().createRepository();

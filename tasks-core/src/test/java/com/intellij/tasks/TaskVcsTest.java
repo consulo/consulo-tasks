@@ -19,10 +19,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.vcs.ProjectLevelVcsManager;
@@ -400,13 +400,13 @@ public class TaskVcsTest extends CodeInsightFixtureTestCase {
     ProjectLevelVcsManager.getInstance(getProject()).hasActiveVcss();
     myRepository = new TestRepository();
     myRepository.setTasks(new Task() {
-      @NotNull
+      @Nonnull
       @Override
       public String getId() {
         return "TEST-001";
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getSummary() {
         return "Summary";
@@ -417,19 +417,19 @@ public class TaskVcsTest extends CodeInsightFixtureTestCase {
         return null;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Comment[] getComments() {
         return new Comment[0];
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Icon getIcon() {
         return TasksIcons.Unknown;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public TaskType getType() {
         return TaskType.BUG;

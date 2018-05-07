@@ -2,12 +2,12 @@ package com.intellij.tasks.impl;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.diagnostic.Logger;
@@ -44,19 +44,19 @@ public class TaskUiUtil
 		/**
 		 * Should be called only from EDT, so current modality state can be captured.
 		 */
-		protected RemoteFetchTask(@Nullable Project project, @NotNull String title)
+		protected RemoteFetchTask(@Nullable Project project, @Nonnull String title)
 		{
 			this(project, title, ModalityState.current());
 		}
 
-		protected RemoteFetchTask(@Nullable Project project, @NotNull String title, @NotNull ModalityState modalityState)
+		protected RemoteFetchTask(@Nullable Project project, @Nonnull String title, @Nonnull ModalityState modalityState)
 		{
 			super(project, title);
 			myModalityState = modalityState;
 		}
 
 		@Override
-		public final void run(@NotNull ProgressIndicator indicator)
+		public final void run(@Nonnull ProgressIndicator indicator)
 		{
 			try
 			{
@@ -81,8 +81,8 @@ public class TaskUiUtil
 			return null;
 		}
 
-		@NotNull
-		protected abstract T fetch(@NotNull ProgressIndicator indicator) throws Exception;
+		@Nonnull
+		protected abstract T fetch(@Nonnull ProgressIndicator indicator) throws Exception;
 
 		protected abstract void updateUI();
 	}
@@ -95,7 +95,7 @@ public class TaskUiUtil
 	{
 		protected final JComboBox myComboBox;
 
-		public ComboBoxUpdater(@Nullable Project project, @NotNull String title, @NotNull JComboBox comboBox)
+		public ComboBoxUpdater(@Nullable Project project, @Nonnull String title, @Nonnull JComboBox comboBox)
 		{
 			super(project, title, ModalityState.any());
 			myComboBox = comboBox;
@@ -203,7 +203,7 @@ public class TaskUiUtil
 	{
 		private final String myNullDescription;
 
-		public SimpleComboBoxRenderer(@NotNull String nullDescription)
+		public SimpleComboBoxRenderer(@Nonnull String nullDescription)
 		{
 			myNullDescription = nullDescription;
 		}
@@ -214,8 +214,8 @@ public class TaskUiUtil
 			setText(value == null ? myNullDescription : getDescription(value));
 		}
 
-		@NotNull
-		protected String getDescription(@NotNull T item)
+		@Nonnull
+		protected String getDescription(@Nonnull T item)
 		{
 			return item.toString();
 		}

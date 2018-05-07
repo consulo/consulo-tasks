@@ -6,7 +6,7 @@ import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -15,31 +15,31 @@ import javax.swing.*;
  */
 public class MantisRepositoryType extends BaseRepositoryType<MantisRepository> {
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "Mantis";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Mantis;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new MantisRepository(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Class<MantisRepository> getRepositoryClass() {
     return MantisRepository.class;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(final MantisRepository repository,
                                            final Project project,

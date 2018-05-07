@@ -14,7 +14,7 @@ import com.intellij.psi.impl.DebugUtil;
 import com.intellij.tasks.youtrack.YouTrackIntellisense;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -80,7 +80,7 @@ public class YouTrackCompletionContributor extends CompletionContributor {
   /**
    * Find first word left boundary before cursor and strip leading braces and '#' signs
    */
-  @NotNull
+  @Nonnull
   private static String extractPrefix(CompletionParameters parameters) {
     String text = parameters.getOriginalFile().getText();
     final int caretOffset = parameters.getOffset();

@@ -1,16 +1,17 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.JqlArgumentList;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlLiteral;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlArgumentListImpl extends JqlElementImpl implements JqlArgumentList {
-  public JqlArgumentListImpl(@NotNull ASTNode node) {
+  public JqlArgumentListImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -19,7 +20,7 @@ public class JqlArgumentListImpl extends JqlElementImpl implements JqlArgumentLi
     visitor.visitJqlArgumentList(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JqlLiteral[] getArguments() {
     return findChildrenByClass(JqlLiteral.class);

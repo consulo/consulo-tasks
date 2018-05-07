@@ -1,6 +1,6 @@
 package com.intellij.tasks.integration;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.tasks.TaskManagerTestCase;
 import com.intellij.tasks.generic.GenericRepository;
 import com.intellij.tasks.generic.GenericRepositoryType;
@@ -18,6 +18,6 @@ public abstract class GenericSubtypeTestCase extends TaskManagerTestCase {
     myRepository = createRepository(genericType);
   }
 
-  @NotNull
+  @Nonnull
   protected abstract GenericRepository createRepository(GenericRepositoryType genericType);
 }

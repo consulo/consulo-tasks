@@ -20,7 +20,7 @@ import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.vcs.changes.LocalChangeList;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Dmitry Avdeev
@@ -42,7 +42,7 @@ public class ChangeListInfo {
   public ChangeListInfo() {
   }
 
-  public ChangeListInfo(@NotNull LocalChangeList changeList) {
+  public ChangeListInfo(@Nonnull LocalChangeList changeList) {
     id = changeList.getId();
     name = changeList.getName();
     comment = changeList.getComment();

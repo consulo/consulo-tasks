@@ -15,16 +15,17 @@
  */
 package com.intellij.tasks.jira.jql;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlFileTypeFactory extends FileTypeFactory {
   @Override
-  public void createFileTypes(@NotNull FileTypeConsumer consumer) {
+  public void createFileTypes(@Nonnull FileTypeConsumer consumer) {
     consumer.consume(JqlFileType.INSTANCE, JqlFileType.DEFAULT_EXTENSION);
   }
 }

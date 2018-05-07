@@ -1,9 +1,8 @@
 package com.intellij.tasks.context;
 
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+
+import javax.annotation.Nullable;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType;
 
@@ -20,7 +19,7 @@ public class TestBreakpointType extends XLineBreakpointType<TestBreakpointProper
 
 	@Nullable
 	@Override
-	public TestBreakpointProperties createBreakpointProperties(@NotNull VirtualFile virtualFile, int i)
+	public TestBreakpointProperties createBreakpointProperties(@Nonnull VirtualFile virtualFile, int i)
 	{
 		return new TestBreakpointProperties();
 	}

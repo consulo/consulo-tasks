@@ -8,8 +8,8 @@ import com.intellij.util.containers.HashMap;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +43,7 @@ public final class JsonPathResponseHandler extends SelectorBasedResponseHandler 
   }
 
   @Nullable
-  private Object extractRawValue(@NotNull Selector selector, @NotNull String source) throws Exception {
+  private Object extractRawValue(@Nonnull Selector selector, @Nonnull String source) throws Exception {
     if (StringUtil.isEmpty(selector.getPath())) {
       return null;
     }
@@ -62,7 +62,7 @@ public final class JsonPathResponseHandler extends SelectorBasedResponseHandler 
   }
 
   @Nullable
-  private <T> T extractValueAndCheckType(@NotNull Selector selector, @NotNull String source, Class<T> cls) throws Exception {
+  private <T> T extractValueAndCheckType(@Nonnull Selector selector, @Nonnull String source, Class<T> cls) throws Exception {
     final Object value = extractRawValue(selector, source);
     if (value == null) {
       return null;
@@ -77,9 +77,9 @@ public final class JsonPathResponseHandler extends SelectorBasedResponseHandler 
     return casted;
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  protected List<Object> selectTasksList(@NotNull String response, int max) throws Exception {
+  protected List<Object> selectTasksList(@Nonnull String response, int max) throws Exception {
     @SuppressWarnings("unchecked")
     List<Object> list = (List<Object>)extractValueAndCheckType(getSelector(TASKS), response, List.class);
     if (list == null) {
@@ -95,7 +95,7 @@ public final class JsonPathResponseHandler extends SelectorBasedResponseHandler 
 
   @Nullable
   @Override
-  protected String selectString(@NotNull Selector selector, @NotNull Object context) throws Exception {
+  protected String selectString(@Nonnull Selector selector, @Nonnull Object context) throws Exception {
     //return extractValueAndCheckType((String)context, selector, String.class);
     final Object value = extractRawValue(selector, (String)context);
     if (value == null) {
@@ -110,18 +110,18 @@ public final class JsonPathResponseHandler extends SelectorBasedResponseHandler 
 
   @Nullable
   @Override
-  protected Boolean selectBoolean(@NotNull Selector selector, @NotNull Object context) throws Exception {
+  protected Boolean selectBoolean(@Nonnull Selector selector, @Nonnull Object context) throws Exception {
     return extractValueAndCheckType(selector, (String)context, Boolean.class);
   }
 
   @SuppressWarnings("UnusedDeclaration")
   @Nullable
-  private Long selectLong(@NotNull Selector selector, @NotNull String source) throws Exception {
+  private Long selectLong(@Nonnull Selector selector, @Nonnull String source) throws Exception {
     return extractValueAndCheckType(selector, source, Long.class);
   }
 
-  @NotNull
-  private JsonPath lazyCompile(@NotNull String path) throws Exception {
+  @Nonnull
+  private JsonPath lazyCompile(@Nonnull String path) throws Exception {
     JsonPath jsonPath = myCompiledCache.get(path);
     if (jsonPath == null) {
       try {
@@ -135,7 +135,7 @@ public final class JsonPathResponseHandler extends SelectorBasedResponseHandler 
     return jsonPath;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public ResponseType getResponseType() {
     return ResponseType.JSON;

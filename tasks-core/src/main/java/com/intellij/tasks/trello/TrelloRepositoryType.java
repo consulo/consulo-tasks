@@ -22,8 +22,8 @@ import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 
@@ -35,13 +35,13 @@ public class TrelloRepositoryType extends BaseRepositoryType<TrelloRepository> {
   public static final String CLIENT_AUTHORIZATION_URL =
     "https://trello.com/1/authorize?key=" + DEVELOPER_KEY +"&name=JetBrains&expiration=never&response_type=token";
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "Trello";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Trello;
@@ -53,13 +53,13 @@ public class TrelloRepositoryType extends BaseRepositoryType<TrelloRepository> {
     return "<html><a href=" + CLIENT_AUTHORIZATION_URL + ">Where can I get authorization token?</a></html>";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(TrelloRepository repository, Project project, Consumer<TrelloRepository> changeListener) {
     return new TrelloRepositoryEditor(project, repository, changeListener);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new TrelloRepository(this);

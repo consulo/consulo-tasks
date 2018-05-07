@@ -24,6 +24,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import org.apache.commons.httpclient.HeaderElement;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
@@ -33,7 +35,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.jetbrains.annotations.NotNull;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -61,19 +62,19 @@ public class TaskResponseUtil
 	{
 	}
 
-	public static Reader getResponseContentAsReader(@NotNull HttpResponse response) throws IOException
+	public static Reader getResponseContentAsReader(@Nonnull HttpResponse response) throws IOException
 	{
 		Header header = response.getEntity().getContentEncoding();
 		Charset charset = header == null ? DEFAULT_CHARSET : Charset.forName(header.getValue());
 		return new InputStreamReader(response.getEntity().getContent(), charset);
 	}
 
-	public static String getResponseContentAsString(@NotNull HttpResponse response) throws IOException
+	public static String getResponseContentAsString(@Nonnull HttpResponse response) throws IOException
 	{
 		return EntityUtils.toString(response.getEntity(), DEFAULT_CHARSET);
 	}
 
-	public static String getResponseContentAsString(@NotNull HttpMethod response) throws IOException
+	public static String getResponseContentAsString(@Nonnull HttpMethod response) throws IOException
 	{
 		// Sometimes servers don't specify encoding and HttpMethod#getResponseBodyAsString
 		// by default decodes from Latin-1, so we got to read byte stream and decode it from UTF-8
@@ -94,7 +95,7 @@ public class TaskResponseUtil
 		}
 	}
 
-	public static Reader getResponseContentAsReader(@NotNull HttpMethod response) throws IOException
+	public static Reader getResponseContentAsReader(@Nonnull HttpMethod response) throws IOException
 	{
 		//if (!response.hasBeenUsed()) {
 		//  return new StringReader("");
@@ -124,12 +125,12 @@ public class TaskResponseUtil
 		private final Class<T> myClass;
 		private final boolean myIgnoreNotFound;
 
-		public GsonSingleObjectDeserializer(@NotNull Gson gson, @NotNull Class<T> cls)
+		public GsonSingleObjectDeserializer(@Nonnull Gson gson, @Nonnull Class<T> cls)
 		{
 			this(gson, cls, false);
 		}
 
-		public GsonSingleObjectDeserializer(@NotNull Gson gson, @NotNull Class<T> cls, boolean ignoreNotFound)
+		public GsonSingleObjectDeserializer(@Nonnull Gson gson, @Nonnull Class<T> cls, boolean ignoreNotFound)
 		{
 			myGson = gson;
 			myClass = cls;
@@ -180,7 +181,7 @@ public class TaskResponseUtil
 			this(gson, typeToken, false);
 		}
 
-		public GsonMultipleObjectsDeserializer(@NotNull Gson gson, @NotNull TypeToken<List<T>> token, boolean ignoreNotFound)
+		public GsonMultipleObjectsDeserializer(@Nonnull Gson gson, @Nonnull TypeToken<List<T>> token, boolean ignoreNotFound)
 		{
 			myGson = gson;
 			myTypeToken = token;
@@ -226,7 +227,7 @@ public class TaskResponseUtil
 	}
 
 
-	public static void prettyFormatResponseToLog(@NotNull Logger logger, @NotNull HttpMethod response)
+	public static void prettyFormatResponseToLog(@Nonnull Logger logger, @Nonnull HttpMethod response)
 	{
 		if(logger.isDebugEnabled() && response.hasBeenUsed())
 		{
@@ -255,7 +256,7 @@ public class TaskResponseUtil
 		}
 	}
 
-	public static void prettyFormatResponseToLog(@NotNull Logger logger, @NotNull HttpResponse response)
+	public static void prettyFormatResponseToLog(@Nonnull Logger logger, @Nonnull HttpResponse response)
 	{
 		if(logger.isDebugEnabled())
 		{

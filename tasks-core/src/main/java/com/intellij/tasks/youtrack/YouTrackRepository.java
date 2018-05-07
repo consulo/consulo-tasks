@@ -25,8 +25,8 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.io.InputStream;
@@ -226,13 +226,13 @@ public class YouTrackRepository extends BaseRepositoryImpl {
         return getUrl() + "/issue/" + getId();
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getId() {
         return id;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getSummary() {
         return summary;
@@ -242,19 +242,19 @@ public class YouTrackRepository extends BaseRepositoryImpl {
         return description;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Comment[] getComments() {
         return Comment.EMPTY_ARRAY;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Icon getIcon() {
         return LocalTaskImpl.getIconFromType(getType(), isIssue());
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public TaskType getType() {
         return finalTaskType;

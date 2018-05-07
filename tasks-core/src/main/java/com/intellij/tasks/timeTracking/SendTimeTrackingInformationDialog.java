@@ -22,8 +22,8 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskRepository;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -37,7 +37,8 @@ public class SendTimeTrackingInformationDialog extends DialogWrapper {
   private final static Logger LOG = Logger.getInstance("#com.intellij.tasks.timeTracking.TasksToolWindowPanel");
   public static final Pattern PATTERN = Pattern.compile("([0-9]+)d ([0-9]+)h ([0-9]+)m");
 
-  @Nullable private final Project myProject;
+  @Nullable
+  private final Project myProject;
   private final LocalTask myTask;
   private JRadioButton myFromPreviousPostRadioButton;
   private JRadioButton myTotallyRadioButton;

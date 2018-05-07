@@ -12,8 +12,8 @@ import com.intellij.util.xmlb.annotations.AbstractCollection;
 import com.intellij.util.xmlb.annotations.Property;
 import com.intellij.util.xmlb.annotations.Tag;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -86,12 +86,12 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
   @Tag("selectors")
   @Property(surroundWithTag = false)
   @AbstractCollection(surroundWithTag = false)
-  @NotNull
+  @Nonnull
   public List<Selector> getSelectors() {
     return new ArrayList<Selector>(mySelectors.values());
   }
 
-  public void setSelectors(@NotNull List<Selector> selectors) {
+  public void setSelectors(@Nonnull List<Selector> selectors) {
     mySelectors.clear();
     for (Selector selector : selectors) {
       mySelectors.put(selector.getName(), selector);
@@ -101,20 +101,20 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
   /**
    * Only predefined selectors should be accessed.
    */
-  @NotNull
-  protected Selector getSelector(@NotNull String name) {
+  @Nonnull
+  protected Selector getSelector(@Nonnull String name) {
     return mySelectors.get(name);
   }
 
-  @NotNull
-  protected String getSelectorPath(@NotNull String name) {
+  @Nonnull
+  protected String getSelectorPath(@Nonnull String name) {
     Selector s = getSelector(name);
     return s.getPath();
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  public JComponent getConfigurationComponent(@NotNull Project project) {
+  public JComponent getConfigurationComponent(@Nonnull Project project) {
     FileType fileType = getResponseType().getSelectorFileType();
     HighlightedSelectorsTable table = new HighlightedSelectorsTable(fileType, project, getSelectors());
     return new JBScrollPane(table);
@@ -156,9 +156,9 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
     return mySelectors.hashCode();
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  public final Task[] parseIssues(@NotNull String response, int max) throws Exception {
+  public final Task[] parseIssues(@Nonnull String response, int max) throws Exception {
     if (StringUtil.isEmpty(getSelectorPath(TASKS)) ||
         StringUtil.isEmpty(getSelectorPath(ID)) ||
         StringUtil.isEmpty(getSelectorPath(SUMMARY))) {
@@ -200,7 +200,7 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
   }
 
   @Nullable
-  private Date selectDate(@NotNull Selector selector, @NotNull Object context) throws Exception {
+  private Date selectDate(@Nonnull Selector selector, @Nonnull Object context) throws Exception {
     String s = selectString(selector, context);
     if (s == null) {
       return null;
@@ -209,7 +209,7 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
   }
 
   @Nullable
-  protected Boolean selectBoolean(@NotNull Selector selector, @NotNull Object context) throws Exception {
+  protected Boolean selectBoolean(@Nonnull Selector selector, @Nonnull Object context) throws Exception {
     String s = selectString(selector, context);
     if (s == null) {
       return null;
@@ -225,15 +225,15 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
       String.format("Expression '%s' should match boolean value. Got '%s' instead", selector.getName(), s));
   }
 
-  @NotNull
-  protected abstract List<Object> selectTasksList(@NotNull String response, int max) throws Exception;
+  @Nonnull
+  protected abstract List<Object> selectTasksList(@Nonnull String response, int max) throws Exception;
 
   @Nullable
-  protected abstract String selectString(@NotNull Selector selector, @NotNull Object context) throws Exception;
+  protected abstract String selectString(@Nonnull Selector selector, @Nonnull Object context) throws Exception;
 
   @Nullable
   @Override
-  public final Task parseIssue(@NotNull String response) throws Exception {
+  public final Task parseIssue(@Nonnull String response) throws Exception {
     if (StringUtil.isEmpty(getSelectorPath(SINGLE_TASK_ID)) ||
         StringUtil.isEmpty(getSelectorPath(SINGLE_TASK_SUMMARY))) {
       throw new Exception("Selectors 'singleTask-id' and 'singleTask-summary' are mandatory");

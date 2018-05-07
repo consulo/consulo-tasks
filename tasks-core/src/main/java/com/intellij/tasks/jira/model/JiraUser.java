@@ -15,7 +15,7 @@
  */
 package com.intellij.tasks.jira.model;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev
@@ -29,17 +29,17 @@ public class JiraUser {
     return String.format("JiraUser(name='%s')", name);
   }
 
-  @NotNull
+  @Nonnull
   public String getName() {
     return name;
   }
 
-  @NotNull
+  @Nonnull
   public String getDisplayName() {
     return displayName;
   }
 
-  @NotNull
+  @Nonnull
   public String getUserUrl() {
     return self;
   }

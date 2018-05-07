@@ -16,8 +16,9 @@
 
 package com.intellij.tasks.trello.model;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.util.xmlb.annotations.Attribute;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
@@ -35,7 +36,7 @@ public abstract class TrelloModel {
    * value serves as fallback in such cases.
    */
   @Attribute("id")
-  @NotNull
+  @Nonnull
   public String getId() {
     return id;
   }
@@ -43,21 +44,21 @@ public abstract class TrelloModel {
   /**
    * For serialization purposes only
    */
-  public void setId(@NotNull String id) {
+  public void setId(@Nonnull String id) {
     this.id = id;
   }
 
   /**
    * Every model has human-readable name
    */
-  @NotNull
+  @Nonnull
   public abstract String getName();
 
 
   /**
    * Only for serialization
    */
-  public abstract void setName(@NotNull String name);
+  public abstract void setName(@Nonnull String name);
 
   /**
    * Object can be compared by their unique id.

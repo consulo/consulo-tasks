@@ -4,14 +4,14 @@ import java.awt.Dimension;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.actions.TemplateKindCombo;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
@@ -87,9 +87,9 @@ public abstract class TaskStateCombo extends JPanel
 			assert repository != null;
 			new ComboBoxUpdater<CustomStateTrinityAdapter>(myProject, "Fetching available task states...", comboBox)
 			{
-				@NotNull
+				@Nonnull
 				@Override
-				protected List<CustomStateTrinityAdapter> fetch(@NotNull ProgressIndicator indicator) throws Exception
+				protected List<CustomStateTrinityAdapter> fetch(@Nonnull ProgressIndicator indicator) throws Exception
 				{
 					return CustomStateTrinityAdapter.wrapList(repository.getAvailableTaskStates(myTask));
 				}
@@ -133,12 +133,12 @@ public abstract class TaskStateCombo extends JPanel
 		return item.myState;
 	}
 
-	public void registerUpDownAction(@NotNull JComponent focusable)
+	public void registerUpDownAction(@Nonnull JComponent focusable)
 	{
 		myKindCombo.registerUpDownHint(focusable);
 	}
 
-	@NotNull
+	@Nonnull
 	public JComboBox getComboBox()
 	{
 		return myKindCombo.getComboBox();
@@ -152,26 +152,26 @@ public abstract class TaskStateCombo extends JPanel
 	 * @return task state to select
 	 */
 	@Nullable
-	protected abstract CustomTaskState getPreferredState(@NotNull TaskRepository repository, @NotNull Collection<CustomTaskState> available);
+	protected abstract CustomTaskState getPreferredState(@Nonnull TaskRepository repository, @Nonnull Collection<CustomTaskState> available);
 
 	private static class CustomStateTrinityAdapter extends Trinity<String, Icon, String>
 	{
 		final CustomTaskState myState;
 
-		public CustomStateTrinityAdapter(@NotNull CustomTaskState state)
+		public CustomStateTrinityAdapter(@Nonnull CustomTaskState state)
 		{
 			super(state.getPresentableName(), null, state.getId());
 			myState = state;
 		}
 
-		@NotNull
-		static List<CustomStateTrinityAdapter> wrapList(@NotNull Collection<CustomTaskState> states)
+		@Nonnull
+		static List<CustomStateTrinityAdapter> wrapList(@Nonnull Collection<CustomTaskState> states)
 		{
 			return ContainerUtil.map(states, state -> new CustomStateTrinityAdapter(state));
 		}
 
-		@NotNull
-		static List<CustomTaskState> unwrapList(@NotNull Collection<CustomStateTrinityAdapter> wrapped)
+		@Nonnull
+		static List<CustomTaskState> unwrapList(@Nonnull Collection<CustomStateTrinityAdapter> wrapped)
 		{
 			return ContainerUtil.map(wrapped, adapter -> adapter.myState);
 		}

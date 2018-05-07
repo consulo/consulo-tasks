@@ -3,14 +3,14 @@ package com.intellij.tasks.generic;
 import java.awt.Component;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.execution.util.ListTableWithButtons;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.util.text.StringUtil;
@@ -26,7 +26,7 @@ public class ManageTemplateVariablesDialog extends DialogWrapper
 {
 	private final TemplateVariablesTable myTemplateVariableTable;
 
-	protected ManageTemplateVariablesDialog(@NotNull final Component parent)
+	protected ManageTemplateVariablesDialog(@Nonnull final Component parent)
 	{
 		super(parent, true);
 		myTemplateVariableTable = new TemplateVariablesTable();

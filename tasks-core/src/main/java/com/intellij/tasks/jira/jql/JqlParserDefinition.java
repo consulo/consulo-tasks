@@ -1,6 +1,7 @@
 package com.intellij.tasks.jira.jql;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
@@ -21,7 +22,7 @@ import consulo.lang.LanguageVersion;
 public class JqlParserDefinition implements ParserDefinition {
   private static final Logger LOG = Logger.getInstance(JqlParserDefinition.class);
 
-  @NotNull
+  @Nonnull
   @Override
   public Lexer createLexer(LanguageVersion languageVersion) {
     return new JqlLexer();
@@ -37,25 +38,25 @@ public class JqlParserDefinition implements ParserDefinition {
     return JqlElementTypes.FILE;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
     return JqlTokenTypes.WHITESPACES;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TokenSet getCommentTokens(LanguageVersion languageVersion) {
     return TokenSet.EMPTY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
     return TokenSet.create(JqlTokenTypes.STRING_LITERAL);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public PsiElement createElement(ASTNode node) {
     final IElementType type = node.getElementType();

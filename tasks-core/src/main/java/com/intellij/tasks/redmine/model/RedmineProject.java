@@ -1,7 +1,8 @@
 package com.intellij.tasks.redmine.model;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.tasks.impl.gson.Mandatory;
 import com.intellij.tasks.impl.gson.RestModel;
 import com.intellij.util.xmlb.annotations.Attribute;
@@ -58,7 +59,7 @@ public class RedmineProject
 		this.id = id;
 	}
 
-	@NotNull
+	@Nonnull
 	public String getName()
 	{
 		return name;
@@ -74,7 +75,7 @@ public class RedmineProject
 	 * For serialization purposes only
 	 */
 	@Attribute("identifier")
-	public void setIdentifier(@NotNull String identifier)
+	public void setIdentifier(@Nonnull String identifier)
 	{
 		this.identifier = identifier;
 	}

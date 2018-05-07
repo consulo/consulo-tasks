@@ -2,8 +2,8 @@ package com.intellij.tasks.youtrack.lang;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 
@@ -18,19 +18,19 @@ public class YouTrackFileType extends LanguageFileType {
     super(YouTrackLanguage.INSTANCE);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "YouTrack";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDescription() {
     return "YouTrack Query Language";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDefaultExtension() {
     return DEFAULT_EXTENSION;

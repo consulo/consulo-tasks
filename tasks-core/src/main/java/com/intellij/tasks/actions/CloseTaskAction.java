@@ -16,7 +16,7 @@
 
 package com.intellij.tasks.actions;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.project.Project;
@@ -35,7 +35,7 @@ public class CloseTaskAction extends BaseTaskAction
 {
 
 	@RequiredDispatchThread
-	public void actionPerformed(@NotNull AnActionEvent e)
+	public void actionPerformed(@Nonnull AnActionEvent e)
 	{
 		Project project = e.getProject();
 		assert project != null;

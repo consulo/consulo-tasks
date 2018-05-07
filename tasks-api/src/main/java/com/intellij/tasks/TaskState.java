@@ -15,7 +15,7 @@
  */
 package com.intellij.tasks;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * Predefined common task states were used before {@link CustomTaskState} was introduced.
@@ -34,12 +34,12 @@ public enum TaskState
 
 	private String myPresentableName;
 
-	TaskState(@NotNull String presentableName)
+	TaskState(@Nonnull String presentableName)
 	{
 		myPresentableName = presentableName;
 	}
 
-	@NotNull
+	@Nonnull
 	public String getPresentableName()
 	{
 		return myPresentableName;

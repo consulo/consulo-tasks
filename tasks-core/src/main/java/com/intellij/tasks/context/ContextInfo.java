@@ -16,7 +16,7 @@
 
 package com.intellij.tasks.context;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * @author Dmitry Avdeev

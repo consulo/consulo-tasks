@@ -26,8 +26,8 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Tag;
 import icons.TasksIcons;
 import org.apache.xmlrpc.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -127,13 +127,13 @@ public class TracRepository extends BaseRepositoryImpl {
     final Hashtable<String, String> map = (Hashtable<String, String>)vector.get(3);
     return new Task() {
 
-      @NotNull
+      @Nonnull
       @Override
       public String getId() {
         return vector.get(0).toString();
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getSummary() {
         return map.get("summary");
@@ -145,19 +145,19 @@ public class TracRepository extends BaseRepositoryImpl {
         return null;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Comment[] getComments() {
         return new Comment[0];
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Icon getIcon() {
         return TasksIcons.Trac;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public TaskType getType() {
         TaskType taskType = TaskType.OTHER;

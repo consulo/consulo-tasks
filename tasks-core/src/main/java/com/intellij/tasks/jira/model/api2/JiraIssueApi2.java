@@ -17,8 +17,8 @@ package com.intellij.tasks.jira.model.api2;
 
 import com.intellij.tasks.jira.model.*;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Date;
 import java.util.List;
@@ -40,19 +40,19 @@ public class JiraIssueApi2 extends JiraIssue {
   private String self;
   private Fields fields;
 
-  @NotNull
+  @Nonnull
   @Override
   public String getKey() {
     return key;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getIssueUrl() {
     return self;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getSummary() {
     return fields.summary;
@@ -64,13 +64,13 @@ public class JiraIssueApi2 extends JiraIssue {
     return fields.description;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Date getCreated() {
     return fields.created;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Date getUpdated() {
     return fields.updated;
@@ -88,7 +88,7 @@ public class JiraIssueApi2 extends JiraIssue {
     return fields.duedate;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JiraIssueType getIssueType() {
     return fields.issuetype;
@@ -106,13 +106,13 @@ public class JiraIssueApi2 extends JiraIssue {
     return fields.reporter;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<JiraComment> getComments() {
     return fields.comment == null ? ContainerUtil.<JiraComment>emptyList() : fields.comment.getComments();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JiraStatus getStatus() {
     return fields.status;

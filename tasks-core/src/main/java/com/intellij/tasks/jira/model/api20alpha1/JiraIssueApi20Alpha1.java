@@ -1,8 +1,8 @@
 package com.intellij.tasks.jira.model.api20alpha1;
 
 import com.intellij.tasks.jira.model.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Date;
 import java.util.List;
@@ -16,19 +16,19 @@ public class JiraIssueApi20Alpha1 extends JiraIssue {
   private String key;
 
 
-  @NotNull
+  @Nonnull
   @Override
   public String getKey() {
     return key;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getIssueUrl() {
     return self;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getSummary() {
     return fields.summary.getValue();
@@ -40,13 +40,13 @@ public class JiraIssueApi20Alpha1 extends JiraIssue {
     return fields.description.getValue();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Date getCreated() {
     return fields.created.getValue();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Date getUpdated() {
     return fields.updated.getValue();
@@ -64,7 +64,7 @@ public class JiraIssueApi20Alpha1 extends JiraIssue {
     return fields.duedate.getValue();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JiraIssueType getIssueType() {
     return fields.issuetype.getValue();
@@ -82,13 +82,13 @@ public class JiraIssueApi20Alpha1 extends JiraIssue {
     return fields.reporter.getValue();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<JiraComment> getComments() {
     return fields.comment.getValue();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JiraStatus getStatus() {
     return fields.status.getValue();

@@ -1,17 +1,18 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlElement;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
  */
 public abstract class JqlElementImpl extends ASTWrapperPsiElement implements JqlElement {
-  protected JqlElementImpl(@NotNull ASTNode node) {
+  protected JqlElementImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -25,7 +26,7 @@ public abstract class JqlElementImpl extends ASTWrapperPsiElement implements Jql
   }
 
   @Override
-  public void accept(@NotNull PsiElementVisitor visitor) {
+  public void accept(@Nonnull PsiElementVisitor visitor) {
     if (visitor instanceof JqlElementVisitor) {
       accept((JqlElementVisitor)visitor);
     }

@@ -10,8 +10,8 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public abstract class JiraRestApi {
   private static final Logger LOG = Logger.getInstance(JiraRestApi.class);
   protected final JiraRepository myRepository;
 
-  public static JiraRestApi fromJiraVersion(@NotNull JiraVersion jiraVersion, @NotNull JiraRepository repository) {
+  public static JiraRestApi fromJiraVersion(@Nonnull JiraVersion jiraVersion, @Nonnull JiraRepository repository) {
     LOG.debug("JIRA version is " + jiraVersion);
     if (jiraVersion.getMajorNumber() == 4) {
       return new JiraRestApi20Alpha1(repository);
@@ -38,7 +38,7 @@ public abstract class JiraRestApi {
     }
   }
 
-  public static JiraRestApi fromJiraVersion(@NotNull String version, @NotNull JiraRepository repository) {
+  public static JiraRestApi fromJiraVersion(@Nonnull String version, @Nonnull JiraRepository repository) {
     return fromJiraVersion(new JiraVersion(version), repository);
   }
 
@@ -46,7 +46,7 @@ public abstract class JiraRestApi {
     myRepository = repository;
   }
 
-  @NotNull
+  @Nonnull
   public final List<JiraIssue> findIssues(String jql, int max) throws Exception {
     GetMethod method = getMultipleIssuesSearchMethod(jql, max);
     String response = myRepository.executeMethod(method);
@@ -61,12 +61,12 @@ public abstract class JiraRestApi {
     return parseIssue(myRepository.executeMethod(method));
   }
 
-  @NotNull
+  @Nonnull
   protected GetMethod getSingleIssueSearchMethod(String key) {
     return new GetMethod(myRepository.getUrl() + REST_API_PATH_SUFFIX + "/issue/" + key);
   }
 
-  @NotNull
+  @Nonnull
   protected GetMethod getMultipleIssuesSearchMethod(String jql, int max) {
     GetMethod method = new GetMethod(myRepository.getUrl() + REST_API_PATH_SUFFIX + "/search");
     method.setQueryString(new NameValuePair[]{
@@ -76,7 +76,7 @@ public abstract class JiraRestApi {
     return method;
   }
 
-  @NotNull
+  @Nonnull
   protected abstract List<JiraIssue> parseIssues(String response);
 
   @Nullable
@@ -87,7 +87,7 @@ public abstract class JiraRestApi {
     return String.format("JiraRestAPI(%s)", getVersionName());
   }
 
-  @NotNull
+  @Nonnull
   public abstract String getVersionName();
 
   public void setTaskState(Task task, TaskState state) throws Exception {

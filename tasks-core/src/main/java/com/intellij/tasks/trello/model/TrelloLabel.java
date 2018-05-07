@@ -17,8 +17,8 @@ package com.intellij.tasks.trello.model;
 
 import java.awt.Color;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
@@ -57,7 +57,7 @@ public class TrelloLabel
 
 	private LabelColor color;
 
-	@NotNull
+	@Nonnull
 	public String getName()
 	{
 		return name;

@@ -18,8 +18,8 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.io.InputStream;
@@ -41,21 +41,21 @@ public class GenericRepository extends BaseRepositoryImpl {
   @NonNls public static final String PASSWORD = "password";
 
   public final FactoryVariable SERVER_URL_TEMPLATE_VARIABLE = new FactoryVariable(SERVER_URL) {
-    @NotNull
+    @Nonnull
     @Override
     public String getValue() {
       return GenericRepository.this.getUrl();
     }
   };
   public final FactoryVariable USERNAME_TEMPLATE_VARIABLE = new FactoryVariable(USERNAME) {
-    @NotNull
+    @Nonnull
     @Override
     public String getValue() {
       return GenericRepository.this.getUsername();
     }
   };
   public final FactoryVariable PASSWORD_TEMPLATE_VARIABLE = new FactoryVariable(PASSWORD, true) {
-    @NotNull
+    @Nonnull
     @Override
     public String getValue() {
       return GenericRepository.this.getPassword();

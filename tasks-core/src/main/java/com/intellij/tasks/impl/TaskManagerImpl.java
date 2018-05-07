@@ -25,12 +25,12 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Timer;
 import javax.swing.event.HyperlinkEvent;
 
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationDisplayType;
@@ -150,7 +150,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		}
 	});
 
-	@NotNull
+	@Nonnull
 	private LocalTask myActiveTask = createDefaultTask();
 	private Timer myCacheRefreshTimer;
 
@@ -262,7 +262,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	}
 
 	@Override
-	public void addTaskListener(@NotNull TaskListener listener, @NotNull Disposable parentDisposable)
+	public void addTaskListener(@Nonnull TaskListener listener, @Nonnull Disposable parentDisposable)
 	{
 		myDispatcher.addListener(listener, parentDisposable);
 	}
@@ -273,7 +273,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		myDispatcher.removeListener(listener);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public LocalTask getActiveTask()
 	{
@@ -287,7 +287,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return myTasks.get(id);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<Task> getIssues(@Nullable final String query)
 	{
@@ -301,7 +301,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	}
 
 	@Override
-	public List<Task> getIssues(@Nullable String query, int offset, int limit, final boolean withClosed, @NotNull ProgressIndicator indicator, boolean forceRequest)
+	public List<Task> getIssues(@Nullable String query, int offset, int limit, final boolean withClosed, @Nonnull ProgressIndicator indicator, boolean forceRequest)
 	{
 		List<Task> tasks = getIssuesFromRepositories(query, offset, limit, withClosed, forceRequest, indicator);
 		if(tasks == null)
@@ -326,7 +326,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 
 	@Nullable
 	@Override
-	public Task updateIssue(@NotNull String id)
+	public Task updateIssue(@Nonnull String id)
 	{
 		for(TaskRepository repository : getAllRepositories())
 		{
@@ -381,12 +381,12 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	}
 
 	@Override
-	public LocalTaskImpl createLocalTask(@NotNull String summary)
+	public LocalTaskImpl createLocalTask(@Nonnull String summary)
 	{
 		return createTask(LOCAL_TASK_ID_FORMAT.format(myConfig.localTasksCounter++), summary);
 	}
 
-	private static LocalTaskImpl createTask(@NotNull String id, @NotNull String summary)
+	private static LocalTaskImpl createTask(@Nonnull String id, @Nonnull String summary)
 	{
 		LocalTaskImpl task = new LocalTaskImpl(id, summary);
 		Date date = new Date();
@@ -396,7 +396,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	}
 
 	@Override
-	public LocalTask activateTask(@NotNull final Task origin, boolean clearContext)
+	public LocalTask activateTask(@Nonnull final Task origin, boolean clearContext)
 	{
 		LocalTask activeTask = getActiveTask();
 		if(origin.equals(activeTask))
@@ -576,7 +576,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 					task.getPresentableId())
 			{
 
-				public void run(@NotNull ProgressIndicator indicator)
+				public void run(@Nonnull ProgressIndicator indicator)
 				{
 					updateIssue(task.getId());
 				}
@@ -605,7 +605,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 
 		TestConnectionTask task = new TestConnectionTask("Test connection")
 		{
-			public void run(@NotNull ProgressIndicator indicator)
+			public void run(@Nonnull ProgressIndicator indicator)
 			{
 				indicator.setText("Connecting to " + repository.getUrl() + "...");
 				indicator.setFraction(0);
@@ -686,7 +686,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return e == null;
 	}
 
-	@NotNull
+	@Nonnull
 	public Config getState()
 	{
 		myConfig.tasks = ContainerUtil.map(myTasks.values(), new Function<Task, LocalTaskImpl>()
@@ -817,7 +817,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	{
 	}
 
-	@NotNull
+	@Nonnull
 	public String getComponentName()
 	{
 		return "Task Manager";
@@ -829,7 +829,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		{
 			myCacheRefreshTimer = UIUtil.createNamedTimer("TaskManager refresh", myConfig.updateInterval * 60 * 1000, new ActionListener()
 			{
-				public void actionPerformed(@NotNull ActionEvent e)
+				public void actionPerformed(@Nonnull ActionEvent e)
 				{
 					if(myConfig.updateEnabled && !myUpdating)
 					{
@@ -961,7 +961,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	}
 
 	@Nullable
-	private List<Task> getIssuesFromRepositories(@Nullable String request, int offset, int limit, boolean withClosed, boolean forceRequest, @NotNull final ProgressIndicator cancelled)
+	private List<Task> getIssuesFromRepositories(@Nullable String request, int offset, int limit, boolean withClosed, boolean forceRequest, @Nonnull final ProgressIndicator cancelled)
 	{
 		List<Task> issues = null;
 		for(final TaskRepository repository : getAllRepositories())
@@ -1034,7 +1034,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		}
 		Notifications.Bus.notify(new Notification(TASKS_NOTIFICATION_GROUP, "Cannot connect to " + repository.getUrl(), content, NotificationType.WARNING, new NotificationListener()
 		{
-			public void hyperlinkUpdate(@NotNull Notification notification, @NotNull HyperlinkEvent event)
+			public void hyperlinkUpdate(@Nonnull Notification notification, @Nonnull HyperlinkEvent event)
 			{
 				TaskRepositoriesConfigurable configurable = new TaskRepositoriesConfigurable(myProject);
 				ShowSettingsUtil.getInstance().editConfigurable(myProject, configurable);
@@ -1071,7 +1071,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	}
 
 	@Override
-	public boolean isLocallyClosed(@NotNull LocalTask localTask)
+	public boolean isLocallyClosed(@Nonnull LocalTask localTask)
 	{
 		if(isVcsEnabled())
 		{
@@ -1093,7 +1093,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 
 	@Nullable
 	@Override
-	public LocalTask getAssociatedTask(@NotNull LocalChangeList list)
+	public LocalTask getAssociatedTask(@Nonnull LocalChangeList list)
 	{
 		for(LocalTask task : getLocalTasks())
 		{
@@ -1109,7 +1109,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	}
 
 	@Override
-	public void trackContext(@NotNull LocalChangeList changeList)
+	public void trackContext(@Nonnull LocalChangeList changeList)
 	{
 		ChangeListInfo changeListInfo = new ChangeListInfo(changeList);
 		String changeListName = changeList.getName();
@@ -1123,7 +1123,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	}
 
 	@Override
-	public void disassociateFromTask(@NotNull LocalChangeList changeList)
+	public void disassociateFromTask(@Nonnull LocalChangeList changeList)
 	{
 		ChangeListInfo changeListInfo = new ChangeListInfo(changeList);
 		for(LocalTask localTask : getLocalTasks())
@@ -1135,7 +1135,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		}
 	}
 
-	public void decorateChangeList(@NotNull LocalChangeList changeList, @NotNull ColoredTreeCellRenderer cellRenderer, boolean selected, boolean expanded, boolean hasFocus)
+	public void decorateChangeList(@Nonnull LocalChangeList changeList, @Nonnull ColoredTreeCellRenderer cellRenderer, boolean selected, boolean expanded, boolean hasFocus)
 	{
 		LocalTask task = getAssociatedTask(changeList);
 		if(task != null && task.isIssue())
@@ -1144,7 +1144,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		}
 	}
 
-	public void createChangeList(@NotNull LocalTask task, String name)
+	public void createChangeList(@Nonnull LocalTask task, String name)
 	{
 		String comment = TaskUtil.getChangeListComment(task);
 		createChangeList(task, name, comment);
@@ -1176,8 +1176,8 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return StringUtil.shortenTextWithEllipsis(name, 100, 0);
 	}
 
-	@NotNull
-	public String suggestBranchName(@NotNull Task task)
+	@Nonnull
+	public String suggestBranchName(@Nonnull Task task)
 	{
 		String name = constructDefaultBranchName(task);
 		if(task.isIssue())
@@ -1189,8 +1189,8 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return StringUtil.join(strings, 0, Math.min(2, strings.length), "-");
 	}
 
-	@NotNull
-	public String constructDefaultBranchName(@NotNull Task task)
+	@Nonnull
+	public String constructDefaultBranchName(@Nonnull Task task)
 	{
 		return task.isIssue() ? TaskUtil.formatTask(task, myConfig.branchNameFormat) : task.getSummary();
 	}

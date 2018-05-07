@@ -11,8 +11,8 @@ import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.ui.FormBuilder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.security.auth.x500.X500Principal;
 import javax.swing.*;
@@ -46,7 +46,7 @@ public class UntrustedCertificateWarningDialog extends DialogWrapper {
   private final X509Certificate myCertificate;
   private final String myPath, myPassword;
 
-  public UntrustedCertificateWarningDialog(@NotNull X509Certificate certificate, @NotNull String storePath, @NotNull String password) {
+  public UntrustedCertificateWarningDialog(@Nonnull X509Certificate certificate, @Nonnull String storePath, @Nonnull String password) {
     super((Project)null, false);
 
     myCertificate = certificate;

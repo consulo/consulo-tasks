@@ -5,9 +5,9 @@ import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Date;
 
@@ -33,13 +33,13 @@ public class MantisTask extends Task {
     myRepository = repository;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getId() {
     return myId;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getSummary() {
     return mySummary;
@@ -51,19 +51,19 @@ public class MantisTask extends Task {
     return null;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Comment[] getComments() {
     return Comment.EMPTY_ARRAY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Mantis;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskType getType() {
     return TaskType.OTHER;
@@ -107,7 +107,7 @@ public class MantisTask extends Task {
     return myProjectName;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getNumber() {
     return getId();

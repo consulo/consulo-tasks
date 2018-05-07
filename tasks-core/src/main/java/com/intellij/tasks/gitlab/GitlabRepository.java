@@ -9,7 +9,6 @@ import com.intellij.tasks.gitlab.model.GitlabIssue;
 import com.intellij.tasks.gitlab.model.GitlabProject;
 import com.intellij.tasks.impl.gson.TaskGsonUtil;
 import com.intellij.tasks.impl.httpclient.NewBaseRepositoryImpl;
-import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.intellij.util.xmlb.annotations.Transient;
@@ -21,8 +20,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.protocol.HttpContext;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
 import java.io.IOException;
@@ -96,7 +95,7 @@ public class GitlabRepository extends NewBaseRepositoryImpl {
     return true;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public GitlabRepository clone() {
     return new GitlabRepository(this);
@@ -110,7 +109,7 @@ public class GitlabRepository extends NewBaseRepositoryImpl {
 
   @Nullable
   @Override
-  public Task findTask(@NotNull String id) throws Exception {
+  public Task findTask(@Nonnull String id) throws Exception {
     // doesn't work now, because Gitlab's REST API doesn't provide endpoint to find task
     // using only its global ID, it requires both task's global ID AND task's project ID
     return null;
@@ -125,7 +124,7 @@ public class GitlabRepository extends NewBaseRepositoryImpl {
   /**
    * Always forcibly attempts do fetch new projects from server.
    */
-  @NotNull
+  @Nonnull
   public List<GitlabProject> fetchProjects() throws Exception {
     final ResponseHandler<List<GitlabProject>> handler = new GsonMultipleObjectsDeserializer<>(GSON, LIST_OF_PROJECTS_TYPE);
     final String projectUrl = getRestApiUrl("projects");
@@ -149,13 +148,13 @@ public class GitlabRepository extends NewBaseRepositoryImpl {
   }
 
   @SuppressWarnings("UnusedDeclaration")
-  @NotNull
+  @Nonnull
   public GitlabProject fetchProject(int id) throws Exception {
     final HttpGet request = new HttpGet(getRestApiUrl("project", id));
     return getHttpClient().execute(request, new GsonSingleObjectDeserializer<>(GSON, GitlabProject.class));
   }
 
-  @NotNull
+  @Nonnull
   public List<GitlabIssue> fetchIssues(int pageNumber, int pageSize, boolean openedOnly) throws Exception {
     ensureProjectsDiscovered();
     final URIBuilder uriBuilder = new URIBuilder(getIssuesUrl())
@@ -200,7 +199,7 @@ public class GitlabRepository extends NewBaseRepositoryImpl {
 
   @Nullable
   @Override
-  public String extractId(@NotNull String taskName) {
+  public String extractId(@Nonnull String taskName) {
     return ID_PATTERN.matcher(taskName).matches() ? taskName : null;
   }
 
@@ -209,7 +208,7 @@ public class GitlabRepository extends NewBaseRepositoryImpl {
     return super.isConfigured() && !myPassword.isEmpty();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getRestApiPathPrefix() {
     return REST_API_PATH_PREFIX;
@@ -238,7 +237,7 @@ public class GitlabRepository extends NewBaseRepositoryImpl {
   /**
    * May return cached projects or make request to receive new ones.
    */
-  @NotNull
+  @Nonnull
   public List<GitlabProject> getProjects() {
     try {
       ensureProjectsDiscovered();
@@ -257,7 +256,7 @@ public class GitlabRepository extends NewBaseRepositoryImpl {
 
   @TestOnly
   @Transient
-  public void setProjects(@NotNull List<GitlabProject> projects) {
+  public void setProjects(@Nonnull List<GitlabProject> projects) {
     myProjects = projects;
   }
 }

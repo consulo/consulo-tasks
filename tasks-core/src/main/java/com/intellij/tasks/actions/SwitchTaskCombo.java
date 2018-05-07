@@ -16,10 +16,10 @@
 
 package com.intellij.tasks.actions;
 
+import javax.annotation.Nonnull;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -56,7 +56,7 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 		return button;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	protected DefaultActionGroup createPopupActionGroup(JComponent button)
 	{

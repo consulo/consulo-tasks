@@ -2,6 +2,9 @@ package com.intellij.tasks.impl.httpclient;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.apache.http.HttpException;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -25,8 +28,6 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.tasks.TaskRepositoryType;
 import com.intellij.tasks.config.TaskSettings;
@@ -67,7 +68,7 @@ public abstract class NewBaseRepositoryImpl extends BaseRepository
 		super(other);
 	}
 
-	@NotNull
+	@Nonnull
 	protected HttpClient getHttpClient()
 	{
 		HttpClientBuilder builder = HttpClients.custom().setDefaultRequestConfig(createRequestConfig()).setSslcontext(CertificateManager.getInstance().getSslContext())
@@ -90,7 +91,7 @@ public abstract class NewBaseRepositoryImpl extends BaseRepository
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	private CredentialsProvider createCredentialsProvider()
 	{
 		CredentialsProvider provider = new BasicCredentialsProvider();
@@ -108,7 +109,7 @@ public abstract class NewBaseRepositoryImpl extends BaseRepository
 		return provider;
 	}
 
-	@NotNull
+	@Nonnull
 	protected RequestConfig createRequestConfig()
 	{
 		TaskSettings tasksSettings = TaskSettings.getInstance();
@@ -127,7 +128,7 @@ public abstract class NewBaseRepositoryImpl extends BaseRepository
 	 *
 	 * @return server's REST API path prefix
 	 */
-	@NotNull
+	@Nonnull
 	public String getRestApiPathPrefix()
 	{
 		return "";
@@ -142,8 +143,8 @@ public abstract class NewBaseRepositoryImpl extends BaseRepository
 	 *
 	 * @return described URL
 	 */
-	@NotNull
-	public String getRestApiUrl(@NotNull Object... parts)
+	@Nonnull
+	public String getRestApiUrl(@Nonnull Object... parts)
 	{
 		StringBuilder builder = new StringBuilder(getUrl());
 		builder.append(getRestApiPathPrefix());
@@ -191,7 +192,7 @@ public abstract class NewBaseRepositoryImpl extends BaseRepository
 		// Request can be changed during test
 		protected volatile HttpRequestBase myCurrentRequest;
 
-		public HttpTestConnection(@NotNull HttpRequestBase request)
+		public HttpTestConnection(@Nonnull HttpRequestBase request)
 		{
 			myCurrentRequest = request;
 		}

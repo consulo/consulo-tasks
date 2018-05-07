@@ -32,7 +32,7 @@ import com.intellij.ui.EditorTextField;
 import com.intellij.ui.ListScrollingUtil;
 import com.intellij.ui.SortedListModel;
 import com.intellij.ui.components.JBList;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;

@@ -16,8 +16,8 @@
 package com.intellij.tasks.trello.model;
 
 import com.intellij.tasks.Comment;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Date;
 
@@ -42,18 +42,18 @@ public class TrelloCommentAction extends Comment {
     return String.format("TrelloCommentAction(id=%s, text=%s)", id, data.text);
   }
 
-  @NotNull
+  @Nonnull
   public String getId() {
     return id;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Date getDate() {
     return date;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getText() {
     return data.text;

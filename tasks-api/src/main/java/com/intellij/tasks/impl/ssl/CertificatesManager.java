@@ -11,8 +11,8 @@ import org.apache.commons.httpclient.params.HttpConnectionParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.net.ssl.*;
 import java.io.File;
@@ -42,21 +42,21 @@ public class CertificatesManager {
   @NonNls private static final String DEFAULT_PATH = FileUtil.join(PathManager.getSystemPath(), "tasks", "cacerts");
   @NonNls private static final String DEFAULT_PASSWORD = "changeit";
 
-  @NotNull
+  @Nonnull
   public static CertificatesManager createDefault() {
     return createInstance(DEFAULT_PATH, DEFAULT_PASSWORD);
   }
 
 
-  @NotNull
-  public static CertificatesManager createInstance(@NotNull String cacertsPath, @NotNull String cacertsPassword) {
+  @Nonnull
+  public static CertificatesManager createInstance(@Nonnull String cacertsPath, @Nonnull String cacertsPassword) {
     return new CertificatesManager(cacertsPath, cacertsPassword);
   }
 
   private final String myCacertsPath;
   private final String myPassword;
 
-  private CertificatesManager(@NotNull String cacertsPath, @NotNull String cacertsPassword) {
+  private CertificatesManager(@Nonnull String cacertsPath, @Nonnull String cacertsPassword) {
     myCacertsPath = cacertsPath;
     myPassword = cacertsPassword;
   }
@@ -110,7 +110,7 @@ public class CertificatesManager {
    *
    * @return instance of SSLContext with described behavior
    */
-  @NotNull
+  @Nonnull
   public SSLContext createSslContext() throws Exception {
     // SSLContext context = SSLContext.getDefault();
     SSLContext context = SSLContext.getInstance("TLS");
@@ -221,7 +221,7 @@ public class CertificatesManager {
     private volatile X509TrustManager myTrustManager;
     private volatile boolean broken = false;
 
-    private MutableX509TrustManager(@NotNull String path, @NotNull String password) {
+    private MutableX509TrustManager(@Nonnull String path, @Nonnull String password) {
       myPath = path;
       myPassword = password;
       myKeyStore = loadKeyStore(path, password);

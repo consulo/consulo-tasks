@@ -7,7 +7,7 @@ import com.intellij.tasks.jira.JiraRestApi;
 import com.intellij.tasks.jira.JiraUtil;
 import com.intellij.tasks.jira.model.JiraIssue;
 import com.intellij.tasks.jira.model.JiraResponseWrapper;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class JiraRestApi20Alpha1 extends JiraRestApi {
     return JiraUtil.GSON.fromJson(response, JiraIssueApi20Alpha1.class);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   protected List<JiraIssue> parseIssues(String response) {
     JiraResponseWrapper.Issues<JiraIssueApi20Alpha1> wrapper = JiraUtil.GSON.fromJson(response, ISSUES_WRAPPER_TYPE);
@@ -47,7 +47,7 @@ public class JiraRestApi20Alpha1 extends JiraRestApi {
     return updatedIssues;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getVersionName() {
     return "2.0.alpha1";

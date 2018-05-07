@@ -1,14 +1,15 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.*;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlFunctionCallImpl extends JqlElementImpl implements JqlFunctionCall {
-  public JqlFunctionCallImpl(@NotNull ASTNode node) {
+  public JqlFunctionCallImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -17,7 +18,7 @@ public class JqlFunctionCallImpl extends JqlElementImpl implements JqlFunctionCa
     visitor.visitJqlFunctionCall(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JqlIdentifier getFunctionName() {
     JqlIdentifier idenifier = findChildByClass(JqlIdentifier.class);
@@ -25,7 +26,7 @@ public class JqlFunctionCallImpl extends JqlElementImpl implements JqlFunctionCa
     return idenifier;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JqlArgumentList getArgumentList() {
     return findChildByClass(JqlArgumentList.class);

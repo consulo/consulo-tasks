@@ -6,9 +6,9 @@ import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.EnumSet;
 
@@ -17,12 +17,12 @@ import java.util.EnumSet;
  */
 public class YouTrackRepositoryType extends BaseRepositoryType<YouTrackRepository> {
 
-  @NotNull
+  @Nonnull
   public String getName() {
     return "YouTrack";
   }
 
-  @NotNull
+  @Nonnull
   public Icon getIcon() {
     return TasksIcons.Youtrack;
   }
@@ -33,12 +33,12 @@ public class YouTrackRepositoryType extends BaseRepositoryType<YouTrackRepositor
     return "<html>Not YouTrack customer yet? Get <a href='http://www.jetbrains.com/youtrack/download/get_youtrack.html?idea_integration'>YouTrack</a></html>";
   }
 
-  @NotNull
+  @Nonnull
   public YouTrackRepository createRepository() {
     return new YouTrackRepository(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Class<YouTrackRepository> getRepositoryClass() {
     return YouTrackRepository.class;
@@ -49,7 +49,7 @@ public class YouTrackRepositoryType extends BaseRepositoryType<YouTrackRepositor
     return EnumSet.of(TaskState.IN_PROGRESS, TaskState.RESOLVED);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(YouTrackRepository repository, Project project, Consumer<YouTrackRepository> changeListener) {
     return new YouTrackRepositoryEditor(project, repository, changeListener);

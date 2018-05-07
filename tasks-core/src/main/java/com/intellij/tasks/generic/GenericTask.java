@@ -4,8 +4,8 @@ import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.Date;
@@ -26,13 +26,13 @@ public class GenericTask extends Task {
     myRepository = repository;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getId() {
     return myId;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getSummary() {
     return mySummary;
@@ -44,19 +44,19 @@ public class GenericTask extends Task {
     return myDescription;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Comment[] getComments() {
     return Comment.EMPTY_ARRAY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return myRepository.getIcon();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskType getType() {
     return TaskType.OTHER;

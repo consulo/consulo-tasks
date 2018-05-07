@@ -7,7 +7,7 @@ import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.EnumSet;
@@ -16,19 +16,19 @@ import java.util.EnumSet;
  * @author Dennis.Ushakov
  */
 public class LighthouseRepositoryType extends BaseRepositoryType<LighthouseRepository> {
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "Lighthouse";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Lighthouse;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new LighthouseRepository(this);
@@ -44,7 +44,7 @@ public class LighthouseRepositoryType extends BaseRepositoryType<LighthouseRepos
     return EnumSet.of(TaskState.SUBMITTED, TaskState.OPEN, TaskState.RESOLVED, TaskState.OTHER);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(LighthouseRepository repository,
                                            Project project,

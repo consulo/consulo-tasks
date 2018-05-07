@@ -20,8 +20,9 @@ import java.net.URISyntaxException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.PasswordUtil;
 import com.intellij.openapi.util.text.StringUtil;
@@ -104,7 +105,7 @@ public abstract class BaseRepository extends TaskRepository
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public abstract BaseRepository clone();
 
@@ -211,7 +212,7 @@ public abstract class BaseRepository extends TaskRepository
 	}
 
 	@Nullable
-	public String extractId(@NotNull String taskName)
+	public String extractId(@Nonnull String taskName)
 	{
 		Matcher matcher = PATTERN.matcher(taskName);
 		return matcher.find() ? matcher.group() : null;

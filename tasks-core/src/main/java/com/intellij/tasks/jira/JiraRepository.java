@@ -16,8 +16,8 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.io.InputStream;
 import java.util.List;
@@ -131,7 +131,7 @@ public class JiraRepository extends BaseRepositoryImpl {
     mySearchQuery = searchQuery;
   }
 
-  @NotNull
+  @Nonnull
   public JiraRestApi discoverRestApiVersion() throws Exception {
     String responseBody;
     try {
@@ -152,7 +152,7 @@ public class JiraRepository extends BaseRepositoryImpl {
     myRestApiVersion.setTaskState(task, state);
   }
 
-  @NotNull
+  @Nonnull
   public String executeMethod(HttpMethod method) throws Exception {
     LOG.debug("URI is " + method.getURI());
     int statusCode;

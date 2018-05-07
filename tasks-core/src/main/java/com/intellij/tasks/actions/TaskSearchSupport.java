@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.codeStyle.NameUtil;
@@ -67,7 +68,7 @@ public class TaskSearchSupport {
                                                 int since,
                                                 boolean forceRequest,
                                                 final boolean withClosed,
-                                                @NotNull final ProgressIndicator cancelled) {
+                                                @Nonnull final ProgressIndicator cancelled) {
     List<Task> tasks = myManager.getIssues(pattern, since, max, withClosed, cancelled, forceRequest);
     ContainerUtil.sort(tasks, TaskManagerImpl.TASK_UPDATE_COMPARATOR);
     return tasks;

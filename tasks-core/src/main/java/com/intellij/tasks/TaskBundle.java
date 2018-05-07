@@ -3,9 +3,10 @@ package com.intellij.tasks;
 import java.lang.ref.Reference;
 import java.util.ResourceBundle;
 
+import javax.annotation.Nonnull;
+
 import org.apache.commons.httpclient.HttpStatus;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;
 import com.intellij.CommonBundle;
 import com.intellij.reference.SoftReference;
@@ -28,12 +29,12 @@ public class TaskBundle
 		// empty
 	}
 
-	public static String message(@NotNull @PropertyKey(resourceBundle = BUNDLE) String key, @NotNull Object... params)
+	public static String message(@Nonnull @PropertyKey(resourceBundle = BUNDLE) String key, @Nonnull Object... params)
 	{
 		return CommonBundle.message(getBundle(), key, params);
 	}
 
-	@NotNull
+	@Nonnull
 	public static String messageForStatusCode(int statusCode)
 	{
 		if(statusCode == HttpStatus.SC_UNAUTHORIZED)

@@ -15,7 +15,7 @@
  */
 package com.intellij.tasks.jira.model;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,7 +40,7 @@ public class JiraStatus {
    * used in JIRA installation. However it omitted in case of REST API version 2.0.alpha1.
    * Anyway it still may be extracted from status URL which always presents.
    */
-  @NotNull
+  @Nonnull
   public String getId() {
     if (id == null) {
       Matcher m = ID_PATTERN.matcher(self);
@@ -51,12 +51,12 @@ public class JiraStatus {
     return id;
   }
 
-  @NotNull
+  @Nonnull
   public String getStatusUrl() {
     return self;
   }
 
-  @NotNull
+  @Nonnull
   public String getName() {
     return name;
   }

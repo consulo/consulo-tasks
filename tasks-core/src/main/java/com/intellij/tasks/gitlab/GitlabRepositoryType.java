@@ -1,8 +1,8 @@
 package com.intellij.tasks.gitlab;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.config.TaskRepositoryEditor;
@@ -14,25 +14,25 @@ import icons.TasksIcons;
  * @author Mikhail Golubev
  */
 public class GitlabRepositoryType extends BaseRepositoryType<GitlabRepository>{
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "Gitlab";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Gitlab;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new GitlabRepository(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(GitlabRepository repository,
                                            Project project,

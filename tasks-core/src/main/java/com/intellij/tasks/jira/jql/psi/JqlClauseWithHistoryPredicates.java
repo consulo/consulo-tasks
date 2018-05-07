@@ -1,7 +1,7 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
@@ -28,6 +28,6 @@ public interface JqlClauseWithHistoryPredicates extends JqlElement {
   @Nullable
   JqlOperand getTo();
 
-  @NotNull
+  @Nonnull
   JqlHistoryPredicate[] getHistoryPredicates();
 }

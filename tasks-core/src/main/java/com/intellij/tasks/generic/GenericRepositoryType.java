@@ -11,7 +11,7 @@ import com.intellij.util.Consumer;
 import com.intellij.util.xmlb.XmlSerializer;
 import icons.TasksIcons;
 import org.jdom.Document;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.net.URL;
@@ -24,19 +24,19 @@ import java.util.List;
  */
 public class GenericRepositoryType extends BaseRepositoryType<GenericRepository> {
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "Generic";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return AllIcons.General.Web;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new GenericRepository(this);
@@ -47,7 +47,7 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
     return GenericRepository.class;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(final GenericRepository repository,
                                            final Project project,

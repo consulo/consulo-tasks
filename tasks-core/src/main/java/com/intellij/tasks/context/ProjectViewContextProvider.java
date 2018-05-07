@@ -23,7 +23,7 @@ import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.util.ui.tree.TreeUtil;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -38,13 +38,13 @@ public class ProjectViewContextProvider extends WorkingContextProvider {
     myPanes = Extensions.getExtensions(AbstractProjectViewPane.EP_NAME, project);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getId() {
     return "projectView";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDescription() {
     return "Project view state";

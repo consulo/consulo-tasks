@@ -1,7 +1,7 @@
 package com.intellij.tasks.youtrack.lang;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
@@ -28,7 +28,7 @@ public class YouTrackParserDefinition implements ParserDefinition {
   public static final IElementType QUERY = new IElementType("QUERY", YouTrackLanguage.INSTANCE);
   public static final IFileElementType FILE = new IFileElementType(YouTrackLanguage.INSTANCE);
 
-  @NotNull
+  @Nonnull
   @Override
   public Lexer createLexer(LanguageVersion languageVersion) {
     return new YouTrackMockLexer();
@@ -44,25 +44,25 @@ public class YouTrackParserDefinition implements ParserDefinition {
     return FILE;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
     return TokenSet.EMPTY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TokenSet getCommentTokens(LanguageVersion languageVersion) {
     return TokenSet.EMPTY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
     return TokenSet.EMPTY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public PsiElement createElement(ASTNode node) {
     assert node.getElementType() == QUERY;
@@ -83,7 +83,7 @@ public class YouTrackParserDefinition implements ParserDefinition {
    * Sole element that represents YouTrack query in PSI tree
    */
   public static class YouTrackQueryElement extends ASTWrapperPsiElement {
-    YouTrackQueryElement(@NotNull ASTNode node) {
+    YouTrackQueryElement(@Nonnull ASTNode node) {
       super(node);
     }
   }
@@ -97,7 +97,7 @@ public class YouTrackParserDefinition implements ParserDefinition {
     private CharSequence myBuffer;
 
     @Override
-    public void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
+    public void start(@Nonnull CharSequence buffer, int startOffset, int endOffset, int initialState) {
       //LOG.debug(String.format("buffer: '%s', start: %d, end: %d", buffer, startOffset, endOffset));
       myBuffer = buffer;
       myStart = startOffset;
@@ -130,7 +130,7 @@ public class YouTrackParserDefinition implements ParserDefinition {
       myStart = myEnd;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public CharSequence getBufferSequence() {
       return myBuffer;
@@ -148,7 +148,7 @@ public class YouTrackParserDefinition implements ParserDefinition {
    */
   private static class YouTrackMockParser implements PsiParser {
 
-    @NotNull
+    @Nonnull
     @Override
     public ASTNode parse(IElementType root, PsiBuilder builder, LanguageVersion languageVersion) {
       PsiBuilder.Marker rootMarker = builder.mark();

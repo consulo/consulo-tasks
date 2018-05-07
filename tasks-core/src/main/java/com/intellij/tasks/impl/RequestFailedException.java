@@ -1,6 +1,7 @@
 package com.intellij.tasks.impl;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.tasks.TaskBundle;
 
 /**
@@ -8,20 +9,20 @@ import com.intellij.tasks.TaskBundle;
  */
 public class RequestFailedException extends RuntimeException
 {
-	@NotNull
+	@Nonnull
 	public static RequestFailedException forStatusCode(int code)
 	{
 		return new RequestFailedException(TaskBundle.messageForStatusCode(code));
 	}
 
-	@NotNull
-	public static RequestFailedException forStatusCode(int code, @NotNull String message)
+	@Nonnull
+	public static RequestFailedException forStatusCode(int code, @Nonnull String message)
 	{
 		return new RequestFailedException(TaskBundle.message("failure.http.error", code, message));
 	}
 
-	@NotNull
-	public static RequestFailedException forServerMessage(@NotNull String message)
+	@Nonnull
+	public static RequestFailedException forServerMessage(@Nonnull String message)
 	{
 		return new RequestFailedException(TaskBundle.message("failure.server.message", message));
 	}

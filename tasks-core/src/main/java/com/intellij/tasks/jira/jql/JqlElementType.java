@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.lang.reflect.Constructor;
 
@@ -33,11 +33,11 @@ public class JqlElementType extends IElementType {
   private final Class<? extends PsiElement> myClass;
   private Constructor<? extends PsiElement> myConstructor;
 
-  public JqlElementType(@NotNull @NonNls String debugName) {
+  public JqlElementType(@Nonnull @NonNls String debugName) {
     this(debugName, ASTWrapperPsiElement.class);
   }
 
-  public JqlElementType(@NotNull @NonNls String debugName, @NotNull Class<? extends PsiElement> cls) {
+  public JqlElementType(@Nonnull @NonNls String debugName, @Nonnull Class<? extends PsiElement> cls) {
     super(debugName, JqlLanguage.INSTANCE);
     myClass = cls;
   }
@@ -47,8 +47,8 @@ public class JqlElementType extends IElementType {
     return "JQL: " + super.toString();
   }
 
-  @NotNull
-  public PsiElement createElement(@NotNull ASTNode node) {
+  @Nonnull
+  public PsiElement createElement(@Nonnull ASTNode node) {
     try {
       if (myConstructor == null) {
         myConstructor = myClass.getConstructor(PARAMETER_TYPES);

@@ -18,7 +18,7 @@ package com.intellij.tasks.actions;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.impl.TaskUtil;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 

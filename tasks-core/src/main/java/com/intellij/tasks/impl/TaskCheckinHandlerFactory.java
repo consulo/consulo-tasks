@@ -25,9 +25,9 @@ import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.context.WorkingContextManager;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Date;
 
@@ -37,7 +37,7 @@ import java.util.Date;
  */
 public class TaskCheckinHandlerFactory extends CheckinHandlerFactory {
 
-  @NotNull
+  @Nonnull
   @Override
   public CheckinHandler createHandler(final CheckinProjectPanel panel, final CommitContext commitContext) {
     return new CheckinHandler() {

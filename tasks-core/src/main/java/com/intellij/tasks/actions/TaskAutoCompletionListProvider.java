@@ -27,9 +27,9 @@ import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.impl.TaskManagerImpl;
 import com.intellij.ui.TextFieldWithAutoCompletionListProvider;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Collection;
 import java.util.List;
@@ -48,11 +48,11 @@ public class TaskAutoCompletionListProvider extends TextFieldWithAutoCompletionL
   }
 
   @Override
-  protected String getQuickDocHotKeyAdvertisementTail(@NotNull String shortcut) {
+  protected String getQuickDocHotKeyAdvertisementTail(@Nonnull String shortcut) {
     return "task description and comments";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<Task> getItems(final String prefix, final boolean cached, CompletionParameters parameters) {
     return TaskSearchSupport.getItems(TaskManager.getManager(myProject), prefix, cached, parameters.isAutoPopup());
@@ -64,7 +64,7 @@ public class TaskAutoCompletionListProvider extends TextFieldWithAutoCompletionL
   }
 
   @Override
-  public LookupElementBuilder createLookupBuilder(@NotNull final Task task) {
+  public LookupElementBuilder createLookupBuilder(@Nonnull final Task task) {
     LookupElementBuilder builder = super.createLookupBuilder(task);
 
     builder = builder.withLookupString(task.getSummary());
@@ -76,7 +76,7 @@ public class TaskAutoCompletionListProvider extends TextFieldWithAutoCompletionL
   }
 
   @Override
-  protected InsertHandler<LookupElement> createInsertHandler(@NotNull final Task task) {
+  protected InsertHandler<LookupElement> createInsertHandler(@Nonnull final Task task) {
     return new InsertHandler<LookupElement>() {
       @Override
       public void handleInsert(InsertionContext context, LookupElement item) {
@@ -91,33 +91,33 @@ public class TaskAutoCompletionListProvider extends TextFieldWithAutoCompletionL
     };
   }
 
-  protected void handleInsert(@NotNull final Task task) {
+  protected void handleInsert(@Nonnull final Task task) {
     // Override it for autocompletion insert handler
   }
 
   @Override
-  protected Icon getIcon(@NotNull final Task task) {
+  protected Icon getIcon(@Nonnull final Task task) {
     return task.getIcon();
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  protected String getLookupString(@NotNull final Task task) {
+  protected String getLookupString(@Nonnull final Task task) {
     return task.getId();
   }
 
   @Override
-  protected String getTailText(@NotNull final Task task) {
+  protected String getTailText(@Nonnull final Task task) {
     return " " + task.getSummary();
   }
 
   @Override
-  protected String getTypeText(@NotNull final Task task) {
+  protected String getTypeText(@Nonnull final Task task) {
     return null;
   }
 
   @Override
-  public int compare(@NotNull final Task task1, @NotNull final Task task2) {
+  public int compare(@Nonnull final Task task1, @Nonnull final Task task2) {
     // N/A here
     throw new UnsupportedOperationException();
   }

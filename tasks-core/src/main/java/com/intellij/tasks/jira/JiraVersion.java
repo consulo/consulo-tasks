@@ -2,7 +2,7 @@ package com.intellij.tasks.jira;
 
 
 import com.intellij.util.text.VersionComparatorUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +30,7 @@ public class JiraVersion implements Comparable<JiraVersion> {
     myMicroNumber = microNumber;
   }
 
-  public JiraVersion(@NotNull String version) {
+  public JiraVersion(@Nonnull String version) {
     Matcher m = VERSION_PATTERN.matcher(version);
     if (!m.matches()) {
       throw new IllegalArgumentException("Illegal JIRA version number: " + version);
@@ -58,7 +58,7 @@ public class JiraVersion implements Comparable<JiraVersion> {
   }
 
   @Override
-  public int compareTo(@NotNull JiraVersion o) {
+  public int compareTo(@Nonnull JiraVersion o) {
     return VersionComparatorUtil.compare(toString(), o.toString());
   }
 }

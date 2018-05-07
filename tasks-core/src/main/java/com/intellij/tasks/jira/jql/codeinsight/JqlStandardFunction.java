@@ -5,7 +5,7 @@ import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.Convertor;
 import com.intellij.util.containers.MultiMap;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.*;
 
@@ -70,7 +70,7 @@ public enum JqlStandardFunction {
     }
   });
 
-  public static JqlStandardFunction byName(@NotNull String name) {
+  public static JqlStandardFunction byName(@Nonnull String name) {
     return NAME_LOOKUP.get(name);
   }
 
@@ -81,7 +81,7 @@ public enum JqlStandardFunction {
     }
   }
 
-  public static List<String> allOfType(@NotNull JqlFieldType type, boolean multipleResults) {
+  public static List<String> allOfType(@Nonnull JqlFieldType type, boolean multipleResults) {
     if (type == JqlFieldType.UNKNOWN) {
       return ALL_FUNCTION_NAMES;
     }

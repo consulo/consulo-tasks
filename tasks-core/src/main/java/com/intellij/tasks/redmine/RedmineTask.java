@@ -2,10 +2,10 @@ package com.intellij.tasks.redmine;
 
 import java.util.Date;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
@@ -28,7 +28,7 @@ public class RedmineTask extends Task
 	 */
 	private final RedmineProject myProject;
 
-	public RedmineTask(@NotNull RedmineRepository repository, @NotNull RedmineIssue issue)
+	public RedmineTask(@Nonnull RedmineRepository repository, @Nonnull RedmineIssue issue)
 	{
 		myIssue = issue;
 		myRepository = repository;
@@ -44,14 +44,14 @@ public class RedmineTask extends Task
 		myProject = project;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getId()
 	{
 		return String.valueOf(myIssue.getId());
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getSummary()
 	{
@@ -65,21 +65,21 @@ public class RedmineTask extends Task
 		return myIssue.getDescription();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Comment[] getComments()
 	{
 		return Comment.EMPTY_ARRAY;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Icon getIcon()
 	{
 		return TasksIcons.Redmine;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public TaskType getType()
 	{
@@ -121,7 +121,7 @@ public class RedmineTask extends Task
 		return myRepository.getRestApiUrl("issues", getId());
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getNumber()
 	{

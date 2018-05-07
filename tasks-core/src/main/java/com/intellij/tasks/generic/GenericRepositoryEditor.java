@@ -15,8 +15,8 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.net.HTTPMethod;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -260,7 +260,7 @@ public class GenericRepositoryEditor<T extends GenericRepository> extends BaseRe
     final StringsCompletionProvider provider = new StringsCompletionProvider(variants, null) {
         @Nullable
         @Override
-        public String getPrefix(@NotNull CompletionParameters parameters) {
+        public String getPrefix(@Nonnull CompletionParameters parameters) {
           final String text = parameters.getOriginalFile().getText();
           final int i = text.lastIndexOf('{', parameters.getOffset() - 1);
           if (i < 0) {

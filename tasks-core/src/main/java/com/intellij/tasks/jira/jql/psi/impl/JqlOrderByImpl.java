@@ -4,13 +4,13 @@ import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlOrderBy;
 import com.intellij.tasks.jira.jql.psi.JqlSortKey;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlOrderByImpl extends JqlElementImpl implements JqlOrderBy {
-  public JqlOrderByImpl(@NotNull ASTNode node) {
+  public JqlOrderByImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -19,7 +19,7 @@ public class JqlOrderByImpl extends JqlElementImpl implements JqlOrderBy {
     visitor.visitJqlOrderBy(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JqlSortKey[] getSortKeys() {
     return findChildrenByClass(JqlSortKey.class);

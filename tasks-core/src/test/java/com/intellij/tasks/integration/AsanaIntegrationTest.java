@@ -21,7 +21,8 @@ import static com.intellij.tasks.TaskTestUtil.assertTasksEqual;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.tasks.Task;
 import com.intellij.tasks.generic.GenericRepository;
 import com.intellij.tasks.generic.GenericRepositoryType;
@@ -81,7 +82,7 @@ public class AsanaIntegrationTest extends GenericSubtypeTestCase {
                                                      "  }\n" +
                                                      "}";
 
-  @NotNull
+  @Nonnull
   @Override
   protected GenericRepository createRepository(GenericRepositoryType genericType) {
     return (GenericRepository)genericType.new AsanaRepository().createRepository();

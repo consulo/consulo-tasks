@@ -1,7 +1,7 @@
 package com.intellij.tasks.gitlab.model;
 
 import com.google.gson.annotations.SerializedName;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Date;
 
@@ -27,12 +27,12 @@ public class GitlabIssue {
     return id;
   }
 
-  @NotNull
+  @Nonnull
   public String getTitle() {
     return title;
   }
 
-  @NotNull
+  @Nonnull
   public String getDescription() {
     return description;
   }
@@ -41,17 +41,17 @@ public class GitlabIssue {
     return projectId;
   }
 
-  @NotNull
+  @Nonnull
   public Date getUpdatedAt() {
     return updatedAt;
   }
 
-  @NotNull
+  @Nonnull
   public Date getCreatedAt() {
     return createdAt;
   }
 
-  @NotNull
+  @Nonnull
   public String getState() {
     return state;
   }

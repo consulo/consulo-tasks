@@ -15,14 +15,16 @@
  */
 package com.intellij.tasks.actions.vcs;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.ui.TaskDialogPanel;
 import com.intellij.tasks.ui.TaskDialogPanelProvider;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Dmitry Avdeev
@@ -30,13 +32,13 @@ import org.jetbrains.annotations.Nullable;
 public class VcsTaskDialogPanelProvider extends TaskDialogPanelProvider {
   @Nullable
   @Override
-  public TaskDialogPanel getOpenTaskPanel(@NotNull Project project, @NotNull Task task) {
+  public TaskDialogPanel getOpenTaskPanel(@Nonnull Project project, @Nonnull Task task) {
     return TaskManager.getManager(project).isVcsEnabled() ? new VcsOpenTaskPanel(project, task) : null;
   }
 
   @Nullable
   @Override
-  public TaskDialogPanel getCloseTaskPanel(@NotNull Project project, @NotNull LocalTask task) {
+  public TaskDialogPanel getCloseTaskPanel(@Nonnull Project project, @Nonnull LocalTask task) {
     return TaskManager.getManager(project).isVcsEnabled() ? new VcsCloseTaskPanel(project, task) : null;
   }
 }

@@ -6,7 +6,7 @@ import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.tasks.impl.BaseRepositoryType;
 import com.intellij.util.Consumer;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -15,19 +15,19 @@ import javax.swing.*;
  */
 public class RedmineRepositoryType extends BaseRepositoryType<RedmineRepository> {
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "Redmine";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Redmine;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     return new RedmineRepository(this);
@@ -38,7 +38,7 @@ public class RedmineRepositoryType extends BaseRepositoryType<RedmineRepository>
     return RedmineRepository.class;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(RedmineRepository repository,
                                            Project project,

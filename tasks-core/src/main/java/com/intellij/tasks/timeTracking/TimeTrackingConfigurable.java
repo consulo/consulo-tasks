@@ -5,9 +5,9 @@ import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.GuiUtils;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -73,7 +73,7 @@ public class TimeTrackingConfigurable implements SearchableConfigurable, Configu
     }
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getId() {
     return "tasks.timeTracking";

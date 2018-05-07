@@ -1,19 +1,20 @@
 package com.intellij.tasks.youtrack.lang;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
  */
 public class YouTrackFile extends PsiFileBase {
-  public YouTrackFile(@NotNull FileViewProvider viewProvider) {
+  public YouTrackFile(@Nonnull FileViewProvider viewProvider) {
     super(viewProvider, YouTrackLanguage.INSTANCE);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public FileType getFileType() {
     return YouTrackFileType.INSTANCE;

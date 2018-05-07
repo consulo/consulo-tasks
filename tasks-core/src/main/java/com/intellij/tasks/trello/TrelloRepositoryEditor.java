@@ -29,8 +29,8 @@ import com.intellij.ui.ListCellRendererWrapper;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.util.Consumer;
 import com.intellij.util.ui.FormBuilder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -45,7 +45,7 @@ public class TrelloRepositoryEditor extends BaseRepositoryEditor<TrelloRepositor
   private static final Logger LOG = Logger.getInstance("#com.intellij.tasks.trello.TrelloRepositoryEditor");
 
   private static final TrelloBoard UNSPECIFIED_BOARD = new TrelloBoard() {
-    @NotNull
+    @Nonnull
     @Override
     public String getName() {
       return "-- from all boards --";
@@ -53,7 +53,7 @@ public class TrelloRepositoryEditor extends BaseRepositoryEditor<TrelloRepositor
   };
 
   private final static TrelloList UNSPECIFIED_LIST = new TrelloList() {
-    @NotNull
+    @Nonnull
     @Override
     public String getName() {
       return "-- from all lists --";

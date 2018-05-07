@@ -22,13 +22,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.DataManager;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionGroup;
@@ -100,7 +100,7 @@ public class SwitchTaskAction extends BaseTaskAction {
         return aValue.getIcon();
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getTextFor(TaskListItem value) {
         return value.getText();
@@ -181,8 +181,8 @@ public class SwitchTaskAction extends BaseTaskAction {
     return group;
   }
 
-  @NotNull
-  private static List<TaskListItem> createPopupActionGroup(@NotNull final Project project,
+  @Nonnull
+  private static List<TaskListItem> createPopupActionGroup(@Nonnull final Project project,
                                                            final Ref<Boolean> shiftPressed,
                                                            final Component contextComponent) {
     List<TaskListItem> group = new ArrayList<TaskListItem>();
@@ -235,7 +235,7 @@ public class SwitchTaskAction extends BaseTaskAction {
     return group;
   }
 
-  public static void removeTask(final @NotNull Project project, LocalTask task, TaskManager manager) {
+  public static void removeTask(final @Nonnull Project project, LocalTask task, TaskManager manager) {
     if (task.isDefault()) {
       Messages.showInfoMessage(project, "Default task cannot be removed", "Cannot Remove");
     }

@@ -18,10 +18,10 @@ package com.intellij.tasks;
 
 import java.util.Date;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.openapi.util.text.StringUtil;
 
 /**
@@ -46,14 +46,14 @@ public abstract class Task
 	 * @see TaskRepository#extractId(String)
 	 * @see TaskManager#activateTask(Task, boolean)
 	 */
-	@NotNull
+	@Nonnull
 	public abstract String getId();
 
 
 	/**
 	 * @return ID in the form that is suitable for commit messages, dialogs, completion items, etc.
 	 */
-	@NotNull
+	@Nonnull
 	public String getPresentableId()
 	{
 		return getId();
@@ -64,19 +64,19 @@ public abstract class Task
 	 *
 	 * @return description
 	 */
-	@NotNull
+	@Nonnull
 	public abstract String getSummary();
 
 	@Nullable
 	public abstract String getDescription();
 
-	@NotNull
+	@Nonnull
 	public abstract Comment[] getComments();
 
-	@NotNull
+	@Nonnull
 	public abstract Icon getIcon();
 
-	@NotNull
+	@Nonnull
 	public abstract TaskType getType();
 
 	@Nullable
@@ -158,14 +158,14 @@ public abstract class Task
 	 * @see #getId()
 	 * @see TaskRepository#getCommitMessageFormat()
 	 */
-	@NotNull
+	@Nonnull
 	public String getNumber()
 	{
 		return extractNumberFromId(getId());
 	}
 
-	@NotNull
-	protected static String extractNumberFromId(@NotNull String id)
+	@Nonnull
+	protected static String extractNumberFromId(@Nonnull String id)
 	{
 		int i = id.lastIndexOf('-');
 		return i > 0 ? id.substring(i + 1) : id;
@@ -187,7 +187,7 @@ public abstract class Task
 	}
 
 	@Nullable
-	protected static String extractProjectFromId(@NotNull String id)
+	protected static String extractProjectFromId(@Nonnull String id)
 	{
 		int i = id.lastIndexOf('-');
 		return i > 0 ? id.substring(0, i) : null;

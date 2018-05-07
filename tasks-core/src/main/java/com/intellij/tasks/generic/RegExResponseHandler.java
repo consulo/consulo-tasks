@@ -19,8 +19,8 @@ import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.intellij.xml.util.XmlUtil;
 import org.intellij.lang.regexp.RegExpLanguage;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -68,9 +68,9 @@ public final class RegExResponseHandler extends ResponseHandler {
     return myTaskRegex.hashCode();
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  public JComponent getConfigurationComponent(@NotNull Project project) {
+  public JComponent getConfigurationComponent(@Nonnull Project project) {
     FormBuilder builder = FormBuilder.createFormBuilder();
     final EditorTextField taskPatternText;
     taskPatternText = new LanguageTextField(RegExpLanguage.INSTANCE, project, myTaskRegex, false);
@@ -85,9 +85,9 @@ public final class RegExResponseHandler extends ResponseHandler {
     return builder.getPanel();
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  public Task[] parseIssues(@NotNull String response, int max) throws Exception {
+  public Task[] parseIssues(@Nonnull String response, int max) throws Exception {
     final List<String> placeholders = getPlaceholders(myTaskRegex);
     if (!placeholders.contains(ID_PLACEHOLDER) || !placeholders.contains(SUMMARY_PLACEHOLDER)) {
       throw new Exception("Incorrect Task Pattern");
@@ -121,7 +121,7 @@ public final class RegExResponseHandler extends ResponseHandler {
 
   @Nullable
   @Override
-  public Task parseIssue(@NotNull String response) throws Exception {
+  public Task parseIssue(@Nonnull String response) throws Exception {
     return null;
   }
 
@@ -151,7 +151,7 @@ public final class RegExResponseHandler extends ResponseHandler {
     return !StringUtil.isEmpty(myTaskRegex);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public ResponseType getResponseType() {
     return ResponseType.TEXT;

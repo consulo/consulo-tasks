@@ -4,14 +4,14 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.tasks.jira.jql.JqlTokenTypes;
 import com.intellij.tasks.jira.jql.psi.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlSimpleClauseImpl extends JqlTerminalClauseImpl implements JqlSimpleClause {
-  public JqlSimpleClauseImpl(@NotNull ASTNode node) {
+  public JqlSimpleClauseImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -20,7 +20,7 @@ public class JqlSimpleClauseImpl extends JqlTerminalClauseImpl implements JqlSim
     visitor.visitJqlSimpleClause(this);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Type getType() {
     if (findChildByType(JqlTokenTypes.IN_KEYWORD) != null) {

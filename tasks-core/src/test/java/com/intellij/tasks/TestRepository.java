@@ -3,7 +3,7 @@ package com.intellij.tasks;
 import com.intellij.openapi.util.Condition;
 import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
 * @author Dmitry Avdeev

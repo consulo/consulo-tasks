@@ -15,10 +15,11 @@
  */
 package com.intellij.tasks.ui;
 
+import javax.annotation.Nullable;
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.ui.ValidationInfo;
 
 /**
@@ -31,7 +32,7 @@ public abstract class TaskDialogPanel
 	//@Nls(capitalization = Nls.Capitalization.Title)
 	//public abstract String getName();
 	//
-	@NotNull
+	@Nonnull
 	public abstract JComponent getPanel();
 
 	@Nullable

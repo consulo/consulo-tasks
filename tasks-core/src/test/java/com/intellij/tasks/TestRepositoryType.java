@@ -20,7 +20,7 @@ import com.intellij.tasks.config.BaseRepositoryEditor;
 import com.intellij.tasks.config.TaskRepositoryEditor;
 import com.intellij.util.Consumer;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -29,19 +29,19 @@ import javax.swing.*;
  *         Date: 3/5/12
  */
 public class TestRepositoryType extends TaskRepositoryType<TestRepository> {
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return "Test";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Icon getIcon() {
     return TasksIcons.Unknown;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepositoryEditor createEditor(TestRepository repository, Project project, Consumer<TestRepository> changeListener) {
     return new BaseRepositoryEditor<TestRepository>(project, repository, new Consumer<TestRepository>() {
@@ -52,7 +52,7 @@ public class TestRepositoryType extends TaskRepositoryType<TestRepository> {
     });
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskRepository createRepository() {
     TestRepository repository = new TestRepository();

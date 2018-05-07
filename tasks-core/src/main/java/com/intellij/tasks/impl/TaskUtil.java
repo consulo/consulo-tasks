@@ -34,8 +34,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.protocol.HTTP;
 import org.jdom.Element;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -72,7 +72,7 @@ public class TaskUtil
 		// empty
 	}
 
-	public static String formatTask(@NotNull Task task, String format)
+	public static String formatTask(@Nonnull Task task, String format)
 	{
 		return format.replace("{id}", task.getId()).replace("{number}", task.getNumber()).replace("{project}",
 				StringUtil.notNullize(task.getProject())).replace("{summary}", task.getSummary());
@@ -104,7 +104,7 @@ public class TaskUtil
 	}
 
 	@Nullable
-	public static Date parseDate(@NotNull String s)
+	public static Date parseDate(@Nonnull String s)
 	{
 		// SimpleDateFormat prior JDK7 doesn't support 'X' specifier for ISO 8601 timezone format.
 		// Because some bug trackers and task servers e.g. send dates ending with 'Z' (that stands for UTC),
@@ -148,7 +148,7 @@ public class TaskUtil
 		}
 	}
 
-	public static String formatDate(@NotNull Date date)
+	public static String formatDate(@Nonnull Date date)
 	{
 		return DateFormatUtil.getIso8601Format().format(date);
 	}
@@ -157,7 +157,7 @@ public class TaskUtil
 	 * {@link Task#equals(Object)} implementation compares tasks by their unique IDs only.
 	 * This method should be used when full comparison is necessary.
 	 */
-	public static boolean tasksEqual(@NotNull Task t1, @NotNull Task t2)
+	public static boolean tasksEqual(@Nonnull Task t1, @Nonnull Task t2)
 	{
 		if(!t1.getId().equals(t2.getId()))
 		{
@@ -214,7 +214,7 @@ public class TaskUtil
 		return Comparing.equal(t1.getRepository(), t2.getRepository());
 	}
 
-	public static boolean tasksEqual(@NotNull List<? extends Task> tasks1, @NotNull List<? extends Task> tasks2)
+	public static boolean tasksEqual(@Nonnull List<? extends Task> tasks1, @Nonnull List<? extends Task> tasks2)
 	{
 		if(tasks1.size() != tasks2.size())
 		{
@@ -230,7 +230,7 @@ public class TaskUtil
 		return true;
 	}
 
-	public static boolean tasksEqual(@NotNull Task[] task1, @NotNull Task[] task2)
+	public static boolean tasksEqual(@Nonnull Task[] task1, @Nonnull Task[] task2)
 	{
 		return tasksEqual(Arrays.asList(task1), Arrays.asList(task2));
 	}
@@ -238,7 +238,7 @@ public class TaskUtil
 	/**
 	 * Print pretty-formatted XML to {@code logger}, if its level is DEBUG or below.
 	 */
-	public static void prettyFormatXmlToLog(@NotNull Logger logger, @NotNull Element element)
+	public static void prettyFormatXmlToLog(@Nonnull Logger logger, @Nonnull Element element)
 	{
 		if(logger.isDebugEnabled())
 		{
@@ -251,7 +251,7 @@ public class TaskUtil
 	/**
 	 * Parse and print pretty-formatted XML to {@code logger}, if its level is DEBUG or below.
 	 */
-	public static void prettyFormatXmlToLog(@NotNull Logger logger, @NotNull InputStream xml)
+	public static void prettyFormatXmlToLog(@Nonnull Logger logger, @Nonnull InputStream xml)
 	{
 		if(logger.isDebugEnabled())
 		{
@@ -269,7 +269,7 @@ public class TaskUtil
 	/**
 	 * Parse and print pretty-formatted XML to {@code logger}, if its level is DEBUG or below.
 	 */
-	public static void prettyFormatXmlToLog(@NotNull Logger logger, @NotNull String xml)
+	public static void prettyFormatXmlToLog(@Nonnull Logger logger, @Nonnull String xml)
 	{
 		if(logger.isDebugEnabled())
 		{
@@ -287,7 +287,7 @@ public class TaskUtil
 	/**
 	 * Parse and print pretty-formatted Json to {@code logger}, if its level is DEBUG or below.
 	 */
-	public static void prettyFormatJsonToLog(@NotNull Logger logger, @NotNull String json)
+	public static void prettyFormatJsonToLog(@Nonnull Logger logger, @Nonnull String json)
 	{
 		if(logger.isDebugEnabled())
 		{
@@ -306,7 +306,7 @@ public class TaskUtil
 	/**
 	 * Parse and print pretty-formatted Json to {@code logger}, if its level is DEBUG or below.
 	 */
-	public static void prettyFormatJsonToLog(@NotNull Logger logger, @NotNull JsonElement json)
+	public static void prettyFormatJsonToLog(@Nonnull Logger logger, @Nonnull JsonElement json)
 	{
 		if(logger.isDebugEnabled())
 		{
@@ -322,7 +322,7 @@ public class TaskUtil
 		}
 	}
 
-	public static void prettyFormatResponseToLog(@NotNull Logger logger, @NotNull HttpMethod response)
+	public static void prettyFormatResponseToLog(@Nonnull Logger logger, @Nonnull HttpMethod response)
 	{
 		if(logger.isDebugEnabled() && response.hasBeenUsed())
 		{
@@ -351,7 +351,7 @@ public class TaskUtil
 		}
 	}
 
-	public static void prettyFormatResponseToLog(@NotNull Logger logger, @NotNull HttpResponse response)
+	public static void prettyFormatResponseToLog(@Nonnull Logger logger, @Nonnull HttpResponse response)
 	{
 		if(logger.isDebugEnabled())
 		{
@@ -385,8 +385,8 @@ public class TaskUtil
 	 *
 	 * @return urlencoded string
 	 */
-	@NotNull
-	public static String encodeUrl(@NotNull String s)
+	@Nonnull
+	public static String encodeUrl(@Nonnull String s)
 	{
 		try
 		{
@@ -399,7 +399,7 @@ public class TaskUtil
 	}
 
 	@Contract("null, _ -> false")
-	public static boolean isStateSupported(@Nullable TaskRepository repository, @NotNull TaskState state)
+	public static boolean isStateSupported(@Nullable TaskRepository repository, @Nonnull TaskState state)
 	{
 		if(repository == null || !repository.isSupported(TaskRepository.STATE_UPDATING))
 		{

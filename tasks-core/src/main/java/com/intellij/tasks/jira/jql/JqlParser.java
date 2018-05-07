@@ -1,6 +1,6 @@
 package com.intellij.tasks.jira.jql;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
@@ -15,7 +15,7 @@ import consulo.lang.LanguageVersion;
 public class JqlParser implements PsiParser {
   private static final Logger LOG = Logger.getInstance(JqlParser.class);
 
-  @NotNull
+  @Nonnull
   @Override
   public ASTNode parse(IElementType root, PsiBuilder builder, LanguageVersion languageVersion) {
     //builder.setDebugMode(true);

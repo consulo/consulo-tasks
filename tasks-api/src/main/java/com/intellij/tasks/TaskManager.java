@@ -18,8 +18,8 @@ package com.intellij.tasks;
 import java.util.Collections;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
@@ -32,7 +32,7 @@ import com.intellij.openapi.vcs.changes.LocalChangeList;
 public abstract class TaskManager
 {
 
-	public static TaskManager getManager(@NotNull Project project)
+	public static TaskManager getManager(@Nonnull Project project)
 	{
 		return project.getComponent(TaskManager.class);
 	}
@@ -69,7 +69,7 @@ public abstract class TaskManager
 	 * @param forceRequest whether to download issues anew or use already cached ones.
 	 * @return tasks collected from all active repositories
 	 */
-	public List<Task> getIssues(@Nullable String query, int offset, int limit, boolean withClosed, @NotNull ProgressIndicator indicator, boolean forceRequest)
+	public List<Task> getIssues(@Nullable String query, int offset, int limit, boolean withClosed, @Nonnull ProgressIndicator indicator, boolean forceRequest)
 	{
 		return Collections.emptyList();
 	}
@@ -84,7 +84,7 @@ public abstract class TaskManager
 	public abstract List<Task> getCachedIssues(final boolean withClosed);
 
 	@Nullable
-	public abstract Task updateIssue(@NotNull String id);
+	public abstract Task updateIssue(@Nonnull String id);
 
 	public abstract List<LocalTask> getLocalTasks();
 
@@ -94,9 +94,9 @@ public abstract class TaskManager
 
 	public abstract LocalTask createLocalTask(String summary);
 
-	public abstract LocalTask activateTask(@NotNull Task task, boolean clearContext);
+	public abstract LocalTask activateTask(@Nonnull Task task, boolean clearContext);
 
-	@NotNull
+	@Nonnull
 	public abstract LocalTask getActiveTask();
 
 	@Nullable
@@ -127,7 +127,7 @@ public abstract class TaskManager
 	@Deprecated // use {@code com.intellij.tasks.TaskManager.addTaskListener(com.intellij.tasks.TaskListener, com.intellij.openapi.Disposable)}
 	public abstract void addTaskListener(TaskListener listener);
 
-	public abstract void addTaskListener(@NotNull TaskListener listener, @NotNull Disposable parentDisposable);
+	public abstract void addTaskListener(@Nonnull TaskListener listener, @Nonnull Disposable parentDisposable);
 
 	@Deprecated // use {@code com.intellij.tasks.TaskManager.addTaskListener(com.intellij.tasks.TaskListener, com.intellij.openapi.Disposable)}
 	public abstract void removeTaskListener(TaskListener listener);

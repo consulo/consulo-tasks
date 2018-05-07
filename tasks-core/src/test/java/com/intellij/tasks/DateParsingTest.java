@@ -1,7 +1,7 @@
 package com.intellij.tasks;
 
 import com.intellij.tasks.impl.TaskUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +20,7 @@ public class DateParsingTest {
     FORMATTER.setTimeZone(TimeZone.getTimeZone("GMT"));
   }
 
-  private static void compareDates(@NotNull Date expected, @NotNull String formattedDate) {
+  private static void compareDates(@Nonnull Date expected, @Nonnull String formattedDate) {
     Date parsed = TaskUtil.parseDate(formattedDate);
     assertEquals(expected, parsed);
   }

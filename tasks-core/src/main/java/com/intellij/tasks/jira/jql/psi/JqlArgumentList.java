@@ -1,11 +1,11 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev
  */
 public interface JqlArgumentList extends JqlElement {
-  @NotNull
+  @Nonnull
   JqlLiteral[] getArguments();
 }

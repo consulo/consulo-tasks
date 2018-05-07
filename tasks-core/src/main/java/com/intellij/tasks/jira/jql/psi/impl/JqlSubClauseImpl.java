@@ -4,14 +4,14 @@ import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.JqlClause;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlSubClause;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlSubClauseImpl extends JqlElementImpl implements JqlSubClause {
-  public JqlSubClauseImpl(@NotNull ASTNode node) {
+  public JqlSubClauseImpl(@Nonnull ASTNode node) {
     super(node);
   }
 

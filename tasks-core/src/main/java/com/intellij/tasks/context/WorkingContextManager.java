@@ -38,8 +38,8 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
 import java.io.File;
@@ -175,7 +175,7 @@ public class WorkingContextManager {
     return new File(tasksFolder, projectName + postfix);
   }
 
-  public void restoreContext(@NotNull Task task) {
+  public void restoreContext(@Nonnull Task task) {
     loadContext(TASKS_ZIP_POSTFIX, task.getId() + TASK_XML_POSTFIX);
   }
 

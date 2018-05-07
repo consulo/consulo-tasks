@@ -7,8 +7,8 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiFile;
 import com.intellij.tasks.youtrack.YouTrackIntellisense;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +24,7 @@ public class YouTrackHighlightingAnnotator extends ExternalAnnotator<QueryInfo, 
 
   @Nullable
   @Override
-  public QueryInfo collectInformation(@NotNull PsiFile file, @NotNull Editor editor, boolean hasErrors) {
+  public QueryInfo collectInformation(@Nonnull PsiFile file, @Nonnull Editor editor, boolean hasErrors) {
     final YouTrackIntellisense intellisense = file.getUserData(YouTrackIntellisense.INTELLISENSE_KEY);
     if (intellisense == null || !intellisense.getRepository().isConfigured()) {
       return null;
@@ -52,7 +52,7 @@ public class YouTrackHighlightingAnnotator extends ExternalAnnotator<QueryInfo, 
   }
 
   @Override
-  public void apply(@NotNull PsiFile file, List<HighlightRange> ranges, @NotNull AnnotationHolder holder) {
+  public void apply(@Nonnull PsiFile file, List<HighlightRange> ranges, @Nonnull AnnotationHolder holder) {
     for (HighlightRange range : ranges) {
       if (range.getStyleClass().equals("error")) {
         holder.createErrorAnnotation(range.getTextRange(), null);

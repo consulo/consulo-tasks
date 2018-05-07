@@ -24,9 +24,9 @@ import com.intellij.tasks.jira.model.JiraStatus;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import icons.TasksIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Date;
 
@@ -43,12 +43,12 @@ public class JiraTask extends Task {
     myRepository = repository;
   }
 
-  @NotNull
+  @Nonnull
   public String getId() {
     return myJiraIssue.getKey();
   }
 
-  @NotNull
+  @Nonnull
   public String getSummary() {
     return myJiraIssue.getSummary();
   }
@@ -58,7 +58,7 @@ public class JiraTask extends Task {
   }
 
 
-  @NotNull
+  @Nonnull
   public Comment[] getComments() {
     return ContainerUtil.map2Array(myJiraIssue.getComments(), Comment.class, new Function<JiraComment, Comment>() {
       @Override
@@ -68,7 +68,7 @@ public class JiraTask extends Task {
     });
   }
 
-  @NotNull
+  @Nonnull
   public Icon getIcon() {
     JiraIssueType issueType = myJiraIssue.getIssueType();
     String iconUrl = issueType.getIconUrl();
@@ -79,7 +79,7 @@ public class JiraTask extends Task {
     return icon != null ? icon : TasksIcons.Other;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public TaskType getType() {
     String type = myJiraIssue.getIssueType().getName();

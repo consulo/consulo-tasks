@@ -23,8 +23,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
@@ -70,25 +71,25 @@ public class TrelloCard extends TrelloModel
 		return String.format("TrelloCard(id='%s', name='%s')", getId(), name);
 	}
 
-	@NotNull
+	@Nonnull
 	public String getIdBoard()
 	{
 		return idBoard;
 	}
 
-	@NotNull
+	@Nonnull
 	public String getIdList()
 	{
 		return idList;
 	}
 
-	@NotNull
+	@Nonnull
 	public List<String> getIdMembers()
 	{
 		return idMembers;
 	}
 
-	@NotNull
+	@Nonnull
 	@Attribute("name")
 	@Override
 	public String getName()
@@ -97,18 +98,18 @@ public class TrelloCard extends TrelloModel
 	}
 
 	@Override
-	public void setName(@NotNull String name)
+	public void setName(@Nonnull String name)
 	{
 		this.name = name;
 	}
 
-	@NotNull
+	@Nonnull
 	public String getDescription()
 	{
 		return description;
 	}
 
-	@NotNull
+	@Nonnull
 	public String getUrl()
 	{
 		return url;
@@ -119,13 +120,13 @@ public class TrelloCard extends TrelloModel
 		return closed;
 	}
 
-	@NotNull
+	@Nonnull
 	public List<TrelloLabel> getLabels()
 	{
 		return labels;
 	}
 
-	@NotNull
+	@Nonnull
 	public List<TrelloCommentAction> getComments()
 	{
 		return comments;
@@ -134,7 +135,7 @@ public class TrelloCard extends TrelloModel
 	/**
 	 * @return colors of labels with special {@link LabelColor#NO_COLOR} value excluded
 	 */
-	@NotNull
+	@Nonnull
 	public Set<LabelColor> getColors()
 	{
 		if(labels == null || labels.isEmpty())

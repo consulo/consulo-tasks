@@ -14,7 +14,7 @@ import com.intellij.tasks.impl.TaskManagerImpl;
 import com.intellij.ui.GuiUtils;
 import com.intellij.ui.components.JBCheckBox;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -53,7 +53,7 @@ public class TaskConfigurable extends BindableConfigurable implements Searchable
   private final Project myProject;
   private Configurable[] myConfigurables;
   private final NotNullLazyValue<ControlBinder> myControlBinder = new NotNullLazyValue<ControlBinder>() {
-    @NotNull
+    @Nonnull
     @Override
     protected ControlBinder compute() {
       return new ControlBinder(getConfig());
@@ -126,7 +126,7 @@ public class TaskConfigurable extends BindableConfigurable implements Searchable
   public void disposeUIResources() {
   }
 
-  @NotNull
+  @Nonnull
   public String getId() {
     return "tasks";
   }

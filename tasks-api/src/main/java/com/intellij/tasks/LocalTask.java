@@ -19,7 +19,7 @@ package com.intellij.tasks;
 import java.util.Date;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.tasks.timeTracking.model.WorkItem;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Attribute;
@@ -49,7 +49,7 @@ public abstract class LocalTask extends Task
 
 	// VCS interface
 
-	@NotNull
+	@Nonnull
 	public abstract List<ChangeListInfo> getChangeLists();
 
 	public abstract void addChangelist(ChangeListInfo info);
@@ -62,10 +62,10 @@ public abstract class LocalTask extends Task
 	 * @return two branches per repository: feature-branch itself and original branch to merge into
 	 * @see #getBranches(boolean)
 	 */
-	@NotNull
+	@Nonnull
 	public abstract List<BranchInfo> getBranches();
 
-	@NotNull
+	@Nonnull
 	public List<BranchInfo> getBranches(final boolean original)
 	{
 		return ContainerUtil.filter(getBranches(), info -> info.original == original);

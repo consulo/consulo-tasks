@@ -2,8 +2,9 @@ package com.intellij.tasks.redmine.model;
 
 import java.util.Date;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 import com.intellij.tasks.impl.gson.Mandatory;
 import com.intellij.tasks.impl.gson.RestModel;
@@ -43,7 +44,7 @@ public class RedmineIssue
 		return status;
 	}
 
-	@NotNull
+	@Nonnull
 	public String getSubject()
 	{
 		return subject;
@@ -60,13 +61,13 @@ public class RedmineIssue
 		return doneRatio;
 	}
 
-	@NotNull
+	@Nonnull
 	public Date getCreated()
 	{
 		return created;
 	}
 
-	@NotNull
+	@Nonnull
 	public Date getUpdated()
 	{
 		return updated;
@@ -90,7 +91,7 @@ public class RedmineIssue
 			return id;
 		}
 
-		@NotNull
+		@Nonnull
 		public String getName()
 		{
 			return name;

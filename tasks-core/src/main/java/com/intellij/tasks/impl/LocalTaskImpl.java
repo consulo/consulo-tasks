@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.text.StringUtil;
@@ -87,7 +88,7 @@ public class LocalTaskImpl extends LocalTask
 	{
 	}
 
-	public LocalTaskImpl(@NotNull String id, @NotNull String summary)
+	public LocalTaskImpl(@Nonnull String id, @Nonnull String summary)
 	{
 		myId = id;
 		mySummary = summary;
@@ -114,14 +115,14 @@ public class LocalTaskImpl extends LocalTask
 	}
 
 	@Attribute("id")
-	@NotNull
+	@Nonnull
 	public String getId()
 	{
 		return myId;
 	}
 
 	@Attribute("summary")
-	@NotNull
+	@Nonnull
 	public String getSummary()
 	{
 		return mySummary;
@@ -133,7 +134,7 @@ public class LocalTaskImpl extends LocalTask
 		return myDescription;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Comment[] getComments()
 	{
@@ -239,7 +240,7 @@ public class LocalTaskImpl extends LocalTask
 		myUpdated = updated;
 	}
 
-	@NotNull
+	@Nonnull
 	@Property(surroundWithTag = false)
 	@AbstractCollection(surroundWithTag = false, elementTag = "changelist")
 	public List<ChangeListInfo> getChangeLists()
@@ -267,7 +268,7 @@ public class LocalTaskImpl extends LocalTask
 		myChangeLists.remove(info);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	@Property(surroundWithTag = false)
 	@AbstractCollection(surroundWithTag = false, elementTag = "branch")
@@ -303,7 +304,7 @@ public class LocalTaskImpl extends LocalTask
 		myClosed = closed;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Icon getIcon()
 	{
@@ -331,7 +332,7 @@ public class LocalTaskImpl extends LocalTask
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public TaskType getType()
 	{
@@ -388,7 +389,7 @@ public class LocalTaskImpl extends LocalTask
 		myWorkItems = workItems;
 	}
 
-	@NotNull
+	@Nonnull
 	@Property(surroundWithTag = false)
 	@AbstractCollection(surroundWithTag = false, elementTag = "workItem")
 	@Override
@@ -447,7 +448,7 @@ public class LocalTaskImpl extends LocalTask
 		return timeSpent;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getNumber()
 	{
@@ -455,7 +456,7 @@ public class LocalTaskImpl extends LocalTask
 		return StringUtil.isEmpty(myNumber) ? extractNumberFromId(myId) : myNumber;
 	}
 
-	public void setNumber(@NotNull String number)
+	public void setNumber(@Nonnull String number)
 	{
 		myNumber = number;
 	}
@@ -473,12 +474,12 @@ public class LocalTaskImpl extends LocalTask
 		myProject = project;
 	}
 
-	public void setPresentableId(@NotNull String presentableId)
+	public void setPresentableId(@Nonnull String presentableId)
 	{
 		myPresentableId = presentableId;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getPresentableId()
 	{

@@ -11,8 +11,8 @@ import com.intellij.tasks.youtrack.YouTrackRepository;
 import com.intellij.tasks.youtrack.YouTrackRepositoryType;
 import com.intellij.util.xmlb.XmlSerializer;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +60,7 @@ public class TaskManagerTest extends TaskManagerTestCase {
     final Ref<Notification> notificationRef = new Ref<Notification>();
     getProject().getMessageBus().connect(getTestRootDisposable()).subscribe(Notifications.TOPIC, new NotificationsAdapter() {
       @Override
-      public void notify(@NotNull Notification notification) {
+      public void notify(@Nonnull Notification notification) {
         notificationRef.set(notification);
       }
     });

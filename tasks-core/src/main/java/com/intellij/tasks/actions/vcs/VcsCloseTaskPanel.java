@@ -17,7 +17,6 @@ package com.intellij.tasks.actions.vcs;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.VcsType;
-import com.intellij.openapi.vcs.changes.Change;
 import com.intellij.openapi.vcs.changes.ChangeListManager;
 import com.intellij.openapi.vcs.changes.LocalChangeList;
 import com.intellij.tasks.ChangeListInfo;
@@ -26,7 +25,7 @@ import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.impl.TaskManagerImpl;
 import com.intellij.tasks.ui.TaskDialogPanel;
 import com.intellij.ui.components.JBCheckBox;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -65,7 +64,7 @@ public class VcsCloseTaskPanel extends TaskDialogPanel {
     
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JComponent getPanel() {
     return myPanel;

@@ -1,16 +1,17 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.JqlTokenTypes;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlIdentifier;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlIdentifierImpl extends JqlElementImpl implements JqlIdentifier {
-  public JqlIdentifierImpl(@NotNull ASTNode node) {
+  public JqlIdentifierImpl(@Nonnull ASTNode node) {
     super(node);
   }
 

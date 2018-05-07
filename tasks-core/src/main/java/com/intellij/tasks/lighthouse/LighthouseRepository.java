@@ -18,8 +18,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.Ref;
@@ -147,13 +147,13 @@ public class LighthouseRepository extends BaseRepositoryImpl {
         return getUrl() + "/projects/" + myProjectId + "/tickets/" + getId() + ".xml";
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getId() {
         return myProjectId + "-" + id;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public String getSummary() {
         return summary;
@@ -163,19 +163,19 @@ public class LighthouseRepository extends BaseRepositoryImpl {
         return description;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Comment[] getComments() {
         return new Comment[0];
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public Icon getIcon() {
         return TasksIcons.Lighthouse;
       }
 
-      @NotNull
+      @Nonnull
       @Override
       public TaskType getType() {
         return TaskType.BUG;

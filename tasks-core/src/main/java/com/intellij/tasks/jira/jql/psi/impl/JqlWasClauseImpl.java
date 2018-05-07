@@ -1,18 +1,20 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.JqlTokenTypes;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlOperand;
 import com.intellij.tasks.jira.jql.psi.JqlWasClause;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
  */
 public class JqlWasClauseImpl extends JqlClauseWithHistoryPredicatesImpl implements JqlWasClause {
-  public JqlWasClauseImpl(@NotNull ASTNode node) {
+  public JqlWasClauseImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -30,7 +32,7 @@ public class JqlWasClauseImpl extends JqlClauseWithHistoryPredicatesImpl impleme
     return findChildByClass(JqlOperand.class);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Type getType() {
     boolean hasNot = getNode().findChildByType(JqlTokenTypes.NOT_KEYWORD) != null;

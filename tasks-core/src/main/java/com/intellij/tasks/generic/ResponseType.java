@@ -1,5 +1,7 @@
 package com.intellij.tasks.generic;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.ide.highlighter.HtmlFileType;
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.diagnostic.Logger;
@@ -7,7 +9,6 @@ import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.fileTypes.PlainTextFileType;
 import org.intellij.lang.regexp.RegExpFileType;
-import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -32,7 +33,7 @@ public enum ResponseType {
   private static Logger LOG = Logger.getInstance(ResponseType.class);
 
 
-  ResponseType(@NotNull String s, @NotNull FileType contentFileType, @NotNull FileType selectorFileType) {
+  ResponseType(@Nonnull String s, @Nonnull FileType contentFileType, @Nonnull FileType selectorFileType) {
     myMimeType = s;
     myContentFileType = contentFileType;
     mySelectorFileType = selectorFileType;
@@ -42,8 +43,8 @@ public enum ResponseType {
    * Unfortunately XPATH instance can't be received this way, because XPathSupportLoader
    * registers XPathFileType in FileTypeManager only in unit test and debug modes
    */
-  @NotNull
-  private static FileType findFileTypePlainDefault(@NotNull final String name) {
+  @Nonnull
+  private static FileType findFileTypePlainDefault(@Nonnull final String name) {
     FileType fileType = FileTypeManager.getInstance().findFileTypeByName(name);
     return fileType == null ? PlainTextFileType.INSTANCE : fileType;
   }
@@ -51,7 +52,7 @@ public enum ResponseType {
   /**
    * Temporary workaround for IDEA-112605
    */
-  @NotNull
+  @Nonnull
   private static FileType findXPathFileType() {
     if (LOG == null) {
       LOG = Logger.getInstance(ResponseType.class);
@@ -67,17 +68,17 @@ public enum ResponseType {
     }
   }
 
-  @NotNull
+  @Nonnull
   public String getMimeType() {
     return myMimeType;
   }
 
-  @NotNull
+  @Nonnull
   public FileType getContentFileType() {
     return myContentFileType;
   }
 
-  @NotNull
+  @Nonnull
   public FileType getSelectorFileType() {
     return mySelectorFileType;
   }

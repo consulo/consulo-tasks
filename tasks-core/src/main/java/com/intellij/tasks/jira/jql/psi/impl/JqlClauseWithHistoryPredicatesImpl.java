@@ -1,15 +1,17 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
  */
 public abstract class JqlClauseWithHistoryPredicatesImpl extends JqlTerminalClauseImpl implements JqlClauseWithHistoryPredicates {
-  public JqlClauseWithHistoryPredicatesImpl(@NotNull ASTNode node) {
+  public JqlClauseWithHistoryPredicatesImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -55,7 +57,7 @@ public abstract class JqlClauseWithHistoryPredicatesImpl extends JqlTerminalClau
     return findOperandOfPredicate(JqlHistoryPredicate.Type.TO);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public JqlHistoryPredicate[] getHistoryPredicates() {
     return findChildrenByClass(JqlHistoryPredicate.class);

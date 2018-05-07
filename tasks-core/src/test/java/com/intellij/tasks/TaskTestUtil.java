@@ -1,8 +1,8 @@
 package com.intellij.tasks;
 
 import com.intellij.tasks.impl.TaskUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.Date;
@@ -14,15 +14,15 @@ import static junit.framework.Assert.assertTrue;
  * @author Mikhail Golubev
  */
 public class TaskTestUtil {
-  public static void  assertTasksEqual(@NotNull Task t1, @NotNull Task t2) {
+  public static void  assertTasksEqual(@Nonnull Task t1, @Nonnull Task t2) {
     assertTrue(TaskUtil.tasksEqual(t1, t2));
   }
 
-  public static void  assertTasksEqual(@NotNull List<? extends Task> t1, @NotNull List<? extends Task> t2) {
+  public static void  assertTasksEqual(@Nonnull List<? extends Task> t1, @Nonnull List<? extends Task> t2) {
     assertTrue(TaskUtil.tasksEqual(t1, t2));
   }
 
-  public static void  assertTasksEqual(@NotNull Task[] t1, @NotNull Task[] t2) {
+  public static void  assertTasksEqual(@Nonnull Task[] t1, @Nonnull Task[] t2) {
     assertTrue(TaskUtil.tasksEqual(t1, t2));
   }
 
@@ -62,7 +62,7 @@ public class TaskTestUtil {
       return this;
     }
 
-    public TaskBuilder withComments(@NotNull Comment... comments) {
+    public TaskBuilder withComments(@Nonnull Comment... comments) {
       myComments = comments;
       return this;
     }
@@ -82,7 +82,7 @@ public class TaskTestUtil {
       return this;
     }
 
-    public TaskBuilder withUpdated(@NotNull String updated) {
+    public TaskBuilder withUpdated(@Nonnull String updated) {
       return withUpdated(TaskUtil.parseDate(updated));
     }
 
@@ -91,11 +91,11 @@ public class TaskTestUtil {
       return this;
     }
 
-    public TaskBuilder withCreated(@NotNull String created) {
+    public TaskBuilder withCreated(@Nonnull String created) {
       return withCreated(TaskUtil.parseDate(created));
     }
 
-    public TaskBuilder withType(@NotNull TaskType type) {
+    public TaskBuilder withType(@Nonnull TaskType type) {
       myType = type;
       return this;
     }
@@ -110,13 +110,13 @@ public class TaskTestUtil {
       return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getId() {
       return myId;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getSummary() {
       return mySummary;
@@ -128,19 +128,19 @@ public class TaskTestUtil {
       return myDescription;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Comment[] getComments() {
       return myComments;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Icon getIcon() {
       return myIcon == null? myRepository.getIcon() : myIcon;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public TaskType getType() {
       return myType;

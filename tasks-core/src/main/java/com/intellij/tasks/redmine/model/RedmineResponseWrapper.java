@@ -2,7 +2,8 @@ package com.intellij.tasks.redmine.model;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.google.gson.annotations.SerializedName;
 import com.intellij.tasks.impl.gson.Mandatory;
 import com.intellij.tasks.impl.gson.RestModel;
@@ -41,7 +42,7 @@ public abstract class RedmineResponseWrapper
 		@Mandatory
 		private List<RedmineIssue> issues;
 
-		@NotNull
+		@Nonnull
 		public List<RedmineIssue> getIssues()
 		{
 			return issues;
@@ -54,7 +55,7 @@ public abstract class RedmineResponseWrapper
 		@Mandatory
 		private RedmineIssue issue;
 
-		@NotNull
+		@Nonnull
 		public RedmineIssue getIssue()
 		{
 			return issue;
@@ -67,7 +68,7 @@ public abstract class RedmineResponseWrapper
 		@Mandatory
 		private List<RedmineProject> projects;
 
-		@NotNull
+		@Nonnull
 		public List<RedmineProject> getProjects()
 		{
 			return projects;

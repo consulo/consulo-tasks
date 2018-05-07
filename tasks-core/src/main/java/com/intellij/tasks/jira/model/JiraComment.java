@@ -16,7 +16,7 @@
 package com.intellij.tasks.jira.model;
 
 import com.intellij.openapi.util.text.StringUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Date;
 
@@ -31,32 +31,32 @@ public class JiraComment {
   private String self;
   private String body;
 
-  @NotNull
+  @Nonnull
   public JiraUser getAuthor() {
     return author;
   }
 
-  @NotNull
+  @Nonnull
   public JiraUser getUpdateAuthor() {
     return updateAuthor;
   }
 
-  @NotNull
+  @Nonnull
   public Date getUpdated() {
     return updated;
   }
 
-  @NotNull
+  @Nonnull
   public Date getCreated() {
     return created;
   }
 
-  @NotNull
+  @Nonnull
   public String getCommentUrl() {
     return self;
   }
 
-  @NotNull
+  @Nonnull
   public String getBody() {
     return body;
   }
