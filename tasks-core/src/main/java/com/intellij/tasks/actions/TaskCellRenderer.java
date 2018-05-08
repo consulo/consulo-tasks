@@ -68,7 +68,7 @@ public class TaskCellRenderer extends DefaultListCellRenderer implements Matcher
     }
     else if (GotoTaskAction.CREATE_NEW_TASK_ACTION == value) {
       final SimpleColoredComponent c = new SimpleColoredComponent();
-      c.setIcon(TargetAWT.to(ImageEffects.folded(TasksIcons.Unknown, AllIcons.Actions.New)));
+      c.setIcon(TargetAWT.to(ImageEffects.layered(TasksIcons.Unknown, AllIcons.Actions.New)));
       c.append(GotoTaskAction.CREATE_NEW_TASK_ACTION.getActionText());
       panel.add(c, BorderLayout.CENTER);
     }
