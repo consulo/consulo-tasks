@@ -25,6 +25,7 @@ import com.intellij.openapi.fileEditor.impl.FileEditorManagerImpl;
 import com.intellij.ui.docking.DockContainer;
 import com.intellij.ui.docking.DockManager;
 import com.intellij.ui.docking.impl.DockManagerImpl;
+import consulo.ui.UIAccess;
 
 /**
  * @author Dmitry Avdeev
@@ -71,7 +72,7 @@ public class OpenEditorsContextProvider extends WorkingContextProvider
 		if(myFileEditorManager != null)
 		{
 			myFileEditorManager.loadState(element);
-			myFileEditorManager.getMainSplitters().openFiles();
+			myFileEditorManager.getMainSplitters().openFiles(UIAccess.get());
 		}
 		Element dockState = element.getChild("DockManager");
 		if(dockState != null)
