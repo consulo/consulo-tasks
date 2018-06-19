@@ -1,14 +1,15 @@
 package com.intellij.tasks.jira.jql;
 
-import com.intellij.lexer.FlexLexer;
+import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 
 %%
 
+%public
 %class _JqlLexer
-%implements FlexLexer
+%extends LexerBase
 %unicode
-%function advance
+%function advanceImpl
 %type IElementType
 %ignorecase
 %eof{  return;

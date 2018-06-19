@@ -7,7 +7,6 @@ import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -20,12 +19,10 @@ import consulo.lang.LanguageVersion;
  * @author Mikhail Golubev
  */
 public class JqlParserDefinition implements ParserDefinition {
-  private static final Logger LOG = Logger.getInstance(JqlParserDefinition.class);
-
   @Nonnull
   @Override
   public Lexer createLexer(LanguageVersion languageVersion) {
-    return new JqlLexer();
+    return new _JqlLexer();
   }
 
   @Override
