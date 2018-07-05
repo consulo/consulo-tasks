@@ -97,7 +97,7 @@ public class TaskRepositoriesConfigurable extends BaseConfigurable implements Co
     for (final TaskRepositoryType repositoryType : groups) {
       for (final TaskRepositorySubtype subtype : (List<TaskRepositorySubtype>)repositoryType.getAvailableSubtypes()) {
         String description = "New " + subtype.getName() + " server";
-        createActions.add(new IconWithTextAction(subtype.getName(), description, TargetAWT.to(subtype.getIcon())) {
+        createActions.add(new IconWithTextAction(subtype.getName(), description, subtype.getIcon()) {
           @Override
           public void actionPerformed(AnActionEvent e) {
             TaskRepository repository = repositoryType.createRepository(subtype);
@@ -121,7 +121,7 @@ public class TaskRepositoriesConfigurable extends BaseConfigurable implements Co
         if (!repositories.isEmpty()) {
           group.add(AnSeparator.getInstance());
           for (final TaskRepository repository : repositories) {
-            group.add(new IconWithTextAction(repository.getUrl(), repository.getUrl(), TargetAWT.to(repository.getIcon())) {
+            group.add(new IconWithTextAction(repository.getUrl(), repository.getUrl(), repository.getIcon()) {
               @Override
               public void actionPerformed(AnActionEvent e) {
                 addRepository(repository);
