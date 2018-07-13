@@ -16,17 +16,12 @@
 
 package com.intellij.tasks.actions;
 
-import javax.annotation.Nonnull;
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-
 import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.actionSystem.ex.ComboBoxAction;
-import com.intellij.openapi.actionSystem.ex.ComboBoxButton;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopup;
@@ -35,6 +30,10 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.config.TaskSettings;
+import consulo.actionSystem.ex.ComboBoxButtonImpl;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
 
 /**
  * @author Dmitry Avdeev
@@ -44,7 +43,7 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 
 	public JComponent createCustomComponent(final Presentation presentation)
 	{
-		ComboBoxButton button = new ComboBoxButton(this, presentation)
+		ComboBoxButtonImpl button = new ComboBoxButtonImpl(this, presentation)
 		{
 			@Override
 			protected JBPopup createPopup(Runnable onDispose)
@@ -58,7 +57,7 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 
 	@Nonnull
 	@Override
-	protected DefaultActionGroup createPopupActionGroup(JComponent button)
+	public DefaultActionGroup createPopupActionGroup(JComponent button)
 	{
 		return new DefaultActionGroup();
 	}
@@ -68,7 +67,7 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 	{
 		Presentation presentation = e.getPresentation();
 		Project project = e.getData(CommonDataKeys.PROJECT);
-		ComboBoxButton button = (ComboBoxButton) presentation.getClientProperty(CUSTOM_COMPONENT_PROPERTY);
+        ComboBoxButtonImpl button = (ComboBoxButtonImpl) presentation.getClientProperty(CUSTOM_COMPONENT_PROPERTY);
 		if(project == null || project.isDefault() || project.isDisposed() || button == null)
 		{
 			presentation.setEnabled(false);
