@@ -16,9 +16,13 @@
 
 package com.intellij.tasks.actions;
 
-import com.intellij.ide.DataManager;
+import javax.annotation.Nonnull;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.actionSystem.ex.ComboBoxAction;
@@ -31,39 +35,38 @@ import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.config.TaskSettings;
 import consulo.actionSystem.ex.ComboBoxButtonImpl;
-
-import javax.annotation.Nonnull;
-import javax.swing.*;
+import consulo.annotations.RequiredDispatchThread;
 
 /**
  * @author Dmitry Avdeev
  */
 public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 {
-
+	@Nonnull
 	public JComponent createCustomComponent(final Presentation presentation)
 	{
-		ComboBoxButtonImpl button = new ComboBoxButtonImpl(this, presentation)
-		{
-			@Override
-			protected JBPopup createPopup(Runnable onDispose)
-			{
-				return SwitchTaskAction.createPopup(DataManager.getInstance().getDataContext(this), onDispose, false);
-			}
-		};
+		ComboBoxButtonImpl button = new ComboBoxButtonImpl(this, presentation);
 		button.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));
 		return button;
 	}
 
 	@Nonnull
 	@Override
-	public DefaultActionGroup createPopupActionGroup(JComponent button)
+	public JBPopup createPopup(@Nonnull DataContext context, @Nonnull Runnable onDispose)
 	{
-		return new DefaultActionGroup();
+		return SwitchTaskAction.createPopup(context, onDispose, false);
 	}
 
+	@Nonnull
 	@Override
-	public void update(AnActionEvent e)
+	public DefaultActionGroup createPopupActionGroup(DataContext context)
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	@RequiredDispatchThread
+	@Override
+	public void update(@Nonnull AnActionEvent e)
 	{
 		Presentation presentation = e.getPresentation();
 		Project project = e.getData(CommonDataKeys.PROJECT);
