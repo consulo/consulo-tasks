@@ -154,6 +154,8 @@
 		<toolWindow id="Time Tracking" anchor="right" secondary="false" icon="TasksIcons.Clock"
 					factoryClass="com.intellij.tasks.timeTracking.TasksToolWindowFactory"
 					conditionClass="com.intellij.tasks.timeTracking.TasksToolWindowFactory"/>
+
+		<changeListDecorator implementation="consulo.tasks.impl.TaskChangeListDecorator"/>
 	</extensions>
 
 </idea-plugin>

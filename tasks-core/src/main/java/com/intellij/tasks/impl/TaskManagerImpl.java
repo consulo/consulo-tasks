@@ -62,7 +62,6 @@ import com.intellij.openapi.vcs.VcsTaskHandler;
 import com.intellij.openapi.vcs.VcsType;
 import com.intellij.openapi.vcs.changes.ChangeList;
 import com.intellij.openapi.vcs.changes.ChangeListAdapter;
-import com.intellij.openapi.vcs.changes.ChangeListDecorator;
 import com.intellij.openapi.vcs.changes.ChangeListManager;
 import com.intellij.openapi.vcs.changes.LocalChangeList;
 import com.intellij.tasks.BranchInfo;
@@ -101,9 +100,8 @@ import com.intellij.util.xmlb.annotations.Tag;
 		storages = {
 				@Storage(file = StoragePathMacros.WORKSPACE_FILE)
 		})
-public class TaskManagerImpl extends TaskManager implements ProjectComponent, PersistentStateComponent<TaskManagerImpl.Config>, ChangeListDecorator
+public class TaskManagerImpl extends TaskManager implements ProjectComponent, PersistentStateComponent<TaskManagerImpl.Config>
 {
-
 	private static final Logger LOG = Logger.getInstance("#com.intellij.tasks.impl.TaskManagerImpl");
 
 	private static final DecimalFormat LOCAL_TASK_ID_FORMAT = new DecimalFormat("LOCAL-00000");
@@ -111,14 +109,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		int i = Comparing.compare(o2.getUpdated(), o1.getUpdated());
 		return i == 0 ? Comparing.compare(o2.getCreated(), o1.getCreated()) : i;
 	};
-	private static final Convertor<Task, String> KEY_CONVERTOR = new Convertor<Task, String>()
-	{
-		@Override
-		public String convert(Task o)
-		{
-			return o.getId();
-		}
-	};
+	private static final Convertor<Task, String> KEY_CONVERTOR = o -> o.getId();
 	static final String TASKS_NOTIFICATION_GROUP = "Task Group";
 
 	private final Project myProject;
@@ -1132,15 +1123,6 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 			{
 				localTask.removeChangelist(changeListInfo);
 			}
-		}
-	}
-
-	public void decorateChangeList(@Nonnull LocalChangeList changeList, @Nonnull ColoredTreeCellRenderer cellRenderer, boolean selected, boolean expanded, boolean hasFocus)
-	{
-		LocalTask task = getAssociatedTask(changeList);
-		if(task != null && task.isIssue())
-		{
-			cellRenderer.setIcon(task.getIcon());
 		}
 	}
 
