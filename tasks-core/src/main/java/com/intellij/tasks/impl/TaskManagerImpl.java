@@ -737,7 +737,7 @@ public class TaskManagerImpl extends TaskManager implements PersistentStateCompo
 		return repositories;
 	}
 
-	private void projectOpened()
+	public void projectOpened()
 	{
 		TaskProjectConfiguration projectConfiguration = getProjectConfiguration();
 
