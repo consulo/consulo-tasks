@@ -15,6 +15,11 @@
  */
 package com.intellij.tasks.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Singleton;
+
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
@@ -25,12 +30,10 @@ import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Property;
 import com.intellij.util.xmlb.annotations.Tag;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
 * @author Dmitry Avdeev
 */
+@Singleton
 @State(name = "TaskProjectConfiguration", storages = @Storage(file = StoragePathMacros.PROJECT_CONFIG_DIR + "/misc.xml"))
 public class TaskProjectConfiguration implements PersistentStateComponent<TaskProjectConfiguration> {
 

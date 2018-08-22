@@ -27,6 +27,7 @@ import java.util.concurrent.TimeoutException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Singleton;
 import javax.swing.Timer;
 import javax.swing.event.HyperlinkEvent;
 
@@ -40,7 +41,6 @@ import com.intellij.notification.Notifications;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
@@ -75,7 +75,6 @@ import com.intellij.tasks.TaskRepositoryType;
 import com.intellij.tasks.actions.TaskSearchSupport;
 import com.intellij.tasks.config.TaskRepositoriesConfigurable;
 import com.intellij.tasks.context.WorkingContextManager;
-import com.intellij.ui.ColoredTreeCellRenderer;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.EventDispatcher;
 import com.intellij.util.Function;
@@ -95,17 +94,15 @@ import com.intellij.util.xmlb.annotations.Tag;
 /**
  * @author Dmitry Avdeev
  */
-@State(
-		name = "TaskManager",
-		storages = {
-				@Storage(file = StoragePathMacros.WORKSPACE_FILE)
-		})
-public class TaskManagerImpl extends TaskManager implements ProjectComponent, PersistentStateComponent<TaskManagerImpl.Config>
+@Singleton
+@State(name = "TaskManager", storages = {@Storage(StoragePathMacros.WORKSPACE_FILE)})
+public class TaskManagerImpl extends TaskManager implements PersistentStateComponent<TaskManagerImpl.Config>, Disposable
 {
 	private static final Logger LOG = Logger.getInstance("#com.intellij.tasks.impl.TaskManagerImpl");
 
 	private static final DecimalFormat LOCAL_TASK_ID_FORMAT = new DecimalFormat("LOCAL-00000");
-	public static final Comparator<Task> TASK_UPDATE_COMPARATOR = (o1, o2) -> {
+	public static final Comparator<Task> TASK_UPDATE_COMPARATOR = (o1, o2) ->
+	{
 		int i = Comparing.compare(o2.getUpdated(), o1.getUpdated());
 		return i == 0 ? Comparing.compare(o2.getCreated(), o1.getCreated()) : i;
 	};
@@ -154,9 +151,8 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 	private final EventDispatcher<TaskListener> myDispatcher = EventDispatcher.create(TaskListener.class);
 	private Set<TaskRepository> myBadRepositories = ContainerUtil.newConcurrentSet();
 
-	public TaskManagerImpl(Project project, WorkingContextManager contextManager, ChangeListManager changeListManager)
+	public TaskManagerImpl(Project project, WorkingContextManager contextManager, ChangeListManager changeListManager, StartupManager startupManager)
 	{
-
 		myProject = project;
 		myContextManager = contextManager;
 		myChangeListManager = changeListManager;
@@ -189,6 +185,8 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 				}
 			}
 		};
+
+		startupManager.registerPostStartupActivity(uiAccess -> projectOpened());
 	}
 
 	@Override
@@ -567,6 +565,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 					task.getPresentableId())
 			{
 
+				@Override
 				public void run(@Nonnull ProgressIndicator indicator)
 				{
 					updateIssue(task.getId());
@@ -596,6 +595,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 
 		TestConnectionTask task = new TestConnectionTask("Test connection")
 		{
+			@Override
 			public void run(@Nonnull ProgressIndicator indicator)
 			{
 				indicator.setText("Connecting to " + repository.getUrl() + "...");
@@ -677,11 +677,13 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return e == null;
 	}
 
+	@Override
 	@Nonnull
 	public Config getState()
 	{
 		myConfig.tasks = ContainerUtil.map(myTasks.values(), new Function<Task, LocalTaskImpl>()
 		{
+			@Override
 			public LocalTaskImpl fun(Task task)
 			{
 				return new LocalTaskImpl(task);
@@ -691,6 +693,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return myConfig;
 	}
 
+	@Override
 	public void loadState(Config config)
 	{
 		XmlSerializerUtil.copyBean(config, myConfig);
@@ -734,9 +737,8 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return repositories;
 	}
 
-	public void projectOpened()
+	private void projectOpened()
 	{
-
 		TaskProjectConfiguration projectConfiguration = getProjectConfiguration();
 
 		servers:
@@ -804,22 +806,14 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return ServiceManager.getService(myProject, TaskProjectConfiguration.class);
 	}
 
-	public void projectClosed()
-	{
-	}
-
-	@Nonnull
-	public String getComponentName()
-	{
-		return "Task Manager";
-	}
-
-	public void initComponent()
+	@Override
+	public void afterLoadState()
 	{
 		if(!ApplicationManager.getApplication().isUnitTestMode())
 		{
 			myCacheRefreshTimer = UIUtil.createNamedTimer("TaskManager refresh", myConfig.updateInterval * 60 * 1000, new ActionListener()
 			{
+				@Override
 				public void actionPerformed(@Nonnull ActionEvent e)
 				{
 					if(myConfig.updateEnabled && !myUpdating)
@@ -878,7 +872,8 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		return task;
 	}
 
-	public void disposeComponent()
+	@Override
+	public void dispose()
 	{
 		if(myCacheRefreshTimer != null)
 		{
@@ -887,6 +882,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		myChangeListManager.removeChangeListListener(myChangeListListener);
 	}
 
+	@Override
 	public void updateIssues(final @Nullable Runnable onComplete)
 	{
 		TaskRepository first = ContainerUtil.find(getAllRepositories(), repository -> repository.isConfigured());
@@ -1025,6 +1021,7 @@ public class TaskManagerImpl extends TaskManager implements ProjectComponent, Pe
 		}
 		Notifications.Bus.notify(new Notification(TASKS_NOTIFICATION_GROUP, "Cannot connect to " + repository.getUrl(), content, NotificationType.WARNING, new NotificationListener()
 		{
+			@Override
 			public void hyperlinkUpdate(@Nonnull Notification notification, @Nonnull HyperlinkEvent event)
 			{
 				TaskRepositoriesConfigurable configurable = new TaskRepositoriesConfigurable(myProject);

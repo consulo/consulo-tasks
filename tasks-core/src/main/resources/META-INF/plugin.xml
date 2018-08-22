@@ -8,17 +8,6 @@
 	<depends>com.intellij.xml</depends>
 	<depends>com.intellij.regexp</depends>
 
-	<project-components>
-		<component>
-			<interface-class>com.intellij.tasks.TaskManager</interface-class>
-			<implementation-class>com.intellij.tasks.impl.TaskManagerImpl</implementation-class>
-		</component>
-
-		<component>
-			<implementation-class>com.intellij.tasks.timeTracking.TimeTrackingManager</implementation-class>
-		</component>
-	</project-components>
-
 	<actions>
 
 		<group id="task.actions">
@@ -156,6 +145,9 @@
 					conditionClass="com.intellij.tasks.timeTracking.TasksToolWindowFactory"/>
 
 		<changeListDecorator implementation="consulo.tasks.impl.TaskChangeListDecorator"/>
+
+		<projectService serviceImplementation="com.intellij.tasks.timeTracking.TimeTrackingManager" lazy="false" />
+		<projectService serviceInterface="com.intellij.tasks.TaskManager" serviceImplementation="com.intellij.tasks.impl.TaskManagerImpl" />
 	</extensions>
 
 </idea-plugin>
