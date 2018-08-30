@@ -18,12 +18,14 @@ package com.intellij.tasks.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.components.StoragePathMacros;
+import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.util.xmlb.annotations.AbstractCollection;
 import com.intellij.util.xmlb.annotations.Attribute;
@@ -56,8 +58,9 @@ public class TaskProjectConfiguration implements PersistentStateComponent<TaskPr
     myManager = null;
   }
 
-  public TaskProjectConfiguration(TaskManagerImpl manager) {
-    myManager = manager;
+  @Inject
+  public TaskProjectConfiguration(TaskManager manager) {
+    myManager = (TaskManagerImpl) manager;
   }
 
   public TaskProjectConfiguration getState() {
