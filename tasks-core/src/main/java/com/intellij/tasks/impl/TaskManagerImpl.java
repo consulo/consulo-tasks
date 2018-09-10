@@ -27,6 +27,7 @@ import java.util.concurrent.TimeoutException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.Timer;
 import javax.swing.event.HyperlinkEvent;
@@ -124,7 +125,7 @@ public class TaskManagerImpl extends TaskManager implements PersistentStateCompo
 			if(size() > myConfig.taskHistoryLength)
 			{
 				ArrayList<Map.Entry<String, LocalTask>> list = new ArrayList<>(entrySet());
-				Collections.sort(list, (o1, o2) -> TASK_UPDATE_COMPARATOR.compare(o2.getValue(), o1.getValue()));
+				Collections.sort(list, (o0, o1) -> TASK_UPDATE_COMPARATOR.compare(o1.getValue(), o0.getValue()));
 				for(Map.Entry<String, LocalTask> oldest : list)
 				{
 					if(!oldest.getValue().isDefault())
@@ -146,16 +147,19 @@ public class TaskManagerImpl extends TaskManager implements PersistentStateCompo
 	private final Config myConfig = new Config();
 	private final ChangeListAdapter myChangeListListener;
 	private final ChangeListManager myChangeListManager;
+	private final StartupManager myStartupManager;
 
 	private final List<TaskRepository> myRepositories = new ArrayList<>();
 	private final EventDispatcher<TaskListener> myDispatcher = EventDispatcher.create(TaskListener.class);
 	private Set<TaskRepository> myBadRepositories = ContainerUtil.newConcurrentSet();
 
+	@Inject
 	public TaskManagerImpl(Project project, WorkingContextManager contextManager, ChangeListManager changeListManager, StartupManager startupManager)
 	{
 		myProject = project;
 		myContextManager = contextManager;
 		myChangeListManager = changeListManager;
+		myStartupManager = startupManager;
 
 		myChangeListListener = new ChangeListAdapter()
 		{
@@ -186,7 +190,10 @@ public class TaskManagerImpl extends TaskManager implements PersistentStateCompo
 			}
 		};
 
-		startupManager.registerPostStartupActivity(uiAccess -> projectOpened());
+		if(!myProject.isDefault())
+		{
+			myStartupManager.registerPostStartupActivity(ui -> projectOpened());
+		}
 	}
 
 	@Override
@@ -809,23 +816,25 @@ public class TaskManagerImpl extends TaskManager implements PersistentStateCompo
 	@Override
 	public void afterLoadState()
 	{
-		if(!ApplicationManager.getApplication().isUnitTestMode())
+		if(myProject.isDefault())
 		{
-			myCacheRefreshTimer = UIUtil.createNamedTimer("TaskManager refresh", myConfig.updateInterval * 60 * 1000, new ActionListener()
-			{
-				@Override
-				public void actionPerformed(@Nonnull ActionEvent e)
-				{
-					if(myConfig.updateEnabled && !myUpdating)
-					{
-						LOG.debug("Updating issues cache (every " + myConfig.updateInterval + " min)");
-						updateIssues(null);
-					}
-				}
-			});
-			myCacheRefreshTimer.setInitialDelay(0);
-			StartupManager.getInstance(myProject).registerPostStartupActivity(() -> myCacheRefreshTimer.start());
+			return;
 		}
+
+		myCacheRefreshTimer = UIUtil.createNamedTimer("TaskManager refresh", myConfig.updateInterval * 60 * 1000, new ActionListener()
+		{
+			@Override
+			public void actionPerformed(@Nonnull ActionEvent e)
+			{
+				if(myConfig.updateEnabled && !myUpdating)
+				{
+					LOG.debug("Updating issues cache (every " + myConfig.updateInterval + " min)");
+					updateIssues(null);
+				}
+			}
+		});
+		myCacheRefreshTimer.setInitialDelay(0);
+		myStartupManager.registerPostStartupActivity((ui) -> myCacheRefreshTimer.start());
 
 		// make sure that the default task is exist
 		LocalTask defaultTask = findTask(LocalTaskImpl.DEFAULT_TASK_ID);

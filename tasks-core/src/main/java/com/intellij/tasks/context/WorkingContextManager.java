@@ -16,6 +16,23 @@
 
 package com.intellij.tasks.context;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.TestOnly;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
@@ -34,24 +51,11 @@ import com.intellij.util.NullableFunction;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.io.zip.JBZipEntry;
 import com.intellij.util.io.zip.JBZipFile;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.output.XMLOutputter;
-import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * @author Dmitry Avdeev
  */
+@Singleton
 public class WorkingContextManager {
 
   private static final Logger LOG = Logger.getInstance("#com.intellij.tasks.context.WorkingContextManager");
@@ -71,6 +75,7 @@ public class WorkingContextManager {
     return ServiceManager.getService(project, WorkingContextManager.class);
   }
 
+  @Inject
   public WorkingContextManager(Project project) {
     myProject = project;
   }

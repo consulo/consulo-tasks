@@ -1,5 +1,16 @@
 package com.intellij.tasks.config;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import org.jetbrains.annotations.Nls;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.NonDefaultProjectConfigurable;
@@ -13,12 +24,6 @@ import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.impl.TaskManagerImpl;
 import com.intellij.ui.GuiUtils;
 import com.intellij.ui.components.JBCheckBox;
-import org.jetbrains.annotations.Nls;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Dmitry Avdeev
@@ -60,6 +65,7 @@ public class TaskConfigurable extends BindableConfigurable implements Searchable
     }
   };
 
+  @Inject
   public TaskConfigurable(Project project) {
     super();
     myProject = project;

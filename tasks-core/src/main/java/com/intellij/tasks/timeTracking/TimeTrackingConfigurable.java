@@ -1,16 +1,21 @@
 package com.intellij.tasks.timeTracking;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import org.jetbrains.annotations.Nls;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.GuiUtils;
-import org.jetbrains.annotations.Nls;
-import javax.annotation.Nonnull;
-
-import javax.annotation.Nullable;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * User: Evgeny.Zakrevsky
@@ -23,7 +28,7 @@ public class TimeTrackingConfigurable implements SearchableConfigurable, Configu
   private JPanel myPanel;
   private Project myProject;
 
-
+  @Inject
   public TimeTrackingConfigurable(Project project) {
     myProject = project;
     myEnableTimeTrackingCheckBox.addActionListener(new ActionListener() {
