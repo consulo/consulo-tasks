@@ -53,6 +53,7 @@
 					<dependencies>
 						<dependency>com.intellij.regexp</dependency>
 						<dependency>com.intellij.xml</dependency>
+						<dependency>consulo.library.flexmark</dependency>
 					</dependencies>
 					<packaging>
 						<skip>${dev.mode}</skip>
@@ -95,11 +96,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark</artifactId>
-			<version>0.28.24</version>
-		</dependency>
-		<dependency>
 			<groupId>net.minidev</groupId>
 			<artifactId>json-smart</artifactId>
 			<version>2.3</version>
@@ -127,6 +123,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>consulo.plugin.library</groupId>
+			<artifactId>consulo.library.flexmark</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>com.intellij.xml</artifactId>
