@@ -23,11 +23,9 @@ public class ConfigureServersAction extends BaseTaskAction
 	@Override
 	public void actionPerformed(@Nonnull AnActionEvent e)
 	{
-		TaskRepositoriesConfigurable configurable = new TaskRepositoriesConfigurable(getProject(e));
-		if(ShowSettingsUtil.getInstance().editConfigurable(getProject(e), configurable))
-		{
-			serversChanged();
-		}
+		TaskRepositoriesConfigurable configurable = new TaskRepositoriesConfigurable(e.getProject());
+
+		ShowSettingsUtil.getInstance().editConfigurable(getProject(e), configurable).doWhenDone(this::serversChanged);
 	}
 
 	protected void serversChanged()
