@@ -7,10 +7,9 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import com.intellij.tasks.impl.TaskUtil;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 
 /**
  * @author Mikhail Golubev
@@ -40,7 +39,7 @@ public class TaskTestUtil {
     private String myDescription;
     private String myIssueUrl;
     private Comment[] myComments = Comment.EMPTY_ARRAY;
-    private Icon myIcon;
+    private Image myIcon;
     private TaskType myType = TaskType.OTHER;
     private TaskState myState;
     private Date myCreated;
@@ -107,7 +106,7 @@ public class TaskTestUtil {
       return this;
     }
 
-    public TaskBuilder withIcon(@Nullable Icon icon) {
+    public TaskBuilder withIcon(@Nullable Image icon) {
       myIcon = icon;
       return this;
     }
@@ -138,8 +137,8 @@ public class TaskTestUtil {
 
     @Nonnull
     @Override
-    public Icon getIcon() {
-      return myIcon == null? TargetAWT.to(myRepository.getIcon()) : myIcon;
+    public Image getIcon() {
+      return myIcon == null? myRepository.getIcon() : myIcon;
     }
 
     @Nonnull
