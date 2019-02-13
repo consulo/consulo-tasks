@@ -20,7 +20,6 @@ import java.util.Date;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
@@ -33,7 +32,7 @@ import com.intellij.tasks.jira.model.JiraIssueType;
 import com.intellij.tasks.jira.model.JiraStatus;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 
 /**
@@ -75,14 +74,14 @@ public class JiraTask extends Task {
   }
 
   @Nonnull
-  public Icon getIcon() {
+  public Image getIcon() {
     JiraIssueType issueType = myJiraIssue.getIssueType();
     String iconUrl = issueType.getIconUrl();
     // iconUrl will be null in JIRA versions prior 5.x.x
-    final Icon icon = iconUrl == null
-                      ? TargetAWT.to(TasksIcons.Jira)
+    final Image icon = iconUrl == null
+                      ? TasksIcons.Jira
                       : isClosed() ? CachedIconLoader.getDisabledIcon(iconUrl) : CachedIconLoader.getIcon(iconUrl);
-    return icon != null ? icon : TargetAWT.to(TasksIcons.Other);
+    return icon != null ? icon : TasksIcons.Other;
   }
 
   @Nonnull

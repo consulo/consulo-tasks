@@ -4,13 +4,12 @@ import java.util.Date;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 
 public class GenericTask extends Task {
   private final String myId;
@@ -54,8 +53,8 @@ public class GenericTask extends Task {
 
   @Nonnull
   @Override
-  public Icon getIcon() {
-    return TargetAWT.to(myRepository.getIcon());
+  public Image getIcon() {
+    return myRepository.getIcon();
   }
 
   @Nonnull

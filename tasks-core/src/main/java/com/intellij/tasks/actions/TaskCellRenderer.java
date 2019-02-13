@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.gotoByName.ChooseByNameBase;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskManager;
@@ -56,7 +55,7 @@ public class TaskCellRenderer extends DefaultListCellRenderer implements Matcher
       panel.setBackground(bg);
       SimpleTextAttributes attr = getAttributes(sel, isClosed);
 
-      c.setIcon(isClosed ? IconLoader.getTransparentIcon(task.getIcon()) : task.getIcon());
+      c.setIcon(isClosed ? ImageEffects.transparent(task.getIcon()) : task.getIcon());
       SpeedSearchUtil.appendColoredFragmentForMatcher(task.getPresentableName(), c, attr, myMatcher, bg, sel);
       panel.add(c, BorderLayout.CENTER);
     }

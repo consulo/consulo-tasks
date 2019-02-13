@@ -3,16 +3,15 @@ package com.intellij.tasks.redmine;
 import java.util.Date;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
-
 import javax.annotation.Nullable;
+
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
 import com.intellij.tasks.redmine.model.RedmineIssue;
 import com.intellij.tasks.redmine.model.RedmineProject;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 
 /**
@@ -75,9 +74,9 @@ public class RedmineTask extends Task
 
 	@Nonnull
 	@Override
-	public Icon getIcon()
+	public Image getIcon()
 	{
-		return TargetAWT.to(TasksIcons.Redmine);
+		return TasksIcons.Redmine;
 	}
 
 	@Nonnull

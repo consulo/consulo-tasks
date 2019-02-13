@@ -26,14 +26,12 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskListenerAdapter;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.actions.GotoTaskAction;
 import com.intellij.tasks.actions.SwitchTaskAction;
-import com.intellij.ui.LayeredIcon;
 import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.ui.SimpleColoredComponent;
 import com.intellij.ui.SimpleTextAttributes;
@@ -45,6 +43,7 @@ import com.intellij.util.ui.ColumnInfo;
 import com.intellij.util.ui.ListTableModel;
 import com.intellij.util.ui.UIUtil;
 import consulo.awt.TargetAWT;
+import consulo.ui.image.ImageEffects;
 import icons.TasksIcons;
 
 /**
@@ -232,8 +231,8 @@ public class TasksToolWindowPanel extends SimpleToolWindowPanel implements Dispo
             final boolean isRunning = myTimeTrackingManager.getState().autoMode ? isActive : isActive && task.isRunning();
             component.append((String)value, getAttributes(isClosed, isActive, isSelected));
             component.setIcon(isRunning
-                              ? LayeredIcon.create(task.getIcon(), AllIcons.Nodes.RunnableMark)
-                              : isClosed && !isActive ? IconLoader.getTransparentIcon(task.getIcon()) : task.getIcon());
+                              ? ImageEffects.layered(task.getIcon(), AllIcons.Nodes.RunnableMark)
+                              : isClosed && !isActive ? ImageEffects.transparent(task.getIcon()) : task.getIcon());
             component.setOpaque(false);
             panel.add(component, BorderLayout.CENTER);
             panel.setOpaque(true);

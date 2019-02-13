@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import org.apache.axis.utils.XMLChar;
 import org.apache.commons.httpclient.HttpClient;
@@ -42,7 +41,7 @@ import com.intellij.util.text.VersionComparatorUtil;
 import com.intellij.util.xmlb.annotations.MapAnnotation;
 import com.intellij.util.xmlb.annotations.Property;
 import com.intellij.util.xmlb.annotations.Tag;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 
 /**
  * @author Dmitry Avdeev
@@ -258,8 +257,8 @@ public class YouTrackRepository extends BaseRepositoryImpl {
 
       @Nonnull
       @Override
-      public Icon getIcon() {
-        return TargetAWT.to(LocalTaskImpl.getIconFromType(getType(), isIssue()));
+      public Image getIcon() {
+        return LocalTaskImpl.getIconFromType(getType(), isIssue());
       }
 
       @Nonnull

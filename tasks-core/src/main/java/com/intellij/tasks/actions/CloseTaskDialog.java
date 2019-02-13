@@ -39,6 +39,7 @@ import com.intellij.tasks.impl.TaskUtil;
 import com.intellij.tasks.ui.TaskDialogPanel;
 import com.intellij.tasks.ui.TaskDialogPanelProvider;
 import com.intellij.ui.components.JBCheckBox;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Dmitry Avdeev
@@ -65,7 +66,7 @@ public class CloseTaskDialog extends DialogWrapper
 
 		setTitle("Close Task");
 		myTaskLabel.setText(TaskUtil.getTrimmedSummary(task));
-		myTaskLabel.setIcon(task.getIcon());
+		myTaskLabel.setIcon(TargetAWT.to(task.getIcon()));
 
 		if(!TaskStateCombo.stateUpdatesSupportedFor(task))
 		{

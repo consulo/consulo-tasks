@@ -3,16 +3,15 @@ package com.intellij.tasks.gitlab;
 import java.util.Date;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
-
 import javax.annotation.Nullable;
+
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
 import com.intellij.tasks.gitlab.model.GitlabIssue;
 import com.intellij.tasks.gitlab.model.GitlabProject;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 
 /**
@@ -70,8 +69,8 @@ public class GitlabTask extends Task {
 
   @Nonnull
   @Override
-  public Icon getIcon() {
-    return TargetAWT.to(TasksIcons.Gitlab);
+  public Image getIcon() {
+    return TasksIcons.Gitlab;
   }
 
   @Nonnull

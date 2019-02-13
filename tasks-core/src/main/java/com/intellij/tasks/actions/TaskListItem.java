@@ -15,12 +15,12 @@
  */
 package com.intellij.tasks.actions;
 
-import com.intellij.openapi.util.IconLoader;
-import com.intellij.tasks.LocalTask;
-import com.intellij.tasks.impl.TaskUtil;
 import javax.annotation.Nullable;
 
-import javax.swing.*;
+import com.intellij.tasks.LocalTask;
+import com.intellij.tasks.impl.TaskUtil;
+import consulo.ui.image.Image;
+import consulo.ui.image.ImageEffects;
 
 /**
  * @author Dmitry Avdeev
@@ -29,12 +29,12 @@ import javax.swing.*;
 abstract class TaskListItem {
 
   private final String myText;
-  private final Icon myIcon;
+  private final Image myIcon;
   private final String mySeparator;
   private final boolean myTemp;
   private final LocalTask myTask;
 
-  public TaskListItem(String text, Icon icon) {
+  public TaskListItem(String text, Image icon) {
     myText = text;
     myIcon = icon;
     mySeparator = null;
@@ -47,14 +47,14 @@ abstract class TaskListItem {
     mySeparator = separator;
     myTemp = temp;
     myText = TaskUtil.getTrimmedSummary(task);
-    myIcon = temp ? IconLoader.getTransparentIcon(task.getIcon(), 0.5f) : task.getIcon();
+    myIcon = temp ? ImageEffects.transparent(task.getIcon(), 0.5f) : task.getIcon();
   }
 
   public String getText() {
     return myText;
   }
 
-  public Icon getIcon() {
+  public Image getIcon() {
     return myIcon;
   }
 

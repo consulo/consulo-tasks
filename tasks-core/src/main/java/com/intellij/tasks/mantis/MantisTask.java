@@ -4,13 +4,12 @@ import java.util.Date;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 
 public class MantisTask extends Task {
@@ -61,8 +60,8 @@ public class MantisTask extends Task {
 
   @Nonnull
   @Override
-  public Icon getIcon() {
-    return TargetAWT.to(TasksIcons.Mantis);
+  public Image getIcon() {
+    return TasksIcons.Mantis;
   }
 
   @Nonnull

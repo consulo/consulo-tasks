@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -29,8 +30,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.options.binding.BindControl;
@@ -50,6 +49,7 @@ import com.intellij.tasks.impl.TaskUtil;
 import com.intellij.tasks.ui.TaskDialogPanel;
 import com.intellij.tasks.ui.TaskDialogPanelProvider;
 import com.intellij.ui.components.JBCheckBox;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Dmitry Avdeev
@@ -78,7 +78,7 @@ public class OpenTaskDialog extends DialogWrapper
 		myTask = task;
 		setTitle("Open Task");
 		myTaskNameLabel.setText(TaskUtil.getTrimmedSummary(task));
-		myTaskNameLabel.setIcon(task.getIcon());
+		myTaskNameLabel.setIcon(TargetAWT.to(task.getIcon()));
 
 		TaskManagerImpl taskManager = (TaskManagerImpl) TaskManager.getManager(myProject);
 		ControlBinder binder = new ControlBinder(taskManager.getState());

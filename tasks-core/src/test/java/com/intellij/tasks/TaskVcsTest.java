@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
 import javax.swing.JPanel;
 
 import com.intellij.openapi.application.ModalityState;
@@ -40,7 +39,7 @@ import com.intellij.tasks.impl.TaskManagerImpl;
 import com.intellij.testFramework.IdeaTestCase;
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase;
 import com.intellij.util.containers.ContainerUtil;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 
 /**
@@ -426,8 +425,8 @@ public class TaskVcsTest extends CodeInsightFixtureTestCase {
 
       @Nonnull
       @Override
-      public Icon getIcon() {
-        return TargetAWT.to(TasksIcons.Unknown);
+      public Image getIcon() {
+        return TasksIcons.Unknown;
       }
 
       @Nonnull

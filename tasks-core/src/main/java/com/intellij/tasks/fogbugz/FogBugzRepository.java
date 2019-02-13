@@ -20,7 +20,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
@@ -42,7 +41,7 @@ import com.intellij.tasks.impl.BaseRepositoryImpl;
 import com.intellij.util.NotNullFunction;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Tag;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 
 /**
@@ -177,8 +176,8 @@ public class FogBugzRepository extends BaseRepositoryImpl {
 
       @Nonnull
       @Override
-      public Icon getIcon() {
-        return TargetAWT.to(TasksIcons.Fogbugz);
+      public Image getIcon() {
+        return TasksIcons.Fogbugz;
       }
 
       @Nonnull

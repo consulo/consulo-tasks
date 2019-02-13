@@ -19,10 +19,10 @@ package com.intellij.tasks;
 import java.util.Date;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
-
 import javax.annotation.Nullable;
+
 import com.intellij.openapi.util.text.StringUtil;
+import consulo.ui.image.Image;
 
 /**
  * @author Dmitry Avdeev
@@ -74,7 +74,7 @@ public abstract class Task
 	public abstract Comment[] getComments();
 
 	@Nonnull
-	public abstract Icon getIcon();
+	public abstract Image getIcon();
 
 	@Nonnull
 	public abstract TaskType getType();

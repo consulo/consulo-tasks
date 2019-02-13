@@ -16,25 +16,12 @@
 
 package com.intellij.tasks.trello;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import com.intellij.tasks.trello.model.TrelloLabel;
-import com.intellij.util.ui.UIUtil;
-import consulo.awt.TargetAWT;
 import icons.TasksIcons;
 
 public class TrelloIconBuilder {
@@ -47,33 +34,35 @@ public class TrelloIconBuilder {
     this.size = size;
   }
 
-  public Icon buildIcon(Set<TrelloLabel.LabelColor> colorSet) {
+  public consulo.ui.image.Image buildIcon(Set<TrelloLabel.LabelColor> colorSet) {
     if (colorSet.isEmpty()) {
-      return TargetAWT.to(TasksIcons.Trello);
+      return TasksIcons.Trello;
     }
-    Image image = CACHE.get(colorSet);
-    if (image == null) {
-      BufferedImage bufferedImage = UIUtil.createImage(size, size, BufferedImage.TYPE_INT_ARGB);
-      int adjustedSize = size - 1;
-      int nStripes = colorSet.size();
-      Graphics2D g2d = bufferedImage.createGraphics();
-      double diag = adjustedSize * SQRT_2;
-      double stripeWidth = diag / nStripes;
-      RoundRectangle2D baseRectangle = new RoundRectangle2D.Double(0, 0, adjustedSize, adjustedSize, 2, 2);
-      ArrayList<TrelloLabel.LabelColor> colorsList = new ArrayList<TrelloLabel.LabelColor>(colorSet);
-      for (int i = 0; i < nStripes; i++) {
-        Color color = colorsList.get(i).getColor();
-        Area stripe = new Area(new Rectangle2D.Double(-diag / 2, (i * stripeWidth), diag, stripeWidth));
-        stripe.transform(AffineTransform.getRotateInstance(-Math.PI / 4, 0, 0));
-        stripe.intersect(new Area(baseRectangle));
-        g2d.setPaint(color);
-        g2d.fill(stripe);
-      }
-      g2d.setPaint(Color.BLACK);
-      g2d.draw(baseRectangle);
-      image = bufferedImage;
-      CACHE.put(colorSet, image);
-    }
-    return new ImageIcon(image);
+// TODO [VISTALL] unsupported
+//    Image image = CACHE.get(colorSet);
+//    if (image == null) {
+//      BufferedImage bufferedImage = UIUtil.createImage(size, size, BufferedImage.TYPE_INT_ARGB);
+//      int adjustedSize = size - 1;
+//      int nStripes = colorSet.size();
+//      Graphics2D g2d = bufferedImage.createGraphics();
+//      double diag = adjustedSize * SQRT_2;
+//      double stripeWidth = diag / nStripes;
+//      RoundRectangle2D baseRectangle = new RoundRectangle2D.Double(0, 0, adjustedSize, adjustedSize, 2, 2);
+//      ArrayList<TrelloLabel.LabelColor> colorsList = new ArrayList<TrelloLabel.LabelColor>(colorSet);
+//      for (int i = 0; i < nStripes; i++) {
+//        Color color = colorsList.get(i).getColor();
+//        Area stripe = new Area(new Rectangle2D.Double(-diag / 2, (i * stripeWidth), diag, stripeWidth));
+//        stripe.transform(AffineTransform.getRotateInstance(-Math.PI / 4, 0, 0));
+//        stripe.intersect(new Area(baseRectangle));
+//        g2d.setPaint(color);
+//        g2d.fill(stripe);
+//      }
+//      g2d.setPaint(Color.BLACK);
+//      g2d.draw(baseRectangle);
+//      image = bufferedImage;
+//      CACHE.put(colorSet, image);
+//    }
+//    return new ImageIcon(image);
+	  return TasksIcons.Trello;
   }
 }

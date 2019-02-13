@@ -59,6 +59,7 @@ import com.intellij.tools.SimpleActionGroup;
 import com.intellij.ui.popup.list.ListPopupImpl;
 import com.intellij.util.NullableFunction;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.awt.TargetAWT;
 
 /**
  * @author Dmitry Avdeev
@@ -97,7 +98,7 @@ public class SwitchTaskAction extends BaseTaskAction {
 
       @Override
       public Icon getIconFor(TaskListItem aValue) {
-        return aValue.getIcon();
+        return TargetAWT.to(aValue.getIcon());
       }
 
       @Nonnull
@@ -191,7 +192,7 @@ public class SwitchTaskAction extends BaseTaskAction {
     assert action instanceof GotoTaskAction;
     final GotoTaskAction gotoTaskAction = (GotoTaskAction)action;
     group.add(new TaskListItem(gotoTaskAction.getTemplatePresentation().getText(),
-                               gotoTaskAction.getTemplatePresentation().getIcon()) {
+                               TargetAWT.from(gotoTaskAction.getTemplatePresentation().getIcon())) {
       @Override
       void select() {
         ActionManager.getInstance().tryToExecute(gotoTaskAction, ActionCommand.getInputEvent(GotoTaskAction.ID),

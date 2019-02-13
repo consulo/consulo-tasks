@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import org.apache.xmlrpc.CommonsXmlRpcTransport;
 import org.apache.xmlrpc.XmlRpc;
@@ -42,7 +41,7 @@ import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Tag;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.TasksIcons;
 
 /**
@@ -163,8 +162,8 @@ public class TracRepository extends BaseRepositoryImpl {
 
       @Nonnull
       @Override
-      public Icon getIcon() {
-        return TargetAWT.to(TasksIcons.Trac);
+      public Image getIcon() {
+        return TasksIcons.Trac;
       }
 
       @Nonnull

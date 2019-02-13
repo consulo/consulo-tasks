@@ -16,18 +16,19 @@
 
 package com.intellij.tasks.trello;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.tasks.Comment;
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.TaskType;
 import com.intellij.tasks.trello.model.TrelloCard;
 import com.intellij.tasks.trello.model.TrelloCommentAction;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.util.Date;
-import java.util.List;
+import consulo.ui.image.Image;
 
 /**
  * @author Mikhail Golubev
@@ -70,7 +71,7 @@ public class TrelloTask extends Task {
 
   @Nonnull
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     return iconBuilder.buildIcon(myCard.getColors());
   }
 
