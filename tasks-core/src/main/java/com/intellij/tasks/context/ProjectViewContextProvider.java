@@ -20,22 +20,22 @@ import com.intellij.ide.projectView.impl.AbstractProjectViewPane;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
-import com.intellij.openapi.extensions.Extensions;
 import com.intellij.util.ui.tree.TreeUtil;
 import org.jdom.Element;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
 import javax.swing.*;
+import java.util.List;
 
 /**
  * @author Dmitry Avdeev
  */
 public class ProjectViewContextProvider extends WorkingContextProvider {
 
-  private final AbstractProjectViewPane[] myPanes;
+  private final List<AbstractProjectViewPane> myPanes;
 
   public ProjectViewContextProvider(Project project) {
-    myPanes = Extensions.getExtensions(AbstractProjectViewPane.EP_NAME, project);
+    myPanes = AbstractProjectViewPane.EP_NAME.getExtensionList(project);
   }
 
   @Nonnull

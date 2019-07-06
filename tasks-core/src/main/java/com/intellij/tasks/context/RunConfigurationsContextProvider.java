@@ -16,10 +16,12 @@
 
 package com.intellij.tasks.context;
 
+import com.intellij.execution.RunManager;
 import com.intellij.execution.impl.RunManagerImpl;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import org.jdom.Element;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -29,9 +31,8 @@ public class RunConfigurationsContextProvider extends WorkingContextProvider {
 
   private final RunManagerImpl myManager;
 
-  public RunConfigurationsContextProvider(RunManagerImpl manager) {
-
-    myManager = manager;
+  public RunConfigurationsContextProvider(RunManager manager) {
+    myManager = (RunManagerImpl) manager;
   }
 
   @Nonnull
