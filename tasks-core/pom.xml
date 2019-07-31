@@ -115,11 +115,13 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<scope>provided</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.ws.xmlrpc</groupId>
-			<artifactId>xmlrpc</artifactId>
+			<groupId>org.apache.xmlrpc</groupId>
+			<artifactId>xmlrpc-client</artifactId>
+			<optional>true</optional>
 			<scope>provided</scope>
 		</dependency>
 

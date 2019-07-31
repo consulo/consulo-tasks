@@ -26,10 +26,9 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Tag;
 import consulo.ui.image.Image;
 import icons.TasksIcons;
-import org.apache.xmlrpc.CommonsXmlRpcTransport;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlRpcRequest;
-import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,12 +41,49 @@ import java.util.*;
  * @author Dmitry Avdeev
  */
 @Tag("Trac")
-@SuppressWarnings({
-		"UseOfObsoleteCollectionType",
-		"unchecked"
-})
 public class TracRepository extends BaseRepositoryImpl
 {
+	private static final ThreadLocal<CancelableTransport> ourStaticTransport = new ThreadLocal<>();
+
+	private class CancelableTransport extends XmlRpcCommonsTransport
+	{
+		public CancelableTransport(XmlRpcCommonsTransportFactory factory) throws MalformedURLException
+		{
+			super(factory);
+		}
+
+		void cancel()
+		{
+			method.abort();
+		}
+
+		@Override
+		public Object sendRequest(XmlRpcRequest pRequest) throws XmlRpcException
+		{
+			ourStaticTransport.set(this);
+			return super.sendRequest(pRequest);
+		}
+
+		@Override
+		protected void close() throws XmlRpcClientException
+		{
+			super.close();
+			CancelableTransport cancelableTransport = ourStaticTransport.get();
+			if(cancelableTransport == this)
+			{
+				ourStaticTransport.remove();
+			}
+		}
+	}
+
+	private static void cancelCurrentRequest()
+	{
+		CancelableTransport cancelableTransport = ourStaticTransport.get();
+		if(cancelableTransport != null)
+		{
+			cancelableTransport.cancel();
+		}
+	}
 
 	private String myDefaultSearch = "status!=closed&owner={username}&summary~={query}";
 	private Boolean myMaxSupported;
@@ -55,22 +91,21 @@ public class TracRepository extends BaseRepositoryImpl
 	@Override
 	public Task[] getIssues(@Nullable String query, int max, long since) throws Exception
 	{
-		Transport transport = new Transport();
-		return getIssues(query, max, transport);
+		return getIssues(query, max);
 	}
 
-	private Task[] getIssues(@Nullable String query, int max, final Transport transport) throws Exception
+	private Task[] getIssues(@Nullable String query, int max) throws Exception
 	{
 		final XmlRpcClient client = getRpcClient();
 
-		Vector<Object> result = null;
+		List<Object> result = null;
 		String search = myDefaultSearch + "&max=" + max;
 		if(myMaxSupported == null)
 		{
 			try
 			{
 				myMaxSupported = true;
-				result = runQuery(query, transport, client, search);
+				result = runQuery(query, client, search);
 			}
 			catch(XmlRpcException e)
 			{
@@ -90,7 +125,7 @@ public class TracRepository extends BaseRepositoryImpl
 		}
 		if(result == null)
 		{
-			result = runQuery(query, transport, client, search);
+			result = runQuery(query, client, search);
 		}
 
 		if(result == null)
@@ -102,34 +137,49 @@ public class TracRepository extends BaseRepositoryImpl
 		int min = Math.min(max, result.size());
 		for(int i = 0; i < min; i++)
 		{
-			Task task = getTask((Integer) result.get(i), client, transport);
+			Task task = getTask((Integer) result.get(i), client);
 			ContainerUtil.addIfNotNull(tasks, task);
 		}
 		return tasks.toArray(new Task[tasks.size()]);
 	}
 
-	private Vector<Object> runQuery(@Nullable String query, Transport transport, XmlRpcClient client, String search)
-			throws XmlRpcException, IOException
+	@SuppressWarnings("unchecked")
+	private List<Object> runQuery(@Nullable String query, XmlRpcClient client, String search) throws XmlRpcException, IOException
 	{
 		if(query != null)
 		{
 			search = search.replace("{query}", query);
 		}
 		search = search.replace("{username}", getUsername());
-		XmlRpcRequest request = new XmlRpcRequest("ticket.query", new Vector<Object>(Arrays.asList(search)));
-		return (Vector<Object>) client.execute(request, transport);
+		return (List<Object>) client.execute("ticket.query", Arrays.asList(search));
 	}
 
 	private XmlRpcClient getRpcClient() throws MalformedURLException
 	{
-		return new XmlRpcClient(getUrl());
+		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+		config.setServerURL(new URL(getUrl()));
+		config.setEncoding("UTF-8");
+
+		XmlRpcClient client = new XmlRpcClient();
+		XmlRpcCommonsTransportFactory commonsTransportFactory = new XmlRpcCommonsTransportFactory(client)
+		{
+			@Override
+			public XmlRpcTransport getTransport()
+			{
+				return super.getTransport();
+			}
+		};
+		commonsTransportFactory.setHttpClient(getHttpClient());
+		client.setConfig(config);
+		client.setTransportFactory(commonsTransportFactory);
+		return client;
 	}
 
 	@Nullable
 	@Override
-	public Task findTask(String id) throws Exception
+	public Task findTask(@Nonnull String id) throws Exception
 	{
-		return getTask(Integer.parseInt(id), getRpcClient(), new Transport());
+		return getTask(Integer.parseInt(id), getRpcClient());
 	}
 
 	public String getDefaultSearch()
@@ -143,16 +193,16 @@ public class TracRepository extends BaseRepositoryImpl
 	}
 
 	@Nullable
-	private Task getTask(int id, XmlRpcClient client, Transport transport) throws IOException, XmlRpcException
+	@SuppressWarnings("unchecked")
+	private Task getTask(int id, XmlRpcClient client) throws IOException, XmlRpcException
 	{
-		XmlRpcRequest request = new XmlRpcRequest("ticket.get", new Vector(Arrays.asList(id)));
-		Object response = client.execute(request, transport);
+		Object response = client.execute("ticket.get", Arrays.asList(id));
 		if(response == null)
 		{
 			return null;
 		}
-		final Vector<Object> vector = (Vector<Object>) response;
-		final Hashtable<String, String> map = (Hashtable<String, String>) vector.get(3);
+		final List<Object> vector = (List<Object>) response;
+		final Map<String, String> map = (Map<String, String>) vector.get(3);
 		return new Task()
 		{
 
@@ -267,27 +317,23 @@ public class TracRepository extends BaseRepositoryImpl
 	@Override
 	public CancellableConnection createCancellableConnection()
 	{
-
 		return new CancellableConnection()
 		{
-
-			Transport myTransport;
-
 			@Override
 			protected void doTest() throws Exception
 			{
-				myTransport = new Transport();
-				getIssues("", 1, myTransport);
+				getIssues("", 1);
 			}
 
 			@Override
 			public void cancel()
 			{
-				myTransport.cancel();
+				cancelCurrentRequest();
 			}
 		};
 	}
 
+	@Nonnull
 	@Override
 	public BaseRepository clone()
 	{
@@ -311,19 +357,6 @@ public class TracRepository extends BaseRepositoryImpl
 	{
 		super(other);
 		myDefaultSearch = other.myDefaultSearch;
-	}
-
-	private class Transport extends CommonsXmlRpcTransport
-	{
-		public Transport() throws MalformedURLException
-		{
-			super(new URL(getUrl()), getHttpClient());
-		}
-
-		void cancel()
-		{
-			method.abort();
-		}
 	}
 
 	@SuppressWarnings({"EqualsWhichDoesntCheckParameterClass"})
