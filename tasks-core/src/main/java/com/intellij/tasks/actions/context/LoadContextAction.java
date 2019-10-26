@@ -16,28 +16,9 @@
 
 package com.intellij.tasks.actions.context;
 
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.AbstractAction;
-import javax.swing.KeyStroke;
-
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.popup.JBPopupAdapter;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.ui.popup.LightweightWindowEvent;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.tasks.LocalTask;
@@ -55,6 +36,12 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.text.DateFormatUtil;
 import consulo.ui.image.Image;
 import icons.TasksIcons;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.*;
 
 /**
  * @author Dmitry Avdeev
@@ -204,14 +191,6 @@ public class LoadContextAction extends BaseTaskAction
 			public void actionPerformed(ActionEvent e)
 			{
 				popup.handleSelect(true);
-			}
-		});
-		popup.addPopupListener(new JBPopupAdapter()
-		{
-			@Override
-			public void onClosed(LightweightWindowEvent event)
-			{
-
 			}
 		});
 		popup.showCenteredInCurrentWindow(project);

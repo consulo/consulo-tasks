@@ -16,15 +16,7 @@
 
 package com.intellij.tasks.actions;
 
-import javax.annotation.Nonnull;
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.actionSystem.Presentation;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.actionSystem.ex.ComboBoxAction;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
@@ -36,6 +28,9 @@ import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.config.TaskSettings;
 import consulo.actionSystem.ex.ComboBoxButtonImpl;
 import consulo.annotations.RequiredDispatchThread;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
 
 /**
  * @author Dmitry Avdeev
@@ -50,18 +45,12 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 		return button;
 	}
 
-	@Nonnull
-	@Override
-	public JBPopup createPopup(@Nonnull DataContext context, @Nonnull Runnable onDispose)
-	{
-		return SwitchTaskAction.createPopup(context, onDispose, false);
-	}
 
 	@Nonnull
 	@Override
-	public DefaultActionGroup createPopupActionGroup(DataContext context)
+	public JBPopup createPopup(@Nonnull JComponent component, @Nonnull DataContext context, @Nonnull Runnable onDispose)
 	{
-		throw new UnsupportedOperationException();
+		return SwitchTaskAction.createPopup(context, onDispose, false);
 	}
 
 	@RequiredDispatchThread
@@ -96,6 +85,13 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 				presentation.setDescription(activeTask.getSummary());
 			}
 		}
+	}
+
+	@Nonnull
+	@Override
+	protected DefaultActionGroup createPopupActionGroup(JComponent button)
+	{
+		throw new IllegalArgumentException();
 	}
 
 	private static boolean isImplicit(LocalTask activeTask)
