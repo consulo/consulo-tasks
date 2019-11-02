@@ -1,15 +1,6 @@
 package com.intellij.tasks.actions;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JList;
-import javax.swing.JPanel;
-
 import com.intellij.icons.AllIcons;
-import com.intellij.ide.util.gotoByName.ChooseByNameBase;
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.Task;
@@ -20,11 +11,13 @@ import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.ui.speedSearch.SpeedSearchUtil;
 import com.intellij.util.text.Matcher;
 import com.intellij.util.text.MatcherHolder;
-import com.intellij.util.ui.EmptyIcon;
 import com.intellij.util.ui.UIUtil;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import consulo.ui.image.ImageEffects;
 import icons.TasksIcons;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author Evgeny Zakrevsky
@@ -61,20 +54,16 @@ public class TaskCellRenderer extends DefaultListCellRenderer implements Matcher
     }
     else if ("...".equals(value)) {
       final SimpleColoredComponent c = new SimpleColoredComponent();
-      c.setIcon(EmptyIcon.ICON_16);
+      c.setIcon(Image.empty(16));
       c.append((String)value);
       panel.add(c, BorderLayout.CENTER);
     }
     else if (GotoTaskAction.CREATE_NEW_TASK_ACTION == value) {
       final SimpleColoredComponent c = new SimpleColoredComponent();
-      c.setIcon(TargetAWT.to(ImageEffects.layered(TasksIcons.Unknown, AllIcons.Actions.New)));
+      c.setIcon(ImageEffects.layered(TasksIcons.Unknown, AllIcons.Actions.New));
       c.append(GotoTaskAction.CREATE_NEW_TASK_ACTION.getActionText());
       panel.add(c, BorderLayout.CENTER);
     }
-    else if (ChooseByNameBase.NON_PREFIX_SEPARATOR == value) {
-      return ChooseByNameBase.renderNonPrefixSeparatorComponent(UIUtil.getListBackground());
-    }
-
     return panel;
   }
 

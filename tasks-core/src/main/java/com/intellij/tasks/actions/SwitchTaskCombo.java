@@ -18,6 +18,7 @@ package com.intellij.tasks.actions;
 
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.actionSystem.ex.ComboBoxAction;
+import com.intellij.openapi.actionSystem.ex.CustomComponentAction;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopup;
@@ -59,7 +60,7 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 	{
 		Presentation presentation = e.getPresentation();
 		Project project = e.getData(CommonDataKeys.PROJECT);
-        ComboBoxButtonImpl button = (ComboBoxButtonImpl) presentation.getClientProperty(CUSTOM_COMPONENT_PROPERTY);
+        ComboBoxButtonImpl button = (ComboBoxButtonImpl) presentation.getClientProperty(CustomComponentAction.COMPONENT_KEY);
 		if(project == null || project.isDefault() || project.isDisposed() || button == null)
 		{
 			presentation.setEnabled(false);
