@@ -41,7 +41,7 @@ public final class XPathResponseHandler extends SelectorBasedResponseHandler {
     Element root = document.getRootElement();
     XPath xPath = lazyCompile(getSelector(TASKS).getPath());
     @SuppressWarnings("unchecked")
-    List<Object> rawTaskElements = xPath.selectNodes(root);
+    List rawTaskElements = xPath.selectNodes(root);
     if (!rawTaskElements.isEmpty() && !(rawTaskElements.get(0) instanceof Element)) {
       throw new Exception(String.format("Expression '%s' should match list of XML elements. Got '%s' instead.",
                                         xPath.getXPath(), rawTaskElements.toString()));
