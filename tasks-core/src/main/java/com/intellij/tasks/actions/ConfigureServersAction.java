@@ -1,12 +1,12 @@
 package com.intellij.tasks.actions;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.tasks.config.TaskRepositoriesConfigurable;
-import consulo.annotations.RequiredDispatchThread;
+import consulo.ui.annotation.RequiredUIAccess;
+
+import javax.annotation.Nonnull;
 
 /**
  * User: Evgeny Zakrevsky
@@ -19,7 +19,7 @@ public class ConfigureServersAction extends BaseTaskAction
 		super("Configure Servers...", null, AllIcons.General.Settings);
 	}
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void actionPerformed(@Nonnull AnActionEvent e)
 	{

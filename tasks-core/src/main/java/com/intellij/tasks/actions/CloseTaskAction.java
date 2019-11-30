@@ -16,7 +16,6 @@
 
 package com.intellij.tasks.actions;
 
-import javax.annotation.Nonnull;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.project.Project;
@@ -26,7 +25,9 @@ import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.impl.TaskManagerImpl;
-import consulo.annotations.RequiredDispatchThread;
+import consulo.ui.annotation.RequiredUIAccess;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Dmitry Avdeev
@@ -34,7 +35,7 @@ import consulo.annotations.RequiredDispatchThread;
 public class CloseTaskAction extends BaseTaskAction
 {
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	public void actionPerformed(@Nonnull AnActionEvent e)
 	{
 		Project project = e.getProject();

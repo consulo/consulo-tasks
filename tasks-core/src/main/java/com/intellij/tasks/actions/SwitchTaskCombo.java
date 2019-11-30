@@ -28,7 +28,7 @@ import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.config.TaskSettings;
 import consulo.actionSystem.ex.ComboBoxButtonImpl;
-import consulo.annotations.RequiredDispatchThread;
+import consulo.ui.annotation.RequiredUIAccess;
 
 import javax.annotation.Nonnull;
 import javax.swing.*;
@@ -54,13 +54,13 @@ public class SwitchTaskCombo extends ComboBoxAction implements DumbAware
 		return SwitchTaskAction.createPopup(context, onDispose, false);
 	}
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void update(@Nonnull AnActionEvent e)
 	{
 		Presentation presentation = e.getPresentation();
 		Project project = e.getData(CommonDataKeys.PROJECT);
-        ComboBoxButtonImpl button = (ComboBoxButtonImpl) presentation.getClientProperty(CustomComponentAction.COMPONENT_KEY);
+		ComboBoxButtonImpl button = (ComboBoxButtonImpl) presentation.getClientProperty(CustomComponentAction.COMPONENT_KEY);
 		if(project == null || project.isDefault() || project.isDisposed() || button == null)
 		{
 			presentation.setEnabled(false);
