@@ -1,4 +1,4 @@
-<idea-plugin>
+<consulo-plugin>
 	<id>com.intellij.tasks</id>
 	<name>Task Management</name>
 	<description>Enables task and context management</description>
@@ -151,4 +151,4 @@
 		<projectService serviceInterface="com.intellij.tasks.TaskManager" serviceImplementation="com.intellij.tasks.impl.TaskManagerImpl" />
 	</extensions>
 
-</idea-plugin>
+</consulo-plugin>

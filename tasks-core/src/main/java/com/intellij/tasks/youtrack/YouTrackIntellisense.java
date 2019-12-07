@@ -1,24 +1,7 @@
 package com.intellij.tasks.youtrack;
 
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.CONSTANT;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.KEYWORD;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.STRING;
-import static com.intellij.openapi.editor.HighlighterColors.BAD_CHARACTER;
-import static com.intellij.openapi.editor.HighlighterColors.TEXT;
-
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.text.StringUtil;
@@ -26,6 +9,20 @@ import com.intellij.tasks.impl.TaskUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.hash.LinkedHashMap;
+import consulo.util.dataholder.Key;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+
+import javax.annotation.Nonnull;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.*;
+import static com.intellij.openapi.editor.HighlighterColors.BAD_CHARACTER;
+import static com.intellij.openapi.editor.HighlighterColors.TEXT;
 
 /**
  * Auxiliary class for extracting data from YouTrack intellisense responses.
