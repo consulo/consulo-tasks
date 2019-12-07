@@ -3,17 +3,17 @@ package com.intellij.tasks.impl.ssl;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
-import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.io.StreamUtil;
+import consulo.container.boot.ContainerPathManager;
 import org.apache.commons.httpclient.params.HttpConnectionParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.jetbrains.annotations.NonNls;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.net.ssl.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,7 +39,7 @@ public class CertificatesManager {
   private static final Logger LOG = Logger.getInstance(CertificatesManager.class);
   private static final X509Certificate[] NO_CERTIFICATES = new X509Certificate[0];
 
-  @NonNls private static final String DEFAULT_PATH = FileUtil.join(PathManager.getSystemPath(), "tasks", "cacerts");
+  @NonNls private static final String DEFAULT_PATH = FileUtil.join(ContainerPathManager.get().getSystemPath(), "tasks", "cacerts");
   @NonNls private static final String DEFAULT_PASSWORD = "changeit";
 
   @Nonnull
