@@ -16,27 +16,9 @@
 
 package com.intellij.tasks.context;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.output.XMLOutputter;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.TestOnly;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
-import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.extensions.Extensions;
@@ -51,6 +33,23 @@ import com.intellij.util.NullableFunction;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.io.zip.JBZipEntry;
 import com.intellij.util.io.zip.JBZipFile;
+import consulo.container.boot.ContainerPathManager;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.TestOnly;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author Dmitry Avdeev
@@ -171,7 +170,7 @@ public class WorkingContextManager {
   }
 
   private File getArchiveFile(String postfix) {
-    File tasksFolder = new File(PathManager.getConfigPath(), TASKS_FOLDER);
+    File tasksFolder = new File(ContainerPathManager.get().getConfigPath(), TASKS_FOLDER);
     if (!tasksFolder.exists()) {
       //noinspection ResultOfMethodCallIgnored
       tasksFolder.mkdir();
