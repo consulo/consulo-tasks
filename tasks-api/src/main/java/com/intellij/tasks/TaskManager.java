@@ -15,16 +15,16 @@
  */
 package com.intellij.tasks;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.AbstractVcs;
 import com.intellij.openapi.vcs.changes.LocalChangeList;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Dmitry Avdeev
@@ -136,4 +136,8 @@ public abstract class TaskManager
 	public abstract TaskRepository[] getAllRepositories();
 
 	public abstract boolean testConnection(TaskRepository repository);
+
+	public abstract void setTrackContextForNewChangelist(boolean value);
+
+	public abstract boolean isTrackContextForNewChangelist();
 }

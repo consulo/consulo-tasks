@@ -22,6 +22,7 @@ import com.intellij.openapi.vcs.changes.LocalChangeList;
 import com.intellij.openapi.vcs.changes.ui.EditChangelistSupport;
 import com.intellij.tasks.ChangeListInfo;
 import com.intellij.tasks.LocalTask;
+import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.actions.TaskAutoCompletionListProvider;
 import com.intellij.ui.EditorTextField;
 import com.intellij.ui.TextFieldWithAutoCompletionContributor;
@@ -32,60 +33,75 @@ import javax.swing.*;
 /**
  * @author Dmitry Avdeev
  */
-public class TaskChangelistSupport implements EditChangelistSupport {
+public class TaskChangelistSupport implements EditChangelistSupport
+{
+	private final Project myProject;
+	private final TaskManager myTaskManager;
 
-  private final Project myProject;
-  private final TaskManagerImpl myTaskManager;
+	public TaskChangelistSupport(Project project, TaskManager taskManager)
+	{
+		myProject = project;
+		myTaskManager = taskManager;
+	}
 
-  public TaskChangelistSupport(Project project, TaskManagerImpl taskManager) {
-    myProject = project;
-    myTaskManager = taskManager;
-  }
+	@Override
+	public void installSearch(EditorTextField name, final EditorTextField comment)
+	{
+		Document document = name.getDocument();
+		final TaskAutoCompletionListProvider completionProvider = new TaskAutoCompletionListProvider(myProject);
 
-  public void installSearch(EditorTextField name, final EditorTextField comment) {
-    Document document = name.getDocument();
-    final TaskAutoCompletionListProvider completionProvider =
-      new TaskAutoCompletionListProvider(myProject);
+		TextFieldWithAutoCompletionContributor.installCompletion(document, myProject, completionProvider, false);
+	}
 
-    TextFieldWithAutoCompletionContributor.installCompletion(document, myProject, completionProvider, false);
-  }
+	@Override
+	public Consumer<LocalChangeList> addControls(JPanel bottomPanel, final LocalChangeList initial)
+	{
+		final JCheckBox checkBox = new JCheckBox("Track context");
+		checkBox.setMnemonic('t');
+		checkBox.setToolTipText("Reload context (e.g. open editors) when changelist is set active");
+		checkBox.setSelected(initial == null ? myTaskManager.isTrackContextForNewChangelist() : myTaskManager.getAssociatedTask(initial) != null);
+		bottomPanel.add(checkBox);
+		return new Consumer<LocalChangeList>()
+		{
+			@Override
+			public void consume(LocalChangeList changeList)
+			{
+				if(initial == null)
+				{
+					myTaskManager.setTrackContextForNewChangelist(checkBox.isSelected());
+					if(checkBox.isSelected())
+					{
+						myTaskManager.trackContext(changeList);
+					}
+					else
+					{
+						myTaskManager.getActiveTask().addChangelist(new ChangeListInfo(changeList));
+					}
+				}
+				else
+				{
+					final LocalTask associatedTask = myTaskManager.getAssociatedTask(changeList);
+					if(checkBox.isSelected())
+					{
+						if(associatedTask == null)
+						{
+							myTaskManager.trackContext(changeList);
+						}
+					}
+					else
+					{
+						if(associatedTask != null)
+						{
+							myTaskManager.removeTask(associatedTask);
+						}
+					}
+				}
+			}
+		};
+	}
 
-  public Consumer<LocalChangeList> addControls(JPanel bottomPanel, final LocalChangeList initial) {
-    final JCheckBox checkBox = new JCheckBox("Track context");
-    checkBox.setMnemonic('t');
-    checkBox.setToolTipText("Reload context (e.g. open editors) when changelist is set active");
-    checkBox.setSelected(initial == null ?
-                         myTaskManager.getState().trackContextForNewChangelist :
-                         myTaskManager.getAssociatedTask(initial) != null);
-    bottomPanel.add(checkBox);
-    return new Consumer<LocalChangeList>() {
-      public void consume(LocalChangeList changeList) {
-        if (initial == null) {
-          myTaskManager.getState().trackContextForNewChangelist = checkBox.isSelected();
-          if (checkBox.isSelected()) {
-            myTaskManager.trackContext(changeList);
-          }
-          else {
-            myTaskManager.getActiveTask().addChangelist(new ChangeListInfo(changeList));
-          }
-        }
-        else {
-          final LocalTask associatedTask = myTaskManager.getAssociatedTask(changeList);
-          if (checkBox.isSelected()) {
-            if (associatedTask == null) {
-              myTaskManager.trackContext(changeList);
-            }
-          }
-          else {
-            if (associatedTask != null) {
-              myTaskManager.removeTask(associatedTask);
-            }
-          }
-        }
-      }
-    };
-  }
-
-  public void changelistCreated(LocalChangeList changeList) {
-  }
+	@Override
+	public void changelistCreated(LocalChangeList changeList)
+	{
+	}
 }

@@ -15,38 +15,10 @@
  */
 package com.intellij.tasks.impl;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.text.DecimalFormat;
-import java.util.*;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.Timer;
-import javax.swing.event.HyperlinkEvent;
-
-import org.jdom.Element;
-import org.jetbrains.annotations.TestOnly;
-import com.intellij.notification.Notification;
-import com.intellij.notification.NotificationDisplayType;
-import com.intellij.notification.NotificationListener;
-import com.intellij.notification.NotificationType;
-import com.intellij.notification.Notifications;
+import com.intellij.notification.*;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.components.StoragePathMacros;
-import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.components.*;
 import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.progress.EmptyProgressIndicator;
 import com.intellij.openapi.progress.ProcessCanceledException;
@@ -65,14 +37,7 @@ import com.intellij.openapi.vcs.changes.ChangeList;
 import com.intellij.openapi.vcs.changes.ChangeListAdapter;
 import com.intellij.openapi.vcs.changes.ChangeListManager;
 import com.intellij.openapi.vcs.changes.LocalChangeList;
-import com.intellij.tasks.BranchInfo;
-import com.intellij.tasks.ChangeListInfo;
-import com.intellij.tasks.LocalTask;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskListener;
-import com.intellij.tasks.TaskManager;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskRepositoryType;
+import com.intellij.tasks.*;
 import com.intellij.tasks.actions.TaskSearchSupport;
 import com.intellij.tasks.config.TaskRepositoriesConfigurable;
 import com.intellij.tasks.context.WorkingContextManager;
@@ -90,6 +55,25 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.AbstractCollection;
 import com.intellij.util.xmlb.annotations.Property;
 import com.intellij.util.xmlb.annotations.Tag;
+import consulo.logging.Logger;
+import org.jdom.Element;
+import org.jetbrains.annotations.TestOnly;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.swing.Timer;
+import javax.swing.event.HyperlinkEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 /**
@@ -99,7 +83,7 @@ import com.intellij.util.xmlb.annotations.Tag;
 @State(name = "TaskManager", storages = {@Storage(StoragePathMacros.WORKSPACE_FILE)})
 public class TaskManagerImpl extends TaskManager implements PersistentStateComponent<TaskManagerImpl.Config>, Disposable
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.tasks.impl.TaskManagerImpl");
+	private static final Logger LOG = Logger.getInstance(TaskManagerImpl.class);
 
 	private static final DecimalFormat LOCAL_TASK_ID_FORMAT = new DecimalFormat("LOCAL-00000");
 	public static final Comparator<Task> TASK_UPDATE_COMPARATOR = (o1, o2) ->
@@ -599,7 +583,6 @@ public class TaskManagerImpl extends TaskManager implements PersistentStateCompo
 	@Override
 	public boolean testConnection(final TaskRepository repository)
 	{
-
 		TestConnectionTask task = new TestConnectionTask("Test connection")
 		{
 			@Override
@@ -1201,6 +1184,18 @@ public class TaskManagerImpl extends TaskManager implements PersistentStateCompo
 				((BaseRepositoryImpl) repository).reconfigureClient();
 			}
 		}
+	}
+
+	@Override
+	public boolean isTrackContextForNewChangelist()
+	{
+		return getState().trackContextForNewChangelist;
+	}
+
+	@Override
+	public void setTrackContextForNewChangelist(boolean value)
+	{
+		getState().trackContextForNewChangelist = value;
 	}
 
 	public static class Config
