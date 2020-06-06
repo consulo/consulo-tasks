@@ -14,7 +14,7 @@ import com.intellij.util.containers.ContainerUtil;
 /**
  * @author Mikhail Golubev
  */
-public class CompletionTest extends CodeInsightFixtureTestCase {
+public abstract class CompletionTest extends CodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/plugins/tasks/tasks-tests/testData/jira/jql/completion";

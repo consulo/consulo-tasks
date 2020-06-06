@@ -54,7 +54,7 @@ import junit.framework.Assert;
  * @author Dmitry Avdeev
  *         Date: 3/5/12
  */
-public class TaskVcsTest extends CodeInsightFixtureTestCase {
+public abstract class TaskVcsTest extends CodeInsightFixtureTestCase {
 
   private ChangeListManagerImpl myChangeListManager;
   private TaskManagerImpl myTaskManager;

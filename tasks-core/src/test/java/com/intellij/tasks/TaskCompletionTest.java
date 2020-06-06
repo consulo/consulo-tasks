@@ -1,8 +1,5 @@
 package com.intellij.tasks;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.openapi.editor.Document;
@@ -16,10 +13,13 @@ import com.intellij.testFramework.MapDataContext;
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase;
 import com.intellij.ui.TextFieldWithAutoCompletionContributor;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Dmitry Avdeev
  */
-public class TaskCompletionTest extends LightPlatformCodeInsightFixtureTestCase
+public abstract class TaskCompletionTest extends LightPlatformCodeInsightFixtureTestCase
 {
 	public TaskCompletionTest()
 	{

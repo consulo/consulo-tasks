@@ -1,16 +1,16 @@
 package com.intellij.tasks.jira.jql;
 
-import java.io.File;
-
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.testFramework.PlatformTestUtil;
 import consulo.testFramework.ParsingTestCase;
+
+import java.io.File;
 
 
 /**
  * @author Mikhail Golubev
  */
-public class ParsingTest extends ParsingTestCase
+public abstract class ParsingTest extends ParsingTestCase
 {
   private static final Logger LOG = Logger.getInstance("#com.intellij.tasks.generic.ParsingTest");
 

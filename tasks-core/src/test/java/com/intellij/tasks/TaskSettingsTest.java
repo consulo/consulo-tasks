@@ -30,7 +30,7 @@ import java.util.Collections;
  * @author Dmitry Avdeev
  *         Date: 3/3/12
  */
-public class TaskSettingsTest extends TaskManagerTestCase {
+public abstract class TaskSettingsTest extends TaskManagerTestCase {
 
   public void testCarriageReturnInFormat() throws Exception {
     TaskRepository repository = new YouTrackRepository();

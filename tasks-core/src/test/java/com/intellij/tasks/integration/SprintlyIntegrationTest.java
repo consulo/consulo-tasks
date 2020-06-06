@@ -12,7 +12,7 @@ import com.intellij.tasks.generic.GenericRepositoryType;
 /**
  * @author Mikhail Golubev
  */
-public class SprintlyIntegrationTest extends GenericSubtypeTestCase {
+public abstract class SprintlyIntegrationTest extends GenericSubtypeTestCase {
   private static final String TASK_LIST_RESPONSE = "[\n" +
                                                    "   {\n" +
                                                    "      \"number\" : 1,\n" +

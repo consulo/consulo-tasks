@@ -1,9 +1,9 @@
 package com.intellij.tasks;
 
 import com.intellij.tasks.impl.TaskUtil;
-import javax.annotation.Nonnull;
 import org.junit.Test;
 
+import javax.annotation.Nonnull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNull;
 /**
  * @author Mikhail Golubev
  */
-public class DateParsingTest {
+public abstract class DateParsingTest {
   private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
   static {
     FORMATTER.setTimeZone(TimeZone.getTimeZone("GMT"));

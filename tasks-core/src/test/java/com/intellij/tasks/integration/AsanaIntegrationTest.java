@@ -15,24 +15,23 @@
  */
 package com.intellij.tasks.integration;
 
-import static com.intellij.tasks.TaskTestUtil.TaskBuilder;
-import static com.intellij.tasks.TaskTestUtil.assertTasksEqual;
-
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.tasks.Task;
 import com.intellij.tasks.generic.GenericRepository;
 import com.intellij.tasks.generic.GenericRepositoryType;
 import com.intellij.tasks.generic.GenericTask;
 import com.intellij.util.containers.ContainerUtil;
 
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.intellij.tasks.TaskTestUtil.TaskBuilder;
+import static com.intellij.tasks.TaskTestUtil.assertTasksEqual;
+
 /**
  * @author Mikhail Golubev
  */
-public class AsanaIntegrationTest extends GenericSubtypeTestCase {
+public abstract class AsanaIntegrationTest extends GenericSubtypeTestCase {
   private static final String TASK_LIST_RESPONSE = "{\n" +
                                                    "  \"data\": [\n" +
                                                    "    {\n" +

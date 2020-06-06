@@ -16,9 +16,6 @@
 
 package com.intellij.tasks.context;
 
-import java.io.File;
-import java.util.List;
-
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.impl.ProjectImpl;
 import com.intellij.openapi.util.io.FileUtil;
@@ -28,10 +25,13 @@ import com.intellij.xdebugger.breakpoints.XBreakpoint;
 import com.intellij.xdebugger.breakpoints.XBreakpointManager;
 import com.intellij.xdebugger.impl.breakpoints.XLineBreakpointImpl;
 
+import java.io.File;
+import java.util.List;
+
 /**
  * @author Dmitry Avdeev
  */
-public class ContextTest extends TaskManagerTestCase {
+public abstract class ContextTest extends TaskManagerTestCase {
 
   public void testSaveContext() throws Exception {
     WorkingContextManager manager = getContextManager();

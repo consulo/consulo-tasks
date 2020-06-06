@@ -13,7 +13,7 @@ import com.intellij.tasks.mantis.MantisRepositoryType;
  * User: evgeny.zakrevsky
  * Date: 10/12/12
  */
-public class MantisIntegrationTest extends TaskManagerTestCase {
+public abstract class MantisIntegrationTest extends TaskManagerTestCase {
   public void testMantis12() throws Exception {
     MantisRepository mantisRepository = new MantisRepository(new MantisRepositoryType());
     mantisRepository.setUrl("http://trackers-tests.labs.intellij.net:8142/");

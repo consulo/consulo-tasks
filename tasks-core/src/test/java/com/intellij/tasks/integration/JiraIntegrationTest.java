@@ -15,10 +15,6 @@
  */
 package com.intellij.tasks.integration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskManagerTestCase;
 import com.intellij.tasks.TaskState;
@@ -31,7 +27,7 @@ import org.jetbrains.annotations.NonNls;
  * @author Dmitry Avdeev
  *         Date: 1/15/13
  */
-public class JiraIntegrationTest extends TaskManagerTestCase {
+public abstract class JiraIntegrationTest extends TaskManagerTestCase {
 
   /**
    * JIRA 4.4.5, REST API 2.0.alpha1

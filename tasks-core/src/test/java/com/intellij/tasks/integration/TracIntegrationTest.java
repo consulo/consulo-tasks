@@ -15,9 +15,6 @@
  */
 package com.intellij.tasks.integration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskManagerTestCase;
 import com.intellij.tasks.TaskType;
@@ -27,7 +24,7 @@ import com.intellij.tasks.trac.TracRepository;
  * @author Dmitry Avdeev
  *         Date: 1/25/12
  */
-public class TracIntegrationTest extends TaskManagerTestCase {
+public abstract class TracIntegrationTest extends TaskManagerTestCase {
 
   private TracRepository myRepository;
 

@@ -27,7 +27,7 @@ import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase;
  * @author Dmitry Avdeev
  *         Date: 3/23/12
  */
-public class TaskUiTest extends CodeInsightFixtureTestCase {
+public abstract class TaskUiTest extends CodeInsightFixtureTestCase {
 
   public void testTaskComboVisible() throws Exception {
 
@@ -74,10 +74,5 @@ public class TaskUiTest extends CodeInsightFixtureTestCase {
     TestActionEvent event = new TestActionEvent(action);
     action.update(event);
     return event.getPresentation();
-  }
-
-  @SuppressWarnings("JUnitTestCaseWithNonTrivialConstructors")
-  public TaskUiTest() {
-    IdeaTestCase.initPlatformPrefix();
   }
 }

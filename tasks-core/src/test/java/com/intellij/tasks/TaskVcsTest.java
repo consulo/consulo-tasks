@@ -15,43 +15,32 @@
  */
 package com.intellij.tasks;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.swing.JPanel;
-
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.vcs.ProjectLevelVcsManager;
-import com.intellij.openapi.vcs.changes.Change;
-import com.intellij.openapi.vcs.changes.ChangeListManager;
-import com.intellij.openapi.vcs.changes.ChangeListManagerImpl;
-import com.intellij.openapi.vcs.changes.InvokeAfterUpdateMode;
-import com.intellij.openapi.vcs.changes.LocalChangeList;
+import com.intellij.openapi.vcs.changes.*;
 import com.intellij.openapi.vcs.changes.committed.MockAbstractVcs;
 import com.intellij.openapi.vcs.changes.ui.CommitChangeListDialog;
 import com.intellij.openapi.vcs.impl.projectlevelman.AllVcses;
 import com.intellij.tasks.impl.LocalTaskImpl;
 import com.intellij.tasks.impl.TaskChangelistSupport;
 import com.intellij.tasks.impl.TaskManagerImpl;
-import com.intellij.testFramework.IdeaTestCase;
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase;
 import com.intellij.util.containers.ContainerUtil;
 import consulo.ui.image.Image;
 import icons.TasksIcons;
 
+import javax.annotation.Nonnull;
+import javax.swing.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 /**
  * @author Dmitry Avdeev
  *         Date: 3/5/12
  */
-public class TaskVcsTest extends CodeInsightFixtureTestCase {
-  @SuppressWarnings("JUnitTestCaseWithNonTrivialConstructors")
-  public TaskVcsTest() {
-    IdeaTestCase.initPlatformPrefix();
-  }
-
+public abstract class TaskVcsTest extends CodeInsightFixtureTestCase {
 
   private ChangeListManagerImpl myChangeListManager;
   private TaskManagerImpl myTaskManager;

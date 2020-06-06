@@ -27,7 +27,7 @@ import static com.intellij.tasks.TaskTestUtil.assertTasksEqual;
  * @author Dmitry Avdeev
  *         Date: 4/1/13
  */
-public class AssemblaIntegrationTest extends GenericSubtypeTestCase {
+public abstract class AssemblaIntegrationTest extends GenericSubtypeTestCase {
 
   public static final String TASK_LIST_RESPONSE =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +

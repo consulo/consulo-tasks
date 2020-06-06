@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author Dmitry Avdeev
  */
-public class TaskManagerTest extends TaskManagerTestCase {
+public abstract class TaskManagerTest extends TaskManagerTestCase {
 
   public void testAddRemoveListener() throws Exception {
 
