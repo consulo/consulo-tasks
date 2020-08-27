@@ -167,8 +167,7 @@ public class SwitchTaskAction extends BaseTaskAction {
     final AnAction action = ActionManager.getInstance().getAction(GotoTaskAction.ID);
     assert action instanceof GotoTaskAction;
     final GotoTaskAction gotoTaskAction = (GotoTaskAction)action;
-    group.add(new TaskListItem(gotoTaskAction.getTemplatePresentation().getText(),
-                               TargetAWT.from(gotoTaskAction.getTemplatePresentation().getIcon())) {
+    group.add(new TaskListItem(gotoTaskAction.getTemplatePresentation().getText(), gotoTaskAction.getTemplatePresentation().getIcon()) {
       @Override
       void select() {
         ActionManager.getInstance().tryToExecute(gotoTaskAction, ActionCommand.getInputEvent(GotoTaskAction.ID),

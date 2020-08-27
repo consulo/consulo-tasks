@@ -1,27 +1,8 @@
 package com.intellij.tasks.timeTracking;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Comparator;
-
-import javax.annotation.Nullable;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.Timer;
-import javax.swing.table.TableCellRenderer;
-
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.Disposable;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.ActionPlaces;
-import com.intellij.openapi.actionSystem.ActionToolbar;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.actionSystem.ToggleAction;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.util.Comparing;
@@ -45,6 +26,14 @@ import com.intellij.util.ui.UIUtil;
 import consulo.awt.TargetAWT;
 import consulo.ui.image.ImageEffects;
 import icons.TasksIcons;
+
+import javax.annotation.Nullable;
+import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Comparator;
 
 /**
  * User: evgeny.zakrevsky
@@ -329,17 +318,17 @@ public class TasksToolWindowPanel extends SimpleToolWindowPanel implements Dispo
     public void update(final AnActionEvent e) {
       if (myTimeTrackingManager.getState().autoMode) {
         e.getPresentation().setEnabled(false);
-        e.getPresentation().setIcon(TargetAWT.to(TasksIcons.StartTimer));
+        e.getPresentation().setIcon(TasksIcons.StartTimer);
         e.getPresentation().setText("Start timer for active task");
       }
       else {
         e.getPresentation().setEnabled(true);
         if (myTaskManager.getActiveTask().isRunning()) {
-          e.getPresentation().setIcon(TargetAWT.to(TasksIcons.StopTimer));
+          e.getPresentation().setIcon(TasksIcons.StopTimer);
           e.getPresentation().setText("Stop timer for active task");
         }
         else {
-          e.getPresentation().setIcon(TargetAWT.to(TasksIcons.StartTimer));
+          e.getPresentation().setIcon(TasksIcons.StartTimer);
           e.getPresentation().setText("Start timer for active task");
         }
       }
