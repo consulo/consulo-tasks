@@ -15,13 +15,6 @@
  */
 package com.intellij.tasks.actions;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.Icon;
-
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.InsertHandler;
 import com.intellij.codeInsight.completion.InsertionContext;
@@ -34,7 +27,12 @@ import com.intellij.tasks.Task;
 import com.intellij.tasks.TaskManager;
 import com.intellij.tasks.impl.TaskManagerImpl;
 import com.intellij.ui.TextFieldWithAutoCompletionListProvider;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.List;
 
 /**
 * @author Dmitry Avdeev
@@ -98,8 +96,8 @@ public class TaskAutoCompletionListProvider extends TextFieldWithAutoCompletionL
   }
 
   @Override
-  protected Icon getIcon(@Nonnull final Task task) {
-    return TargetAWT.to(task.getIcon());
+  protected Image getIcon(@Nonnull final Task task) {
+    return task.getIcon();
   }
 
   @Nonnull

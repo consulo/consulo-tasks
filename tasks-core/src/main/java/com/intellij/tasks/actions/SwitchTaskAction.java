@@ -33,7 +33,7 @@ import com.intellij.tools.SimpleActionGroup;
 import com.intellij.ui.popup.list.ListPopupImpl;
 import com.intellij.util.NullableFunction;
 import com.intellij.util.containers.ContainerUtil;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -80,8 +80,8 @@ public class SwitchTaskAction extends BaseTaskAction {
       }
 
       @Override
-      public Icon getIconFor(TaskListItem aValue) {
-        return TargetAWT.to(aValue.getIcon());
+      public Image getIconFor(TaskListItem aValue) {
+        return aValue.getIcon();
       }
 
       @Nonnull
