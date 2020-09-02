@@ -16,15 +16,15 @@
 
 package com.intellij.tasks.actions;
 
-import javax.swing.Icon;
-
-import javax.annotation.Nullable;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.tasks.LocalTask;
 import com.intellij.tasks.TaskManager;
+import consulo.ui.image.Image;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Dmitry Avdeev
@@ -38,7 +38,7 @@ public abstract class BaseTaskAction extends AnAction implements DumbAware {
     super(text);
   }
 
-  protected BaseTaskAction(@Nullable final String text, @Nullable final String description, @Nullable final Icon icon) {
+  protected BaseTaskAction(@Nullable final String text, @Nullable final String description, @Nullable final Image icon) {
     super(text, description, icon);
   }
 

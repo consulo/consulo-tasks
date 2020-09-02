@@ -23,7 +23,6 @@ import com.intellij.util.text.DateFormatUtil;
 import com.intellij.util.ui.ColumnInfo;
 import com.intellij.util.ui.ListTableModel;
 import com.intellij.util.ui.UIUtil;
-import consulo.awt.TargetAWT;
 import consulo.ui.image.ImageEffects;
 import icons.TasksIcons;
 
@@ -162,7 +161,7 @@ public class TasksToolWindowPanel extends SimpleToolWindowPanel implements Dispo
         }
       });
 
-      group.add(new ToggleAction("Show time spent from last post of work item", "Show time spent from last post of work item", TargetAWT.to(TasksIcons.Clock)) {
+      group.add(new ToggleAction("Show time spent from last post of work item", "Show time spent from last post of work item", TasksIcons.Clock) {
         @Override
         public boolean isSelected(final AnActionEvent e) {
           return myTimeTrackingManager.getState().showSpentTimeFromLastPost;
@@ -348,7 +347,7 @@ public class TasksToolWindowPanel extends SimpleToolWindowPanel implements Dispo
 
   private class ModeToggleAction extends ToggleAction {
     public ModeToggleAction() {
-      super("Auto mode", "Automatic starting and stopping of timer", TargetAWT.to(TasksIcons.AutoMode));
+      super("Auto mode", "Automatic starting and stopping of timer", TasksIcons.AutoMode);
     }
 
     @Override
