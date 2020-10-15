@@ -182,7 +182,7 @@ public class TaskRepositoriesConfigurable extends BaseConfigurable implements Co
 			protected void customizeCellRenderer(JList list, Object value, int index, boolean selected, boolean hasFocus)
 			{
 				TaskRepository repository = (TaskRepository) value;
-				setIcon(TargetAWT.to(repository.getIcon()));
+				setIcon(repository.getIcon());
 				append(repository.getPresentableName(), SimpleTextAttributes.REGULAR_ATTRIBUTES);
 			}
 		});

@@ -141,7 +141,7 @@
 							 nonDefaultProject="true"
 							 parentId="tasks"/>
 
-		<toolWindow id="Time Tracking" anchor="right" secondary="false" icon="TasksIcons.Clock"
+		<toolWindow id="Time Tracking" anchor="right" secondary="false" icon="consulo.tasks.TaskImplIconGroup@clock"
 					factoryClass="com.intellij.tasks.timeTracking.TasksToolWindowFactory"
 					conditionClass="com.intellij.tasks.timeTracking.TasksToolWindowFactory"/>
 

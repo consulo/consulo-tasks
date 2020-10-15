@@ -16,13 +16,13 @@
 
 package com.intellij.tasks.jira;
 
-import java.net.MalformedURLException;
+import consulo.ui.image.Image;
+import consulo.ui.image.ImageEffects;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
-import consulo.ui.image.Image;
-import consulo.ui.image.ImageEffects;
 
 public final class CachedIconLoader
 {
@@ -64,9 +64,16 @@ public final class CachedIconLoader
 			String key = url.toString();
 			if(!icons.containsKey(key))
 			{
-				Image i = Image.fromUrl(url);
-				icons.put(key, i);
-				maybeGenerateDisabledIcon(key, i);
+				try
+				{
+					Image i = Image.fromUrl(url);
+
+					icons.put(key, i);
+					maybeGenerateDisabledIcon(key, i);
+				}
+				catch (IOException ignored)
+				{
+				}
 			}
 			return icons.get(key);
 		}
@@ -89,7 +96,7 @@ public final class CachedIconLoader
 					icons.put(urlString, i);
 					maybeGenerateDisabledIcon(urlString, i);
 				}
-				catch(MalformedURLException e1)
+				catch(IOException ignored)
 				{
 					return null;
 				}

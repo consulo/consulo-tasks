@@ -11,6 +11,8 @@ import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.ui.FormBuilder;
+import consulo.awt.TargetAWT;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -71,7 +73,7 @@ public class UntrustedCertificateWarningDialog extends DialogWrapper {
     setTitle("Untrusted Server's Certificate");
     setOKButtonText("Accept");
     setCancelButtonText("Reject");
-    myWarningSign.setIcon(AllIcons.General.WarningDialog);
+    myWarningSign.setIcon(TargetAWT.to(AllIcons.General.WarningDialog));
 
     Messages.installHyperlinkSupport(myNoticePane);
 //    myNoticePane.setFont(myNoticePane.getFont().deriveFont((float)FontSize.SMALL.getSize()));

@@ -16,24 +16,9 @@
 
 package com.intellij.tasks.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.BranchInfo;
-import com.intellij.tasks.ChangeListInfo;
-import com.intellij.tasks.Comment;
-import com.intellij.tasks.LocalTask;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskType;
+import com.intellij.tasks.*;
 import com.intellij.tasks.timeTracking.model.WorkItem;
 import com.intellij.util.xmlb.annotations.AbstractCollection;
 import com.intellij.util.xmlb.annotations.Attribute;
@@ -41,6 +26,15 @@ import com.intellij.util.xmlb.annotations.Property;
 import com.intellij.util.xmlb.annotations.Tag;
 import consulo.ui.image.Image;
 import icons.TasksIcons;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Dmitry Avdeev
@@ -310,7 +304,13 @@ public class LocalTaskImpl extends LocalTask
 		final String customIcon = getCustomIcon();
 		if(customIcon != null)
 		{
-			return IconLoader.getIcon(customIcon, LocalTask.class);
+			try
+			{
+				return Image.fromUrl(new File(customIcon).toURI().toURL());
+			}
+			catch (IOException ignored)
+			{
+			}
 		}
 		return getIconFromType(myType, isIssue());
 	}
