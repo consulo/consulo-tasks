@@ -56,13 +56,14 @@ import com.intellij.util.xmlb.annotations.AbstractCollection;
 import com.intellij.util.xmlb.annotations.Property;
 import com.intellij.util.xmlb.annotations.Tag;
 import consulo.logging.Logger;
+import jakarta.inject.Inject;
 import org.jdom.Element;
 import org.jetbrains.annotations.TestOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+
+import jakarta.inject.Singleton;
 import javax.swing.Timer;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.event.ActionEvent;

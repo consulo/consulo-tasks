@@ -1,7 +1,7 @@
 package consulo.tasks.impl;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.changes.ChangeListDecorator;

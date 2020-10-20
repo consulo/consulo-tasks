@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import javax.swing.Timer;
 
 import com.intellij.ide.IdeEventQueue;
