@@ -16,16 +16,16 @@
 
 package com.intellij.tasks.context;
 
-import javax.annotation.Nonnull;
-
-import org.jdom.Element;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.impl.DockableEditorTabbedContainer;
 import com.intellij.openapi.fileEditor.impl.FileEditorManagerImpl;
 import com.intellij.ui.docking.DockContainer;
 import com.intellij.ui.docking.DockManager;
-import com.intellij.ui.docking.impl.DockManagerImpl;
 import consulo.ui.UIAccess;
+import consulo.ui.docking.BaseDockManager;
+import org.jdom.Element;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Dmitry Avdeev
@@ -34,11 +34,11 @@ public class OpenEditorsContextProvider extends WorkingContextProvider
 {
 
 	private final FileEditorManagerImpl myFileEditorManager;
-	private final DockManagerImpl myDockManager;
+	private final BaseDockManager myDockManager;
 
 	public OpenEditorsContextProvider(FileEditorManager fileEditorManager, DockManager dockManager)
 	{
-		myDockManager = (DockManagerImpl) dockManager;
+		myDockManager = (BaseDockManager) dockManager;
 		myFileEditorManager = fileEditorManager instanceof FileEditorManagerImpl ? (FileEditorManagerImpl) fileEditorManager : null;
 	}
 
@@ -72,7 +72,7 @@ public class OpenEditorsContextProvider extends WorkingContextProvider
 		if(myFileEditorManager != null)
 		{
 			myFileEditorManager.loadState(element);
-			myFileEditorManager.getMainSplitters().openFiles(UIAccess.get());
+			myFileEditorManager.getMainSplitters().openFiles(UIAccess.current());
 		}
 		Element dockState = element.getChild("DockManager");
 		if(dockState != null)
