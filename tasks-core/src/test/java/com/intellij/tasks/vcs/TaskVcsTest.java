@@ -15,32 +15,13 @@
  */
 package com.intellij.tasks.vcs;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.swing.JPanel;
-
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.vcs.ProjectLevelVcsManager;
-import com.intellij.openapi.vcs.changes.Change;
-import com.intellij.openapi.vcs.changes.ChangeListManager;
-import com.intellij.openapi.vcs.changes.ChangeListManagerImpl;
-import com.intellij.openapi.vcs.changes.InvokeAfterUpdateMode;
-import com.intellij.openapi.vcs.changes.LocalChangeList;
+import com.intellij.openapi.vcs.changes.*;
 import com.intellij.openapi.vcs.changes.committed.MockAbstractVcs;
 import com.intellij.openapi.vcs.changes.ui.CommitChangeListDialog;
-import com.intellij.openapi.vcs.impl.projectlevelman.AllVcses;
-import com.intellij.tasks.ChangeListInfo;
-import com.intellij.tasks.Comment;
-import com.intellij.tasks.LocalTask;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskManager;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskType;
-import com.intellij.tasks.TestRepository;
+import com.intellij.tasks.*;
 import com.intellij.tasks.impl.LocalTaskImpl;
 import com.intellij.tasks.impl.TaskChangelistSupport;
 import com.intellij.tasks.impl.TaskManagerImpl;
@@ -49,6 +30,12 @@ import com.intellij.util.containers.ContainerUtil;
 import consulo.ui.image.Image;
 import icons.TasksIcons;
 import junit.framework.Assert;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Dmitry Avdeev
@@ -411,7 +398,7 @@ public abstract class TaskVcsTest extends CodeInsightFixtureTestCase {
     super.setUp();
 
     myVcs = new MockAbstractVcs(getProject());
-    AllVcses.getInstance(getProject()).registerManually(myVcs);
+    //AllVcses.getInstance(getProject()).registerManually(myVcs);
     myChangeListManager = (ChangeListManagerImpl)ChangeListManager.getInstance(getProject());
     myChangeListManager.projectOpened();
 
@@ -494,7 +481,7 @@ public abstract class TaskVcsTest extends CodeInsightFixtureTestCase {
   protected void tearDown() throws Exception {
     try {
       myTaskManager.setRepositories(Collections.<TaskRepository>emptyList());
-      AllVcses.getInstance(getProject()).unregisterManually(myVcs);
+      //AllVcses.getInstance(getProject()).unregisterManually(myVcs);
     }
     finally {
       myTaskManager = null;

@@ -21,7 +21,6 @@ import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vcs.changes.*;
 import com.intellij.openapi.vcs.changes.committed.MockAbstractVcs;
 import com.intellij.openapi.vcs.changes.ui.CommitChangeListDialog;
-import com.intellij.openapi.vcs.impl.projectlevelman.AllVcses;
 import com.intellij.tasks.impl.LocalTaskImpl;
 import com.intellij.tasks.impl.TaskChangelistSupport;
 import com.intellij.tasks.impl.TaskManagerImpl;
@@ -378,7 +377,7 @@ public abstract class TaskVcsTest extends CodeInsightFixtureTestCase {
     super.setUp();
 
     myVcs = new MockAbstractVcs(getProject());
-    AllVcses.getInstance(getProject()).registerManually(myVcs);
+    //AllVcses.getInstance(getProject()).registerManually(myVcs);
     myChangeListManager = (ChangeListManagerImpl)ChangeListManager.getInstance(getProject());
     myChangeListManager.projectOpened();
 
@@ -461,7 +460,7 @@ public abstract class TaskVcsTest extends CodeInsightFixtureTestCase {
   protected void tearDown() throws Exception {
     try {
       myTaskManager.setRepositories(Collections.<TaskRepository>emptyList());
-      AllVcses.getInstance(getProject()).unregisterManually(myVcs);
+      //AllVcses.getInstance(getProject()).unregisterManually(myVcs);
     }
     finally {
       myTaskManager = null;
