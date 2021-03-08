@@ -1,22 +1,16 @@
 package com.intellij.tasks.jira.jql;
 
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.COMMA;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.KEYWORD;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.NUMBER;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.OPERATION_SIGN;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.PARENTHESES;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.STRING;
-
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.HighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.util.containers.HashMap;
+
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.*;
 
 /**
  * @author Mikhail Golubev

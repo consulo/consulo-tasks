@@ -4,13 +4,13 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.containers.HashMap;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

@@ -1,17 +1,17 @@
 package com.intellij.tasks.generic;
 
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.util.containers.HashMap;
 import com.intellij.util.xmlb.annotations.Tag;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
