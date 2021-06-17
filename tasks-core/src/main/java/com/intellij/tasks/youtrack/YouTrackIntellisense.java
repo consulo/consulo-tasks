@@ -8,7 +8,7 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.tasks.impl.TaskUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.containers.hash.LinkedHashMap;
+import consulo.util.collection.impl.map.LinkedHashMap;
 import consulo.util.dataholder.Key;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;

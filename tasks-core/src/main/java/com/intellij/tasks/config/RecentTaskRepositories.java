@@ -23,8 +23,8 @@ import com.intellij.tasks.TaskRepository;
 import com.intellij.tasks.impl.TaskManagerImpl;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.XmlSerializer;
-import gnu.trove.THashSet;
-import gnu.trove.TObjectHashingStrategy;
+import consulo.util.collection.HashingStrategy;
+import consulo.util.collection.Sets;
 import org.jdom.Element;
 
 import java.util.ArrayList;
@@ -43,10 +43,10 @@ import java.util.Set;
 )
 public class RecentTaskRepositories implements PersistentStateComponent<Element> {
 
-  private final Set<TaskRepository> myRepositories = new THashSet<TaskRepository>(HASHING_STRATEGY);
+  private final Set<TaskRepository> myRepositories = Sets.newHashSet(HASHING_STRATEGY);
 
-  private static final TObjectHashingStrategy<TaskRepository> HASHING_STRATEGY = new TObjectHashingStrategy<TaskRepository>() {
-    public int computeHashCode(TaskRepository object) {
+  private static final HashingStrategy<TaskRepository> HASHING_STRATEGY = new HashingStrategy<TaskRepository>() {
+    public int hashCode(TaskRepository object) {
       return object.getUrl() == null ? 0 : object.getUrl().hashCode();
     }
 
@@ -60,11 +60,7 @@ public class RecentTaskRepositories implements PersistentStateComponent<Element>
   }
 
   public Set<TaskRepository> getRepositories() {
-    return new THashSet<TaskRepository>(ContainerUtil.findAll(myRepositories, new Condition<TaskRepository>() {
-      public boolean value(TaskRepository repository) {
-        return !StringUtil.isEmptyOrSpaces(repository.getUrl());
-      }
-    }), HASHING_STRATEGY);
+    return Sets.newHashSet(ContainerUtil.findAll(myRepositories, (Condition<TaskRepository>) repository -> !StringUtil.isEmptyOrSpaces(repository.getUrl())), HASHING_STRATEGY);
   }
 
   public void addRepositories(Collection<TaskRepository> repositories) {
