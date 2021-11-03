@@ -8,6 +8,9 @@
 	<depends>com.intellij.xml</depends>
 	<depends>com.intellij.regexp</depends>
 	<depends>consulo.library.flexmark</depends>
+	<tags>
+		<tag>issue.managment</tag>
+	</tags>
 
 	<actions>
 
