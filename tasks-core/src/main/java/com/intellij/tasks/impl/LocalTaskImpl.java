@@ -16,6 +16,7 @@
 
 package com.intellij.tasks.impl;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.tasks.*;
@@ -327,7 +328,7 @@ public class LocalTaskImpl extends LocalTask
 				return TasksIcons.Feature;
 			default:
 			case OTHER:
-				return issue ? TasksIcons.Other : TasksIcons.Unknown;
+				return issue ? AllIcons.FileTypes.Any_type : AllIcons.FileTypes.Unknown;
 		}
 	}
 

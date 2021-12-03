@@ -15,6 +15,7 @@
  */
 package icons;
 
+import com.intellij.icons.AllIcons;
 import consulo.tasks.icon.TaskImplIconGroup;
 import consulo.ui.image.Image;
 
@@ -27,20 +28,12 @@ public class TasksIcons {
   public static final Image Exception = TaskImplIconGroup.exception();
   public static final Image Feature = TaskImplIconGroup.feature();
   public static final Image Fogbugz = TaskImplIconGroup.fogbugz();
-  public static final Image Github = TaskImplIconGroup.github();
   public static final Image Gitlab = TaskImplIconGroup.gitlab();
   public static final Image Jira = TaskImplIconGroup.jira();
   public static final Image Lighthouse = TaskImplIconGroup.lighthouse();
   public static final Image Mantis = TaskImplIconGroup.mantis();
-  public static final Image Other = TaskImplIconGroup.other();
-
-  public static class Pivotal {
-    public static final Image Bug = TaskImplIconGroup.pivotalBug();
-    public static final Image Chore = TaskImplIconGroup.pivotalChore();
-    public static final Image Feature = TaskImplIconGroup.pivotalFeature();
-    public static final Image Release = TaskImplIconGroup.pivotalRelease();
-
-  }
+  @Deprecated
+  public static final Image Other = AllIcons.FileTypes.Any_type;
   public static final Image Pivotal = TaskImplIconGroup.pivotal();
   public static final Image Redmine = TaskImplIconGroup.redmine();
   public static final Image SavedContext = TaskImplIconGroup.savedContext();
@@ -49,6 +42,7 @@ public class TasksIcons {
   public static final Image StopTimer = TaskImplIconGroup.stopTimer();
   public static final Image Trac = TaskImplIconGroup.trac();
   public static final Image Trello = TaskImplIconGroup.trello();
-  public static final Image Unknown = TaskImplIconGroup.unknown();
+  @Deprecated
+  public static final Image Unknown = AllIcons.FileTypes.Unknown;
   public static final Image Youtrack = TaskImplIconGroup.youtrack();
 }
