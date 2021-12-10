@@ -15,12 +15,13 @@
  */
 package com.intellij.tasks.jira.jql;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import icons.TasksIcons;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev
@@ -41,8 +42,8 @@ public class JqlFileType extends LanguageFileType {
 
   @Nonnull
   @Override
-  public String getDescription() {
-    return "JIRA query language";
+  public LocalizeValue getDescription() {
+    return LocalizeValue.localizeTODO("JIRA query language");
   }
 
   @Nonnull

@@ -1,12 +1,12 @@
 package com.intellij.tasks.youtrack.lang;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import icons.TasksIcons;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import javax.swing.*;
 
 /**
  * @author Mikhail Golubev
@@ -21,14 +21,14 @@ public class YouTrackFileType extends LanguageFileType {
 
   @Nonnull
   @Override
-  public String getName() {
+  public String getId() {
     return "YouTrack";
   }
 
   @Nonnull
   @Override
-  public String getDescription() {
-    return "YouTrack Query Language";
+  public LocalizeValue getDescription() {
+    return LocalizeValue.localizeTODO("YouTrack Query Language");
   }
 
   @Nonnull
