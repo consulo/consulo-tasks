@@ -1,14 +1,5 @@
 package com.intellij.tasks.gitlab;
 
-import static com.intellij.tasks.gitlab.GitlabRepository.UNSPECIFIED_PROJECT;
-
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.SwingConstants;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
@@ -19,6 +10,13 @@ import com.intellij.ui.components.JBLabel;
 import com.intellij.util.Consumer;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.UIUtil;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.util.List;
+
+import static com.intellij.tasks.gitlab.GitlabRepository.UNSPECIFIED_PROJECT;
 
 /**
  * @author Mikhail Golubev

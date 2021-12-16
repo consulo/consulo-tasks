@@ -22,11 +22,6 @@ import consulo.ui.image.Image;
 public class TasksIcons {
   public static final Image Asana = TaskImplIconGroup.asana();
   public static final Image Assembla = TaskImplIconGroup.assembla();
-  public static final Image AutoMode = TaskImplIconGroup.autoMode();
-  public static final Image Bug = TaskImplIconGroup.bug();
-  public static final Image Clock = TaskImplIconGroup.clock();
-  public static final Image Exception = TaskImplIconGroup.exception();
-  public static final Image Feature = TaskImplIconGroup.feature();
   public static final Image Fogbugz = TaskImplIconGroup.fogbugz();
   public static final Image Gitlab = TaskImplIconGroup.gitlab();
   public static final Image Jira = TaskImplIconGroup.jira();
@@ -36,13 +31,8 @@ public class TasksIcons {
   public static final Image Other = AllIcons.FileTypes.Any_type;
   public static final Image Pivotal = TaskImplIconGroup.pivotal();
   public static final Image Redmine = TaskImplIconGroup.redmine();
-  public static final Image SavedContext = TaskImplIconGroup.savedContext();
   public static final Image Sprintly = TaskImplIconGroup.sprintly();
-  public static final Image StartTimer = TaskImplIconGroup.startTimer();
-  public static final Image StopTimer = TaskImplIconGroup.stopTimer();
   public static final Image Trac = TaskImplIconGroup.trac();
   public static final Image Trello = TaskImplIconGroup.trello();
-  @Deprecated
-  public static final Image Unknown = AllIcons.FileTypes.Unknown;
   public static final Image Youtrack = TaskImplIconGroup.youtrack();
 }

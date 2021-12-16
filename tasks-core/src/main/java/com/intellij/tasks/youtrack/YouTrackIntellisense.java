@@ -6,7 +6,6 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.tasks.impl.TaskUtil;
-import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import consulo.util.collection.impl.map.LinkedHashMap;
 import consulo.util.dataholder.Key;
@@ -139,21 +138,11 @@ public class YouTrackIntellisense {
       TaskUtil.prettyFormatXmlToLog(LOG, root);
       @Nonnull final Element highlight = root.getChild("highlight");
       //assert highlight != null : "no '/IntelliSense/highlight' element in YouTrack response";
-      myHighlightRanges = ContainerUtil.map(highlight.getChildren("range"), new Function<Element, HighlightRange>() {
-        @Override
-        public HighlightRange fun(Element range) {
-          return new HighlightRange(range);
-        }
-      });
+      myHighlightRanges = ContainerUtil.map(highlight.getChildren("range"), range -> new HighlightRange(range));
 
       @Nonnull final Element suggest = root.getChild("suggest");
       //assert suggest != null : "no '/IntelliSense/suggest' element in YouTrack response";
-      myCompletionItems = ContainerUtil.map(suggest.getChildren("item"), new Function<Element, CompletionItem>() {
-        @Override
-        public CompletionItem fun(Element item) {
-          return new CompletionItem(item);
-        }
-      });
+      myCompletionItems = ContainerUtil.map(suggest.getChildren("item"), item -> new CompletionItem(item));
     }
 
     @Nonnull

@@ -1,26 +1,5 @@
 package com.intellij.tasks.redmine;
 
-import static com.intellij.tasks.impl.httpclient.ResponseUtil.GsonSingleObjectDeserializer;
-import static com.intellij.tasks.redmine.model.RedmineResponseWrapper.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import javax.annotation.Nonnull;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-
-import javax.annotation.Nullable;
-import org.jetbrains.annotations.TestOnly;
 import com.google.gson.Gson;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.text.StringUtil;
@@ -34,6 +13,25 @@ import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.intellij.util.xmlb.annotations.Transient;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.jetbrains.annotations.TestOnly;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import static com.intellij.tasks.impl.httpclient.ResponseUtil.GsonSingleObjectDeserializer;
+import static com.intellij.tasks.redmine.model.RedmineResponseWrapper.*;
 
 /**
  * @author Mikhail Golubev

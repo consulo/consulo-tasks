@@ -1,16 +1,5 @@
 package com.intellij.tasks.redmine;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
@@ -24,6 +13,12 @@ import com.intellij.util.Consumer;
 import com.intellij.util.containers.Stack;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.UIUtil;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Mikhail Golubev

@@ -42,7 +42,6 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>tasks-api</module>
 		<module>tasks-core</module>
 	</modules>
 </project>

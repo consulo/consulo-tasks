@@ -1,36 +1,10 @@
 package com.intellij.tasks.youtrack;
 
-import java.io.InputStream;
-import java.io.StringReader;
-import java.util.Date;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.apache.axis.utils.XMLChar;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.io.StreamUtil;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.Comment;
-import com.intellij.tasks.LocalTask;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskRepositoryType;
-import com.intellij.tasks.TaskState;
-import com.intellij.tasks.TaskType;
+import com.intellij.tasks.*;
 import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
 import com.intellij.tasks.impl.LocalTaskImpl;
@@ -42,6 +16,25 @@ import com.intellij.util.xmlb.annotations.MapAnnotation;
 import com.intellij.util.xmlb.annotations.Property;
 import com.intellij.util.xmlb.annotations.Tag;
 import consulo.ui.image.Image;
+import org.apache.axis.utils.XMLChar;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.Date;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Dmitry Avdeev
