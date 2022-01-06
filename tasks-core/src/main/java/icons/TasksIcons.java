@@ -16,7 +16,7 @@
 package icons;
 
 import com.intellij.icons.AllIcons;
-import consulo.tasks.icon.TaskImplIconGroup;
+import consulo.tasks.common.icon.TaskImplIconGroup;
 import consulo.ui.image.Image;
 
 public class TasksIcons {
