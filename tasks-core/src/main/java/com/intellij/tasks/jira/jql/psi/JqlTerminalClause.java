@@ -1,7 +1,8 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
 import com.intellij.tasks.jira.jql.JqlTokenTypes;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

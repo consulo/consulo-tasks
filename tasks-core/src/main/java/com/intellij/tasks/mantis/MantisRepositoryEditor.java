@@ -1,25 +1,25 @@
 package com.intellij.tasks.mantis;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.config.BaseRepositoryEditor;
-import com.intellij.ui.components.JBLabel;
-import com.intellij.util.Consumer;
-import com.intellij.util.ui.FormBuilder;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.task.ui.BaseRepositoryEditor;
+import consulo.ui.ex.awt.ComboBox;
+import consulo.ui.ex.awt.FormBuilder;
+import consulo.ui.ex.awt.JBLabel;
+import consulo.util.lang.StringUtil;
 
 import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.function.Consumer;
 
 /**
  * User: evgeny.zakrevsky
  * Date: 9/21/12
  */
 public class MantisRepositoryEditor extends BaseRepositoryEditor<MantisRepository> {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.tasks.mantis.MantisRepositoryEditor");
+  private static final Logger LOG = Logger.getInstance(MantisRepositoryEditor.class);
 
   private ComboBox myProjectCombobox;
   private ComboBox myFilterCombobox;
@@ -36,17 +36,17 @@ public class MantisRepositoryEditor extends BaseRepositoryEditor<MantisRepositor
   @Override
   public void apply() {
     if (!myRepository.getUrl().equals(StringUtil.trimEnd(myURLText.getText(), "/")) ||
-        !myRepository.getUsername().equals(myUserNameText.getText()) ||
-        !myRepository.getPassword().equals(myPasswordText.getText())) {
+      !myRepository.getUsername().equals(myUserNameText.getText()) ||
+      !myRepository.getPassword().equals(myPasswordText.getText())) {
       resetComboBoxes();
     }
     else {
       final Object selectedProjectObject = myProjectCombobox.getModel().getSelectedItem();
       final Object selectedFilterObject = myFilterCombobox.getModel().getSelectedItem();
       if (selectedProjectObject != null &&
-          selectedFilterObject != null &&
-          selectedProjectObject instanceof MantisProject &&
-          selectedFilterObject instanceof MantisFilter) {
+        selectedFilterObject != null &&
+        selectedProjectObject instanceof MantisProject &&
+        selectedFilterObject instanceof MantisFilter) {
         myRepository.setProject((MantisProject)selectedProjectObject);
         myRepository.setFilter((MantisFilter)selectedFilterObject);
       }
@@ -93,7 +93,7 @@ public class MantisRepositoryEditor extends BaseRepositoryEditor<MantisRepositor
     installListener(myFilterCombobox);
     updateProjects();
     return FormBuilder.createFormBuilder().addLabeledComponent(myProjectLabel, myProjectCombobox)
-      .addLabeledComponent(myFilterLabel, myFilterCombobox).getPanel();
+                      .addLabeledComponent(myFilterLabel, myFilterCombobox).getPanel();
   }
 
   private void updateProjects() {

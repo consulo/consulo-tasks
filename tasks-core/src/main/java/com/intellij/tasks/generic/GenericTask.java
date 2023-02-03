@@ -1,15 +1,14 @@
 package com.intellij.tasks.generic;
 
-import java.util.Date;
+import consulo.task.Comment;
+import consulo.task.Task;
+import consulo.task.TaskRepository;
+import consulo.task.TaskType;
+import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.tasks.Comment;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskType;
-import consulo.ui.image.Image;
+import java.util.Date;
 
 public class GenericTask extends Task {
   private final String myId;

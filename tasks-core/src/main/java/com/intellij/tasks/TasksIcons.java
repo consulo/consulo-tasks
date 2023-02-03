@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package icons;
+package com.intellij.tasks;
 
-import com.intellij.icons.AllIcons;
+import consulo.application.AllIcons;
 import consulo.tasks.common.icon.TaskImplIconGroup;
 import consulo.ui.image.Image;
 
+@Deprecated
 public class TasksIcons {
   public static final Image Asana = TaskImplIconGroup.asana();
   public static final Image Assembla = TaskImplIconGroup.assembla();

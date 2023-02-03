@@ -15,9 +15,8 @@
  */
 package com.intellij.tasks.jira.model;
 
-import com.intellij.util.containers.ContainerUtil;
 import javax.annotation.Nonnull;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +47,7 @@ public abstract class JiraResponseWrapper {
    * that's why this wrapper was generified and JiraIssue extracted to abstract class
    */
   public static class Issues<T extends JiraIssue> extends JiraResponseWrapper {
-    private List<T> issues = ContainerUtil.emptyList();
+    private List<T> issues = new ArrayList<T>();
 
     @Nonnull
     public List<T> getIssues() {
@@ -57,7 +56,7 @@ public abstract class JiraResponseWrapper {
   }
 
   public static class Comments extends JiraResponseWrapper {
-    private List<JiraComment> comments = ContainerUtil.emptyList();
+    private List<JiraComment> comments = new ArrayList<>();
 
     @Nonnull
     public List<JiraComment> getComments() {

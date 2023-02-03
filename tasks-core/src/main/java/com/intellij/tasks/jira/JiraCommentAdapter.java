@@ -16,8 +16,8 @@
 
 package com.intellij.tasks.jira;
 
-import com.intellij.tasks.Comment;
 import com.intellij.tasks.jira.model.JiraComment;
+import consulo.task.Comment;
 
 import java.util.Date;
 

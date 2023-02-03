@@ -2,16 +2,16 @@ package com.intellij.tasks.gitlab;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepositoryType;
 import com.intellij.tasks.gitlab.model.GitlabIssue;
 import com.intellij.tasks.gitlab.model.GitlabProject;
-import com.intellij.tasks.impl.gson.TaskGsonUtil;
-import com.intellij.tasks.impl.httpclient.NewBaseRepositoryImpl;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.xmlb.annotations.Tag;
-import com.intellij.util.xmlb.annotations.Transient;
+import consulo.task.NewBaseRepositoryImpl;
+import consulo.task.Task;
+import consulo.task.TaskRepositoryType;
+import consulo.task.util.gson.TaskGsonUtil;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.Comparing;
+import consulo.util.xml.serializer.annotation.Tag;
+import consulo.util.xml.serializer.annotation.Transient;
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
@@ -20,10 +20,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.protocol.HttpContext;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -31,8 +31,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.intellij.tasks.impl.httpclient.TaskResponseUtil.GsonMultipleObjectsDeserializer;
-import static com.intellij.tasks.impl.httpclient.TaskResponseUtil.GsonSingleObjectDeserializer;
+import static consulo.task.util.TaskResponseUtil.GsonMultipleObjectsDeserializer;
+import static consulo.task.util.TaskResponseUtil.GsonSingleObjectDeserializer;
 
 /**
  * @author Mikhail Golubev
@@ -40,8 +40,10 @@ import static com.intellij.tasks.impl.httpclient.TaskResponseUtil.GsonSingleObje
 @Tag("Gitlab")
 public class GitlabRepository extends NewBaseRepositoryImpl {
 
-  @NonNls public static final String REST_API_PATH_PREFIX = "/api/v3/";
-  @NonNls private static final String TOKEN_HEADER = "PRIVATE-TOKEN";
+  @NonNls
+  public static final String REST_API_PATH_PREFIX = "/api/v3/";
+  @NonNls
+  private static final String TOKEN_HEADER = "PRIVATE-TOKEN";
 
   private static final Pattern ID_PATTERN = Pattern.compile("\\d+");
   private static final Gson GSON = TaskGsonUtil.createDefaultBuilder().create();

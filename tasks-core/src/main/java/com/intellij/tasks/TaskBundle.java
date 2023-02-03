@@ -1,15 +1,14 @@
 package com.intellij.tasks;
 
-import java.lang.ref.Reference;
-import java.util.ResourceBundle;
-
-import javax.annotation.Nonnull;
-
+import consulo.application.CommonBundle;
+import consulo.util.lang.ref.SoftReference;
 import org.apache.commons.httpclient.HttpStatus;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.PropertyKey;
-import com.intellij.CommonBundle;
-import com.intellij.reference.SoftReference;
+
+import javax.annotation.Nonnull;
+import java.lang.ref.Reference;
+import java.util.ResourceBundle;
 
 /**
  * Contains common and repository specific messages for "Tasks and Contexts" subsystem.
@@ -17,45 +16,37 @@ import com.intellij.reference.SoftReference;
  *
  * @author Mikhail Golubev
  */
-public class TaskBundle
-{
+public class TaskBundle {
 
-	private static Reference<ResourceBundle> ourBundle;
-	@NonNls
-	private static final String BUNDLE = "com.intellij.tasks.TaskBundle";
+  private static Reference<ResourceBundle> ourBundle;
+  @NonNls
+  private static final String BUNDLE = "com.intellij.tasks.TaskBundle";
 
-	private TaskBundle()
-	{
-		// empty
-	}
+  private TaskBundle() {
+    // empty
+  }
 
-	public static String message(@Nonnull @PropertyKey(resourceBundle = BUNDLE) String key, @Nonnull Object... params)
-	{
-		return CommonBundle.message(getBundle(), key, params);
-	}
+  public static String message(@Nonnull @PropertyKey(resourceBundle = BUNDLE) String key, @Nonnull Object... params) {
+    return CommonBundle.message(getBundle(), key, params);
+  }
 
-	@Nonnull
-	public static String messageForStatusCode(int statusCode)
-	{
-		if(statusCode == HttpStatus.SC_UNAUTHORIZED)
-		{
-			return message("failure.login");
-		}
-		else if(statusCode == HttpStatus.SC_FORBIDDEN)
-		{
-			return message("failure.permissions");
-		}
-		return message("failure.http.error", statusCode, HttpStatus.getStatusText(statusCode));
-	}
+  @Nonnull
+  public static String messageForStatusCode(int statusCode) {
+    if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
+      return message("failure.login");
+    }
+    else if (statusCode == HttpStatus.SC_FORBIDDEN) {
+      return message("failure.permissions");
+    }
+    return message("failure.http.error", statusCode, HttpStatus.getStatusText(statusCode));
+  }
 
-	private static ResourceBundle getBundle()
-	{
-		ResourceBundle bundle = SoftReference.dereference(ourBundle);
-		if(bundle == null)
-		{
-			bundle = ResourceBundle.getBundle(BUNDLE);
-			ourBundle = new SoftReference<ResourceBundle>(bundle);
-		}
-		return bundle;
-	}
+  private static ResourceBundle getBundle() {
+    ResourceBundle bundle = SoftReference.dereference(ourBundle);
+    if (bundle == null) {
+      bundle = ResourceBundle.getBundle(BUNDLE);
+      ourBundle = new SoftReference<ResourceBundle>(bundle);
+    }
+    return bundle;
+  }
 }

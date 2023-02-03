@@ -1,12 +1,12 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlElement;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
+import consulo.language.ast.ASTNode;
+import consulo.language.impl.psi.ASTWrapperPsiElement;
+import consulo.language.psi.PsiElementVisitor;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev

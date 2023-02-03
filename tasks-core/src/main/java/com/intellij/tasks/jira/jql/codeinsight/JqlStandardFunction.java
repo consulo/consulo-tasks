@@ -1,13 +1,15 @@
 package com.intellij.tasks.jira.jql.codeinsight;
 
-import com.intellij.openapi.util.Pair;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.containers.Convertor;
-import com.intellij.util.containers.MultiMap;
-import javax.annotation.Nonnull;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.collection.MultiMap;
+import consulo.util.lang.Pair;
 
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Mikhail Golubev
@@ -63,18 +65,15 @@ public enum JqlStandardFunction {
 
   private static final JqlStandardFunction[] VALUES = values();
 
-  private static final Map<String, JqlStandardFunction> NAME_LOOKUP = ContainerUtil.newMapFromValues(ContainerUtil.iterate(VALUES), new Convertor<JqlStandardFunction, String>() {
-    @Override
-    public String convert(JqlStandardFunction field) {
-      return field.getName();
-    }
-  });
+  private static final Map<String, JqlStandardFunction> NAME_LOOKUP =
+    Arrays.stream(VALUES).collect(Collectors.toMap(JqlStandardFunction::getName, it -> it));
 
   public static JqlStandardFunction byName(@Nonnull String name) {
     return NAME_LOOKUP.get(name);
   }
 
   private static final MultiMap<Pair<JqlFieldType, Boolean>, String> TYPE_LOOKUP = new MultiMap<Pair<JqlFieldType, Boolean>, String>();
+
   static {
     for (JqlStandardFunction function : VALUES) {
       TYPE_LOOKUP.putValue(Pair.create(function.getReturnType(), function.hasMultipleResults()), function.getName());
@@ -88,10 +87,5 @@ public enum JqlStandardFunction {
     return new ArrayList<String>(TYPE_LOOKUP.get(Pair.create(type, multipleResults)));
   }
 
-  public static final List<String> ALL_FUNCTION_NAMES = ContainerUtil.map2List(VALUES, new Function<JqlStandardFunction, String>() {
-      @Override
-      public String fun(JqlStandardFunction field) {
-        return field.myName;
-      }
-    });
+  public static final List<String> ALL_FUNCTION_NAMES = ContainerUtil.map2List(VALUES, field -> field.myName);
 }

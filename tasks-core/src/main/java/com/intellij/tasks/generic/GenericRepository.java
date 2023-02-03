@@ -1,24 +1,23 @@
 package com.intellij.tasks.generic;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.io.StreamUtil;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepositorySubtype;
-import com.intellij.tasks.TaskRepositoryType;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
-import com.intellij.tasks.impl.TaskUtil;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.net.HTTPMethod;
-import com.intellij.util.xmlb.annotations.AbstractCollection;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.http.HTTPMethod;
+import consulo.logging.Logger;
+import consulo.task.Task;
+import consulo.task.TaskRepositorySubtype;
+import consulo.task.TaskRepositoryType;
+import consulo.task.util.TaskUtil;
 import consulo.ui.image.Image;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.io.StreamUtil;
+import consulo.util.lang.Comparing;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.annotation.AbstractCollection;
+import consulo.util.xml.serializer.annotation.Tag;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,9 +35,9 @@ import static com.intellij.tasks.generic.TemplateVariable.FactoryVariable;
 public class GenericRepository extends BaseRepositoryImpl {
   private static final Logger LOG = Logger.getInstance(GenericRepository.class);
 
-  @NonNls public static final String SERVER_URL = "serverUrl";
-  @NonNls public static final String USERNAME = "username";
-  @NonNls public static final String PASSWORD = "password";
+  public static final String SERVER_URL = "serverUrl";
+  public static final String USERNAME = "username";
+  public static final String PASSWORD = "password";
 
   public final FactoryVariable SERVER_URL_TEMPLATE_VARIABLE = new FactoryVariable(SERVER_URL) {
     @Nonnull
@@ -62,7 +61,7 @@ public class GenericRepository extends BaseRepositoryImpl {
     }
   };
 
-  public final List<TemplateVariable> PREDEFINED_TEMPLATE_VARIABLES = ContainerUtil.<TemplateVariable>newSmartList(
+  public final List<TemplateVariable> PREDEFINED_TEMPLATE_VARIABLES = List.<TemplateVariable>of(
     SERVER_URL_TEMPLATE_VARIABLE,
     USERNAME_TEMPLATE_VARIABLE,
     PASSWORD_TEMPLATE_VARIABLE
@@ -82,7 +81,7 @@ public class GenericRepository extends BaseRepositoryImpl {
 
   private List<TemplateVariable> myTemplateVariables = new ArrayList<TemplateVariable>();
 
-  private String mySubtypeName;
+  private String mySubtypeId;
   private boolean myDownloadTasksInSeparateRequests;
 
   /**
@@ -113,7 +112,7 @@ public class GenericRepository extends BaseRepositoryImpl {
 
     myResponseType = other.getResponseType();
     myTemplateVariables = other.getTemplateVariables();
-    mySubtypeName = other.getSubtypeName();
+    mySubtypeId = other.getSubtypeId();
     myDownloadTasksInSeparateRequests = other.getDownloadTasksInSeparateRequests();
     myResponseHandlersMap = new EnumMap<ResponseType, ResponseHandler>(ResponseType.class);
     for (Map.Entry<ResponseType, ResponseHandler> e : other.myResponseHandlersMap.entrySet()) {
@@ -342,13 +341,13 @@ public class GenericRepository extends BaseRepositoryImpl {
 
   @Override
   public Image getIcon() {
-    if (mySubtypeName == null) {
+    if (mySubtypeId == null) {
       return super.getIcon();
     }
     @SuppressWarnings("unchecked")
     List<TaskRepositorySubtype> subtypes = getRepositoryType().getAvailableSubtypes();
     for (TaskRepositorySubtype s : subtypes) {
-      if (mySubtypeName.equals(s.getName())) {
+      if (mySubtypeId.equals(s.getId())) {
         return s.getIcon();
       }
     }
@@ -406,12 +405,12 @@ public class GenericRepository extends BaseRepositoryImpl {
     return new RegExResponseHandler(this);
   }
 
-  public String getSubtypeName() {
-    return mySubtypeName;
+  public String getSubtypeId() {
+    return mySubtypeId;
   }
 
-  public void setSubtypeName(String subtypeName) {
-    mySubtypeName = subtypeName;
+  public void setSubtypeId(String subtypeId) {
+    mySubtypeId = subtypeId;
   }
 
   public boolean getDownloadTasksInSeparateRequests() {

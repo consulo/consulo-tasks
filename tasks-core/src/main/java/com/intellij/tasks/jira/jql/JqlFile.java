@@ -1,14 +1,16 @@
 package com.intellij.tasks.jira.jql;
 
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.psi.FileViewProvider;
+import consulo.language.file.FileViewProvider;
+import consulo.language.impl.psi.PsiFileBase;
+import consulo.virtualFileSystem.fileType.FileType;
+
 import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev
  */
-public class JqlFile extends PsiFileBase {
+public class JqlFile extends PsiFileBase
+{
   public JqlFile(@Nonnull FileViewProvider viewProvider) {
     super(viewProvider, JqlLanguage.INSTANCE);
   }

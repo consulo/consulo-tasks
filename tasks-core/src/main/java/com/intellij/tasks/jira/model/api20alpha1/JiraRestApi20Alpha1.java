@@ -1,12 +1,13 @@
 package com.intellij.tasks.jira.model.api20alpha1;
 
 import com.google.gson.reflect.TypeToken;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.tasks.jira.JiraRepository;
 import com.intellij.tasks.jira.JiraRestApi;
 import com.intellij.tasks.jira.JiraUtil;
 import com.intellij.tasks.jira.model.JiraIssue;
 import com.intellij.tasks.jira.model.JiraResponseWrapper;
+
 import javax.annotation.Nonnull;
 
 import java.lang.reflect.Type;

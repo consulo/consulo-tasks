@@ -15,7 +15,8 @@
  */
 package com.intellij.tasks.jira.model;
 
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.util.lang.StringUtil;
+
 import javax.annotation.Nonnull;
 
 import java.util.Date;

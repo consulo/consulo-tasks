@@ -24,89 +24,70 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class CachedIconLoader
-{
-	private static Map<String, Image> icons = new HashMap<>();
-	private static Map<String, Image> disabledIcons = new HashMap<>();
+public final class CachedIconLoader {
+  private static Map<String, Image> icons = new HashMap<>();
+  private static Map<String, Image> disabledIcons = new HashMap<>();
 
-	private CachedIconLoader()
-	{
-	}
+  private CachedIconLoader() {
+  }
 
-	public static Image getDisabledIcon(String urlString)
-	{
-		return disabledIcons.get(urlString);
-	}
+  public static Image getDisabledIcon(String urlString) {
+    return disabledIcons.get(urlString);
+  }
 
-	private static void addDisabledIcon(String urlString, Image icon)
-	{
-		disabledIcons.put(urlString, icon);
-	}
+  private static void addDisabledIcon(String urlString, Image icon) {
+    disabledIcons.put(urlString, icon);
+  }
 
-	private static Image generateDisabledIcon(Image icon)
-	{
-		return ImageEffects.grayed(icon);
-	}
+  private static Image generateDisabledIcon(Image icon) {
+    return ImageEffects.grayed(icon);
+  }
 
-	private static void maybeGenerateDisabledIcon(String urlString, Image icon)
-	{
-		if(disabledIcons.containsKey(urlString) || icon == null)
-		{
-			return;
-		}
-		addDisabledIcon(urlString, generateDisabledIcon(icon));
-	}
+  private static void maybeGenerateDisabledIcon(String urlString, Image icon) {
+    if (disabledIcons.containsKey(urlString) || icon == null) {
+      return;
+    }
+    addDisabledIcon(urlString, generateDisabledIcon(icon));
+  }
 
-	public static Image getIcon(URL url)
-	{
-		if(url != null)
-		{
-			String key = url.toString();
-			if(!icons.containsKey(key))
-			{
-				try
-				{
-					Image i = Image.fromUrl(url);
+  public static Image getIcon(URL url) {
+    if (url != null) {
+      String key = url.toString();
+      if (!icons.containsKey(key)) {
+        try {
+          Image i = Image.fromUrl(url);
 
-					icons.put(key, i);
-					maybeGenerateDisabledIcon(key, i);
-				}
-				catch (IOException ignored)
-				{
-				}
-			}
-			return icons.get(key);
-		}
-		else
-		{
-			return null;
-		}
-	}
+          icons.put(key, i);
+          maybeGenerateDisabledIcon(key, i);
+        }
+        catch (IOException ignored) {
+        }
+      }
+      return icons.get(key);
+    }
+    else {
+      return null;
+    }
+  }
 
-	public static Image getIcon(String urlString)
-	{
-		if(urlString != null)
-		{
-			if(!icons.containsKey(urlString))
-			{
-				try
-				{
-					URL url = new URL(urlString);
-					Image i = Image.fromUrl(url);
-					icons.put(urlString, i);
-					maybeGenerateDisabledIcon(urlString, i);
-				}
-				catch(IOException ignored)
-				{
-					return null;
-				}
-			}
-			return icons.get(urlString);
-		}
-		else
-		{
-			return null;
-		}
-	}
+  public static Image getIcon(String urlString) {
+    if (urlString != null) {
+      if (!icons.containsKey(urlString)) {
+        try {
+          URL url = new URL(urlString);
+          Image i = Image.fromUrl(url);
+          icons.put(urlString, i);
+          maybeGenerateDisabledIcon(urlString, i);
+        }
+        catch (IOException ignored) {
+          return null;
+        }
+      }
+      return icons.get(urlString);
+    }
+    else {
+      return null;
+    }
+  }
 
 }

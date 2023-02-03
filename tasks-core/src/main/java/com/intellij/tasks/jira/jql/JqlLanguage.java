@@ -15,7 +15,7 @@
  */
 package com.intellij.tasks.jira.jql;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 
 /**
  * @author Mikhail Golubev

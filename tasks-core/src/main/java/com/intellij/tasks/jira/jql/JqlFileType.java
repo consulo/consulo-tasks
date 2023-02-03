@@ -15,10 +15,10 @@
  */
 package com.intellij.tasks.jira.jql;
 
-import com.intellij.openapi.fileTypes.LanguageFileType;
+import consulo.language.file.LanguageFileType;
 import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
-import icons.TasksIcons;
+import com.intellij.tasks.TasksIcons;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

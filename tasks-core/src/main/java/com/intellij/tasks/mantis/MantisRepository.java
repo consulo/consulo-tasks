@@ -1,23 +1,21 @@
 package com.intellij.tasks.mantis;
 
-import com.intellij.openapi.progress.EmptyProgressIndicator;
-import com.intellij.openapi.progress.ProgressIndicator;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.tasks.Comment;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepositoryType;
-import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
 import com.intellij.tasks.mantis.model.*;
-import com.intellij.util.Function;
-import com.intellij.util.NullableFunction;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.text.VersionComparatorUtil;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.application.progress.EmptyProgressIndicator;
+import consulo.application.progress.ProgressIndicator;
+import consulo.task.BaseRepository;
+import consulo.task.Comment;
+import consulo.task.Task;
+import consulo.task.TaskRepositoryType;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.Comparing;
+import consulo.util.lang.VersionComparatorUtil;
+import consulo.util.xml.serializer.annotation.Tag;
 import org.apache.axis.utils.StringUtils;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.xml.rpc.ServiceException;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
@@ -106,11 +104,7 @@ public class MantisRepository extends BaseRepositoryImpl {
                                                 BigInteger.valueOf(myFilter.getId()), BigInteger.valueOf(page),
                                                 BigInteger.valueOf(issuesOnPage));
     }
-    return ContainerUtil.mapNotNull(issues, new NullableFunction<IssueHeaderData, Task>() {
-      public Task fun(IssueHeaderData issueData) {
-        return createIssue(issueData);
-      }
-    });
+    return ContainerUtil.mapNotNull(issues, issueData -> createIssue(issueData));
   }
 
   @Nullable
@@ -153,27 +147,22 @@ public class MantisRepository extends BaseRepositoryImpl {
       public Comment[] getComments() {
         IssueNoteData[] notes = data.getNotes();
         if (notes == null) return Comment.EMPTY_ARRAY;
-        final List<Comment> comments = ContainerUtil.map(notes, new Function<IssueNoteData, Comment>() {
+        final List<Comment> comments = ContainerUtil.map(notes, it -> new Comment() {
           @Override
-          public Comment fun(final IssueNoteData data) {
-            return new Comment() {
-              @Override
-              public String getText() {
-                return data.getText();
-              }
+          public String getText() {
+            return it.getText();
+          }
 
-              @Nullable
-              @Override
-              public String getAuthor() {
-                return data.getReporter().getName();
-              }
+          @Nullable
+          @Override
+          public String getAuthor() {
+            return it.getReporter().getName();
+          }
 
-              @Nullable
-              @Override
-              public Date getDate() {
-                return data.getDate_submitted().getTime();
-              }
-            };
+          @Nullable
+          @Override
+          public Date getDate() {
+            return it.getDate_submitted().getTime();
           }
         });
         return comments.toArray(new Comment[comments.size()]);
@@ -215,25 +204,17 @@ public class MantisRepository extends BaseRepositoryImpl {
     final MantisConnectPortType soap = createSoap();
     myProjects = new ArrayList<MantisProject>();
     ProjectData[] projectDatas = soap.mc_projects_get_user_accessible(getUsername(), getPassword());
-    List<MantisProject> projects = new ArrayList<MantisProject>(ContainerUtil.map(projectDatas, new Function<ProjectData, MantisProject>() {
-      @Override
-      public MantisProject fun(final ProjectData data) {
-        return new MantisProject(data.getId().intValue(), data.getName());
-      }
-    }));
-    if (allProjectsAvailable(soap)){
+    List<MantisProject> projects = new ArrayList<MantisProject>(ContainerUtil.map(projectDatas,
+                                                                                  data -> new MantisProject(data.getId().intValue(),
+                                                                                                            data.getName())));
+    if (allProjectsAvailable(soap)) {
       projects.add(0, MantisProject.ALL_PROJECTS);
     }
     for (MantisProject project : projects) {
       FilterData[] filterDatas = soap.mc_filter_get(getUsername(), getPassword(), BigInteger.valueOf(project.getId()));
       List<MantisFilter> filters = new ArrayList<MantisFilter>();
       filters.add(MantisFilter.LAST_TASKS);
-      filters.addAll(ContainerUtil.map(filterDatas, new Function<FilterData, MantisFilter>() {
-        @Override
-        public MantisFilter fun(final FilterData data) {
-          return new MantisFilter(data.getId().intValue(), data.getName());
-        }
-      }));
+      filters.addAll(ContainerUtil.map(filterDatas, data -> new MantisFilter(data.getId().intValue(), data.getName())));
       project.setFilters(filters);
       myProjects.add(project);
     }
@@ -270,8 +251,8 @@ public class MantisRepository extends BaseRepositoryImpl {
   @Override
   public boolean equals(Object o) {
     return super.equals(o) &&
-           Comparing.equal(getProject(), ((MantisRepository)o).getProject()) &&
-           Comparing.equal(getFilter(), ((MantisRepository)o).getFilter());
+      Comparing.equal(getProject(), ((MantisRepository)o).getProject()) &&
+      Comparing.equal(getFilter(), ((MantisRepository)o).getFilter());
   }
 
   @Override

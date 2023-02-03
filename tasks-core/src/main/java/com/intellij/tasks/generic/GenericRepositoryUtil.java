@@ -1,8 +1,7 @@
 package com.intellij.tasks.generic;
 
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.StringUtil;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -28,15 +27,12 @@ public class GenericRepositoryUtil {
     }
     PostMethod postMethod = new PostMethod(requestUrl.substring(0, n));
     String[] queryParams = requestUrl.substring(n + 1).split("&");
-    postMethod.addParameters(ContainerUtil.map2Array(queryParams, NameValuePair.class, new Function<String, NameValuePair>() {
-      @Override
-      public NameValuePair fun(String s) {
-        String[] nv = s.split("=");
-        if (nv.length == 1) {
-          return new NameValuePair(nv[0], "");
-        }
-        return new NameValuePair(nv[0], nv[1]);
+    postMethod.addParameters(ContainerUtil.map2Array(queryParams, NameValuePair.class, s -> {
+      String[] nv = s.split("=");
+      if (nv.length == 1) {
+        return new NameValuePair(nv[0], "");
       }
+      return new NameValuePair(nv[0], nv[1]);
     }));
     return postMethod;
   }
@@ -74,12 +70,7 @@ public class GenericRepositoryUtil {
   }
 
   public static List<String> createPlaceholdersList(List<TemplateVariable> variables) {
-    return ContainerUtil.map2List(variables, new Function<TemplateVariable, String>() {
-      @Override
-      public String fun(TemplateVariable variable) {
-        return String.format("{%s}", variable.getName());
-      }
-    });
+    return ContainerUtil.map2List(variables, variable -> String.format("{%s}", variable.getName()));
   }
 
   public static String prettifyVariableName(String variableName) {

@@ -1,10 +1,10 @@
 package com.intellij.tasks.generic;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.tasks.Task;
-import com.intellij.util.xmlb.annotations.Transient;
-import javax.annotation.Nonnull;
+import consulo.project.Project;
+import consulo.task.Task;
+import consulo.util.xml.serializer.annotation.Transient;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.swing.*;
 

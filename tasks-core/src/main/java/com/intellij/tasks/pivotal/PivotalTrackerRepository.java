@@ -1,20 +1,17 @@
 package com.intellij.tasks.pivotal;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.*;
-import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
-import com.intellij.tasks.impl.SimpleComment;
-import com.intellij.tasks.impl.TaskUtil;
-import com.intellij.util.NullableFunction;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.net.HTTPMethod;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.http.HTTPMethod;
+import consulo.logging.Logger;
+import consulo.task.*;
+import consulo.task.util.TaskUtil;
 import consulo.ui.image.Image;
 import consulo.ui.image.ImageKey;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.Comparing;
+import consulo.util.lang.StringUtil;
+import consulo.util.lang.ref.Ref;
+import consulo.util.xml.serializer.annotation.Tag;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -31,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,11 +84,7 @@ public class PivotalTrackerRepository extends BaseRepositoryImpl {
   public Task[] getIssues(@Nullable final String query, final int max, final long since) throws Exception {
     List<Element> children = getStories(query, max);
 
-    final List<Task> tasks = ContainerUtil.mapNotNull(children, new NullableFunction<Element, Task>() {
-      public Task fun(Element o) {
-        return createIssue(o);
-      }
-    });
+    final List<Task> tasks = ContainerUtil.mapNotNull(children, o -> createIssue(o));
     return tasks.toArray(new Task[tasks.size()]);
   }
 

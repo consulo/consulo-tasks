@@ -15,22 +15,31 @@
  */
 package com.intellij.tasks.fogbugz;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.impl.BaseRepositoryType;
+import com.intellij.tasks.TasksIcons;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.localize.LocalizeValue;
+import consulo.task.BaseRepositoryType;
+import consulo.task.TaskRepository;
 import consulo.ui.image.Image;
-import icons.TasksIcons;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author mkennedy
  */
+@ExtensionImpl
 public class FogBugzRepositoryType extends BaseRepositoryType<FogBugzRepository> {
 
   @Nonnull
   @Override
-  public String getName() {
+  public String getId() {
     return "FogBugz";
+  }
+
+  @Nonnull
+  @Override
+  public LocalizeValue getPresentableName() {
+    return LocalizeValue.of("FogBugz");
   }
 
   @Nonnull

@@ -15,25 +15,34 @@
  */
 package com.intellij.tasks.trac;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.openapi.project.Project;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.config.TaskRepositoryEditor;
-import com.intellij.tasks.impl.BaseRepositoryType;
-import com.intellij.util.Consumer;
+import com.intellij.tasks.TasksIcons;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.localize.LocalizeValue;
+import consulo.project.Project;
+import consulo.task.BaseRepositoryType;
+import consulo.task.TaskRepository;
+import consulo.task.ui.TaskRepositoryEditor;
 import consulo.ui.image.Image;
-import icons.TasksIcons;
+
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 /**
  * @author Dmitry Avdeev
  */
+@ExtensionImpl
 public class TracRepositoryType extends BaseRepositoryType<TracRepository> {
 
   @Nonnull
   @Override
-  public String getName() {
+  public String getId() {
     return "Trac";
+  }
+
+  @Nonnull
+  @Override
+  public LocalizeValue getPresentableName() {
+    return LocalizeValue.of("Trac");
   }
 
   @Nonnull

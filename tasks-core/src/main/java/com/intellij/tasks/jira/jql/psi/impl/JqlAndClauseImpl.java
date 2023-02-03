@@ -1,10 +1,10 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.ASTNode;
 import com.intellij.tasks.jira.jql.psi.JqlAndClause;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
+import consulo.language.ast.ASTNode;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev

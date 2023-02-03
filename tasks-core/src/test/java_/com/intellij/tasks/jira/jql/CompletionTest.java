@@ -8,8 +8,8 @@ import java.util.List;
 import com.intellij.tasks.jira.jql.codeinsight.JqlFieldType;
 import com.intellij.tasks.jira.jql.codeinsight.JqlStandardFunction;
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase;
-import com.intellij.util.ArrayUtil;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.util.collection.ArrayUtil;
+import consulo.util.collection.ContainerUtil;
 
 /**
  * @author Mikhail Golubev

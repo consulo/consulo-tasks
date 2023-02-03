@@ -1,6 +1,6 @@
 package com.intellij.tasks.youtrack.lang;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 
 /**
  * @author Mikhail Golubev

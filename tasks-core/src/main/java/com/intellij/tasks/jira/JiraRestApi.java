@@ -1,18 +1,18 @@
 package com.intellij.tasks.jira;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskState;
 import com.intellij.tasks.jira.model.JiraIssue;
 import com.intellij.tasks.jira.model.api2.JiraRestApi2;
 import com.intellij.tasks.jira.model.api20alpha1.JiraRestApi20Alpha1;
+import consulo.logging.Logger;
+import consulo.task.Task;
+import consulo.task.TaskState;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.List;
 
 import static com.intellij.tasks.jira.JiraRepository.REST_API_PATH_SUFFIX;

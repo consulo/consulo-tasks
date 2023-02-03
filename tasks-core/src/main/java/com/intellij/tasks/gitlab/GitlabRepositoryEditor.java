@@ -1,20 +1,20 @@
 package com.intellij.tasks.gitlab;
 
-import com.intellij.openapi.progress.ProgressIndicator;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.tasks.config.BaseRepositoryEditor;
 import com.intellij.tasks.gitlab.model.GitlabProject;
-import com.intellij.tasks.impl.TaskUiUtil;
-import com.intellij.ui.components.JBLabel;
-import com.intellij.util.Consumer;
-import com.intellij.util.ui.FormBuilder;
-import com.intellij.util.ui.UIUtil;
+import consulo.application.progress.ProgressIndicator;
+import consulo.project.Project;
+import consulo.task.ui.BaseRepositoryEditor;
+import consulo.task.util.TaskUiUtil;
+import consulo.ui.ex.awt.ComboBox;
+import consulo.ui.ex.awt.FormBuilder;
+import consulo.ui.ex.awt.JBLabel;
+import consulo.ui.ex.awt.UIUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static com.intellij.tasks.gitlab.GitlabRepository.UNSPECIFIED_PROJECT;
 

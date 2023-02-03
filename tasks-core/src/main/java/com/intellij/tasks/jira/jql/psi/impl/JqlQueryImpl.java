@@ -2,7 +2,7 @@ package com.intellij.tasks.jira.jql.psi.impl;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.ASTNode;
 import com.intellij.tasks.jira.jql.psi.*;
 
 import javax.annotation.Nullable;

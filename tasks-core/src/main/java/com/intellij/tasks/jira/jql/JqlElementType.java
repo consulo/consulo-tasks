@@ -15,10 +15,10 @@
  */
 package com.intellij.tasks.jira.jql;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.impl.psi.ASTWrapperPsiElement;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 
@@ -27,7 +27,8 @@ import java.lang.reflect.Constructor;
 /**
  * @author Mikhail Golubev
  */
-public class JqlElementType extends IElementType {
+public class JqlElementType extends IElementType
+{
   private static final Class<?>[] PARAMETER_TYPES = {ASTNode.class};
 
   private final Class<? extends PsiElement> myClass;

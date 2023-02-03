@@ -1,16 +1,16 @@
 package com.intellij.tasks.generic;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.impl.TaskUtil;
-import com.intellij.ui.components.JBScrollPane;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.xmlb.annotations.AbstractCollection;
-import com.intellij.util.xmlb.annotations.Property;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.task.Task;
+import consulo.task.util.TaskUtil;
+import consulo.ui.ex.awt.JBScrollPane;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.annotation.AbstractCollection;
+import consulo.util.xml.serializer.annotation.Property;
+import consulo.util.xml.serializer.annotation.Tag;
+import consulo.virtualFileSystem.fileType.FileType;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -28,23 +28,23 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
   private static final Logger LOG = Logger.getInstance(SelectorBasedResponseHandler.class);
 
   // Supported selector names
-  @NonNls protected static final String TASKS = "tasks";
+  protected static final String TASKS = "tasks";
 
-  @NonNls protected static final String SUMMARY = "summary";
-  @NonNls protected static final String DESCRIPTION = "description";
-  @NonNls protected static final String ISSUE_URL = "issueUrl";
-  @NonNls protected static final String CLOSED = "closed";
-  @NonNls protected static final String UPDATED = "updated";
-  @NonNls protected static final String CREATED = "created";
+  protected static final String SUMMARY = "summary";
+  protected static final String DESCRIPTION = "description";
+  protected static final String ISSUE_URL = "issueUrl";
+  protected static final String CLOSED = "closed";
+  protected static final String UPDATED = "updated";
+  protected static final String CREATED = "created";
 
-  @NonNls protected static final String SINGLE_TASK_ID = "singleTask-id";
-  @NonNls protected static final String SINGLE_TASK_SUMMARY = "singleTask-summary";
-  @NonNls protected static final String SINGLE_TASK_DESCRIPTION = "singleTask-description";
-  @NonNls protected static final String SINGLE_TASK_ISSUE_URL = "singleTask-issueUrl";
-  @NonNls protected static final String SINGLE_TASK_CLOSED = "singleTask-closed";
-  @NonNls protected static final String SINGLE_TASK_UPDATED = "singleTask-updated";
-  @NonNls protected static final String SINGLE_TASK_CREATED = "singleTask-created";
-  @NonNls protected static final String ID = "id";
+  protected static final String SINGLE_TASK_ID = "singleTask-id";
+  protected static final String SINGLE_TASK_SUMMARY = "singleTask-summary";
+  protected static final String SINGLE_TASK_DESCRIPTION = "singleTask-description";
+  protected static final String SINGLE_TASK_ISSUE_URL = "singleTask-issueUrl";
+  protected static final String SINGLE_TASK_CLOSED = "singleTask-closed";
+  protected static final String SINGLE_TASK_UPDATED = "singleTask-updated";
+  protected static final String SINGLE_TASK_CREATED = "singleTask-created";
+  protected static final String ID = "id";
 
   protected LinkedHashMap<String, Selector> mySelectors = new LinkedHashMap<String, Selector>();
 
@@ -160,8 +160,8 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
   @Override
   public final Task[] parseIssues(@Nonnull String response, int max) throws Exception {
     if (StringUtil.isEmpty(getSelectorPath(TASKS)) ||
-        StringUtil.isEmpty(getSelectorPath(ID)) ||
-        StringUtil.isEmpty(getSelectorPath(SUMMARY))) {
+      StringUtil.isEmpty(getSelectorPath(ID)) ||
+      StringUtil.isEmpty(getSelectorPath(SUMMARY))) {
       throw new Exception("Selectors 'tasks', 'id' and 'summary' are mandatory");
     }
     List<Object> tasks = selectTasksList(response, max);
@@ -235,7 +235,7 @@ public abstract class SelectorBasedResponseHandler extends ResponseHandler {
   @Override
   public final Task parseIssue(@Nonnull String response) throws Exception {
     if (StringUtil.isEmpty(getSelectorPath(SINGLE_TASK_ID)) ||
-        StringUtil.isEmpty(getSelectorPath(SINGLE_TASK_SUMMARY))) {
+      StringUtil.isEmpty(getSelectorPath(SINGLE_TASK_SUMMARY))) {
       throw new Exception("Selectors 'singleTask-id' and 'singleTask-summary' are mandatory");
     }
     String id = selectString(getSelector(SINGLE_TASK_ID), response);

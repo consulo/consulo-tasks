@@ -1,27 +1,35 @@
 package com.intellij.tasks.pivotal;
 
-import java.util.EnumSet;
+import com.intellij.tasks.TasksIcons;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.localize.LocalizeValue;
+import consulo.project.Project;
+import consulo.task.BaseRepositoryType;
+import consulo.task.TaskRepository;
+import consulo.task.TaskState;
+import consulo.task.ui.TaskRepositoryEditor;
+import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;
-
-import com.intellij.openapi.project.Project;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskState;
-import com.intellij.tasks.config.TaskRepositoryEditor;
-import com.intellij.tasks.impl.BaseRepositoryType;
-import com.intellij.util.Consumer;
-import consulo.ui.image.Image;
-import icons.TasksIcons;
+import java.util.EnumSet;
+import java.util.function.Consumer;
 
 /**
  * @author Dennis.Ushakov
  */
+@ExtensionImpl
 public class PivotalTrackerRepositoryType extends BaseRepositoryType<PivotalTrackerRepository> {
 
   @Nonnull
   @Override
-  public String getName() {
+  public String getId() {
     return "PivotalTracker";
+  }
+
+  @Nonnull
+  @Override
+  public LocalizeValue getPresentableName() {
+    return LocalizeValue.of("PivotalTracker");
   }
 
   @Nonnull

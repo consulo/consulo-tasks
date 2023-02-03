@@ -1,9 +1,9 @@
 package com.intellij.tasks.jira.jql;
 
-import javax.annotation.Nonnull;
+import consulo.language.ast.ASTNode;
+import consulo.language.impl.psi.ASTWrapperPsiElement;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev

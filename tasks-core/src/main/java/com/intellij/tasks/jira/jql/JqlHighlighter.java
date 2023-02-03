@@ -1,21 +1,22 @@
 package com.intellij.tasks.jira.jql;
 
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.editor.HighlighterColors;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
-import com.intellij.psi.tree.IElementType;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.language.editor.highlight.SyntaxHighlighterBase;
+import consulo.language.lexer.Lexer;
+import consulo.codeEditor.HighlighterColors;
+import consulo.language.ast.IElementType;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.*;
+import static consulo.codeEditor.DefaultLanguageHighlighterColors.*;
 
 /**
  * @author Mikhail Golubev
  */
-public class JqlHighlighter extends SyntaxHighlighterBase {
+public class JqlHighlighter extends SyntaxHighlighterBase
+{
   private static final Map<IElementType, TextAttributesKey> KEYS = new HashMap<IElementType, TextAttributesKey>();
   static {
     KEYS.put(JqlTokenTypes.STRING_LITERAL, STRING);

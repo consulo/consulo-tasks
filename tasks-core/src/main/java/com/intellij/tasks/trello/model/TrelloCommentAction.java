@@ -15,7 +15,7 @@
  */
 package com.intellij.tasks.trello.model;
 
-import com.intellij.tasks.Comment;
+import consulo.task.Comment;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

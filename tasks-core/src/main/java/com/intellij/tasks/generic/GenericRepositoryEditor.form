@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="df2e4" class="com.intellij.ui.components.JBLabel">
+      <component id="df2e4" class="consulo.ui.ex.awt.JBLabel">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -63,7 +63,7 @@
               <text value="Each task in separate request:"/>
             </properties>
           </component>
-          <component id="69199" class="com.intellij.ui.components.JBCheckBox" binding="myDownloadTasksInSeparateRequests">
+          <component id="69199" class="consulo.ui.ex.awt.JBCheckBox" binding="myDownloadTasksInSeparateRequests">
             <constraints>
               <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -123,7 +123,7 @@
         <border type="none"/>
         <children/>
       </grid>
-      <component id="4acd" class="com.intellij.ui.components.JBLabel" binding="mySingleTaskURLLabel">
+      <component id="4acd" class="consulo.ui.ex.awt.JBLabel" binding="mySingleTaskURLLabel">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -132,7 +132,7 @@
           <text value="&amp;Single Task URL:"/>
         </properties>
       </component>
-      <component id="2b4b2" class="com.intellij.ui.EditorTextField" binding="mySingleTaskURLText" custom-create="true" default-binding="true">
+      <component id="2b4b2" class="consulo.language.editor.ui.awt.EditorTextField" binding="mySingleTaskURLText" custom-create="true" default-binding="true">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="10" height="-1"/>
@@ -140,7 +140,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="76f26" class="com.intellij.openapi.ui.ComboBox" binding="mySingleTaskMethodComboBox">
+      <component id="76f26" class="consulo.ui.ex.awt.ComboBox" binding="mySingleTaskMethodComboBox">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -151,7 +151,7 @@
           </model>
         </properties>
       </component>
-      <component id="6dd8" class="com.intellij.ui.components.JBLabel">
+      <component id="6dd8" class="consulo.ui.ex.awt.JBLabel">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -160,7 +160,7 @@
           <text value="Tasks &amp;List URL:"/>
         </properties>
       </component>
-      <component id="87697" class="com.intellij.ui.EditorTextField" binding="myTasksListURLText" custom-create="true">
+      <component id="87697" class="consulo.language.editor.ui.awt.EditorTextField" binding="myTasksListURLText" custom-create="true">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="10" height="-1"/>
@@ -168,7 +168,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="d1239" class="com.intellij.openapi.ui.ComboBox" binding="myTasksListMethodTypeComboBox">
+      <component id="d1239" class="consulo.ui.ex.awt.ComboBox" binding="myTasksListMethodTypeComboBox">
         <constraints>
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -179,7 +179,7 @@
           </model>
         </properties>
       </component>
-      <component id="37da0" class="com.intellij.ui.components.JBLabel" binding="myLoginURLLabel">
+      <component id="37da0" class="consulo.ui.ex.awt.JBLabel" binding="myLoginURLLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -188,7 +188,7 @@
           <text value="Lo&amp;gin URL:"/>
         </properties>
       </component>
-      <component id="a0a2f" class="com.intellij.ui.EditorTextField" binding="myLoginURLText" custom-create="true">
+      <component id="a0a2f" class="consulo.language.editor.ui.awt.EditorTextField" binding="myLoginURLText" custom-create="true">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="10" height="-1"/>
@@ -196,7 +196,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="eee0a" class="com.intellij.openapi.ui.ComboBox" binding="myLoginMethodTypeComboBox">
+      <component id="eee0a" class="consulo.ui.ex.awt.ComboBox" binding="myLoginMethodTypeComboBox">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

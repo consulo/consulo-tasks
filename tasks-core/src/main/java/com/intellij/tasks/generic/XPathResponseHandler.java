@@ -1,7 +1,7 @@
 package com.intellij.tasks.generic;
 
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.annotation.Tag;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;

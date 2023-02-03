@@ -1,8 +1,9 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.ASTNode;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlLiteral;
+
 import javax.annotation.Nonnull;
 
 /**

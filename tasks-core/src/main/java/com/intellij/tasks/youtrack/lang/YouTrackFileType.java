@@ -1,9 +1,9 @@
 package com.intellij.tasks.youtrack.lang;
 
-import com.intellij.openapi.fileTypes.LanguageFileType;
+import consulo.language.file.LanguageFileType;
 import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
-import icons.TasksIcons;
+import com.intellij.tasks.TasksIcons;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -11,7 +11,8 @@ import javax.annotation.Nullable;
 /**
  * @author Mikhail Golubev
  */
-public class YouTrackFileType extends LanguageFileType {
+public class YouTrackFileType extends LanguageFileType
+{
   public static final YouTrackFileType INSTANCE = new YouTrackFileType();
   public static final String DEFAULT_EXTENSION = "youtrack";
 

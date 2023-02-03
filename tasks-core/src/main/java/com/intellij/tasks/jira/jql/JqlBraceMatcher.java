@@ -1,16 +1,16 @@
 package com.intellij.tasks.jira.jql;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.BracePair;
+import consulo.language.Language;
+import consulo.language.PairedBraceMatcher;
 
-import com.intellij.lang.BracePair;
-import com.intellij.lang.PairedBraceMatcher;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IElementType;
+import javax.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev
  */
+@ExtensionImpl
 public class JqlBraceMatcher implements PairedBraceMatcher {
   private static final BracePair[] PAIRS = {new BracePair(JqlTokenTypes.LPAR, JqlTokenTypes.RPAR, false)};
 
@@ -19,13 +19,9 @@ public class JqlBraceMatcher implements PairedBraceMatcher {
     return PAIRS;
   }
 
+  @Nonnull
   @Override
-  public boolean isPairedBracesAllowedBeforeType(@Nonnull IElementType lbraceType, @Nullable IElementType contextType) {
-    return false;
-  }
-
-  @Override
-  public int getCodeConstructStart(PsiFile file, int openingBraceOffset) {
-    return openingBraceOffset;
+  public Language getLanguage() {
+    return JqlLanguage.INSTANCE;
   }
 }

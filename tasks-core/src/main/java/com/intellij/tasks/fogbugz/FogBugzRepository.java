@@ -15,16 +15,14 @@
  */
 package com.intellij.tasks.fogbugz;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.*;
-import com.intellij.tasks.impl.BaseRepository;
+import com.intellij.tasks.TasksIcons;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
-import com.intellij.util.NotNullFunction;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.logging.Logger;
+import consulo.task.*;
 import consulo.ui.image.Image;
-import icons.TasksIcons;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.annotation.Tag;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Document;
@@ -38,6 +36,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author mkennedy
@@ -81,10 +80,10 @@ public class FogBugzRepository extends BaseRepositoryImpl {
     XPath path = XPath.newInstance("/response/cases/case");
     final XPath commentPath = XPath.newInstance("events/event");
     @SuppressWarnings("unchecked") final List<Element> nodes = (List<Element>)path.selectNodes(document);
-    final List<Task> tasks = ContainerUtil.mapNotNull(nodes, new NotNullFunction<Element, Task>() {
+    final List<Task> tasks = ContainerUtil.mapNotNull(nodes, new Function<Element, Task>() {
       @Nonnull
       @Override
-      public Task fun(Element element) {
+      public Task apply(Element element) {
         return createCase(element, commentPath);
       }
     });
@@ -138,10 +137,10 @@ public class FogBugzRepository extends BaseRepositoryImpl {
         catch (Exception e) {
           throw new RuntimeException("Error selecting comment nodes", e);
         }
-        List<Comment> comments = ContainerUtil.mapNotNull(nodes, new NotNullFunction<Element, Comment>() {
+        List<Comment> comments = ContainerUtil.mapNotNull(nodes, new Function<Element, Comment>() {
           @Nonnull
           @Override
-          public Comment fun(Element element) {
+          public Comment apply(Element element) {
             return createComment(element);
           }
 

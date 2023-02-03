@@ -1,14 +1,15 @@
 package com.intellij.tasks.jira.jql.codeinsight;
 
-import com.intellij.lang.annotation.Annotation;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.language.editor.annotation.Annotation;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.PsiTreeUtil;
 import com.intellij.tasks.jira.jql.psi.*;
+
 import javax.annotation.Nonnull;
 
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.CONSTANT;
+import static consulo.codeEditor.DefaultLanguageHighlighterColors.CONSTANT;
 
 /**
  * At first, it checks the following errors:

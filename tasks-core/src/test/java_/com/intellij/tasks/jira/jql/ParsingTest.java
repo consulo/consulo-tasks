@@ -1,6 +1,6 @@
 package com.intellij.tasks.jira.jql;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.testFramework.PlatformTestUtil;
 import consulo.testFramework.ParsingTestCase;
 

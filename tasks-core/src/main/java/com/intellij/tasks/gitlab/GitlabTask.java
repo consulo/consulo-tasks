@@ -1,18 +1,17 @@
 package com.intellij.tasks.gitlab;
 
-import java.util.Date;
+import com.intellij.tasks.TasksIcons;
+import com.intellij.tasks.gitlab.model.GitlabIssue;
+import com.intellij.tasks.gitlab.model.GitlabProject;
+import consulo.task.Comment;
+import consulo.task.Task;
+import consulo.task.TaskRepository;
+import consulo.task.TaskType;
+import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.tasks.Comment;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskType;
-import com.intellij.tasks.gitlab.model.GitlabIssue;
-import com.intellij.tasks.gitlab.model.GitlabProject;
-import consulo.ui.image.Image;
-import icons.TasksIcons;
+import java.util.Date;
 
 /**
  * @author Mikhail Golubev

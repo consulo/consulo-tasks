@@ -1,21 +1,18 @@
 package com.intellij.tasks.youtrack;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.io.StreamUtil;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.*;
-import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
-import com.intellij.tasks.impl.LocalTaskImpl;
-import com.intellij.tasks.impl.TaskUtil;
-import com.intellij.util.NullableFunction;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.text.VersionComparatorUtil;
-import com.intellij.util.xmlb.annotations.MapAnnotation;
-import com.intellij.util.xmlb.annotations.Property;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.logging.Logger;
+import consulo.task.*;
+import consulo.task.util.TaskUtil;
 import consulo.ui.image.Image;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.io.StreamUtil;
+import consulo.util.lang.Comparing;
+import consulo.util.lang.StringUtil;
+import consulo.util.lang.VersionComparatorUtil;
+import consulo.util.xml.serializer.annotation.MapAnnotation;
+import consulo.util.xml.serializer.annotation.Property;
+import consulo.util.xml.serializer.annotation.Tag;
 import org.apache.axis.utils.XMLChar;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -108,11 +105,8 @@ public class YouTrackRepository extends BaseRepositoryImpl {
 
     List<Element> children = element.getChildren("issue");
 
-    final List<Task> tasks = ContainerUtil.mapNotNull(children, new NullableFunction<Element, Task>() {
-      public Task fun(Element o) {
-        return createIssue(o);
-      }
-    });
+    final List<Task> tasks =
+      ContainerUtil.mapNotNull(children, o -> createIssue(o));
     return tasks.toArray(new Task[tasks.size()]);
   }
 
@@ -251,7 +245,7 @@ public class YouTrackRepository extends BaseRepositoryImpl {
       @Nonnull
       @Override
       public Image getIcon() {
-        return LocalTaskImpl.getIconFromType(getType(), isIssue());
+        return getType().getIcon(isIssue());
       }
 
       @Nonnull
@@ -309,7 +303,8 @@ public class YouTrackRepository extends BaseRepositoryImpl {
   @Override
   public void updateTimeSpent(final LocalTask task, final String timeSpent, final String comment) throws Exception {
     checkVersion();
-    final HttpMethod method = doREST("/rest/issue/execute/" + task.getId() + "?command=work+Today+" + timeSpent.replaceAll(" ", "+") + "+" + comment, true);
+    final HttpMethod method =
+      doREST("/rest/issue/execute/" + task.getId() + "?command=work+Today+" + timeSpent.replaceAll(" ", "+") + "+" + comment, true);
     if (method.getStatusCode() != 200) {
       InputStream stream = method.getResponseBodyAsStream();
       String message = new SAXBuilder(false).build(stream).getRootElement().getText();
@@ -321,7 +316,8 @@ public class YouTrackRepository extends BaseRepositoryImpl {
     HttpMethod method = doREST("/rest/workflow/version", false);
     InputStream stream = method.getResponseBodyAsStream();
     Element element = new SAXBuilder(false).build(stream).getRootElement();
-    final boolean timeTrackingAvailable = element.getName().equals("version") && VersionComparatorUtil.compare(element.getChildText("version"), "4.1") >= 0;
+    final boolean timeTrackingAvailable =
+      element.getName().equals("version") && VersionComparatorUtil.compare(element.getChildText("version"), "4.1") >= 0;
     if (!timeTrackingAvailable) {
       throw new Exception("This version of Youtrack the time tracking is not supported");
     }

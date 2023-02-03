@@ -1,6 +1,6 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import com.intellij.psi.PsiElementVisitor;
+import consulo.language.psi.PsiElementVisitor;
 import com.intellij.tasks.jira.jql.psi.impl.JqlArgumentListImpl;
 import com.intellij.tasks.jira.jql.psi.impl.JqlHistoryPredicateImpl;
 import com.intellij.tasks.jira.jql.psi.impl.JqlSubClauseImpl;
@@ -8,7 +8,8 @@ import com.intellij.tasks.jira.jql.psi.impl.JqlSubClauseImpl;
 /**
  * @author Mikhail Golubev
  */
-public abstract class JqlElementVisitor extends PsiElementVisitor {
+public abstract class JqlElementVisitor extends PsiElementVisitor
+{
 
   public void visitJqlQuery(JqlQuery query) {
     visitElement(query);

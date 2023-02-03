@@ -1,9 +1,9 @@
 package com.intellij.tasks.generic;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.util.xmlb.annotations.Attribute;
+import consulo.util.xml.serializer.annotation.Attribute;
 import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
 
 /**
  * Editable variable which name can be used as placeholder and auto completed in EditorFields of

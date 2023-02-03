@@ -15,14 +15,14 @@
  */
 package com.intellij.tasks.trac;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.tasks.config.BaseRepositoryEditor;
-import com.intellij.ui.components.JBLabel;
-import com.intellij.util.Consumer;
-import com.intellij.util.ui.FormBuilder;
-import javax.annotation.Nullable;
+import consulo.project.Project;
+import consulo.task.ui.BaseRepositoryEditor;
+import consulo.ui.ex.awt.FormBuilder;
+import consulo.ui.ex.awt.JBLabel;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
+import java.util.function.Consumer;
 
 /**
  * @author Dmitry Avdeev

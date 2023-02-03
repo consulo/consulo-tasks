@@ -1,6 +1,6 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 
 /**
  * @author Mikhail Golubev

@@ -15,13 +15,14 @@
  */
 package com.intellij.tasks.generic;
 
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.project.Project;
-import com.intellij.ui.EditorTextField;
-import com.intellij.ui.table.TableView;
-import com.intellij.util.ui.AbstractTableCellEditor;
-import com.intellij.util.ui.ColumnInfo;
-import com.intellij.util.ui.ListTableModel;
+import consulo.language.editor.ui.awt.EditorTextField;
+import consulo.project.Project;
+import consulo.ui.ex.awt.ColumnInfo;
+import consulo.ui.ex.awt.table.ListTableModel;
+import consulo.ui.ex.awt.table.TableView;
+import consulo.virtualFileSystem.fileType.FileType;
+import consulo.ui.ex.awt.AbstractTableCellEditor;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -32,7 +33,8 @@ import java.awt.*;
 import java.util.List;
 
 
-class HighlightedSelectorsTable extends TableView<Selector> {
+class HighlightedSelectorsTable extends TableView<Selector>
+{
 
   public HighlightedSelectorsTable(@Nonnull final FileType valueFileType,
                                    @Nonnull final Project project,

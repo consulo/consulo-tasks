@@ -1,14 +1,14 @@
 package com.intellij.tasks.youtrack;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.impl.TaskUtil;
-import com.intellij.util.containers.ContainerUtil;
-import consulo.util.collection.impl.map.LinkedHashMap;
+import consulo.colorScheme.TextAttributes;
+import consulo.document.util.TextRange;
+import consulo.logging.Logger;
+import consulo.task.util.TaskUtil;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.collection.Maps;
 import consulo.util.dataholder.Key;
+import consulo.util.lang.Pair;
+import consulo.util.lang.StringUtil;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
@@ -19,9 +19,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.*;
-import static com.intellij.openapi.editor.HighlighterColors.BAD_CHARACTER;
-import static com.intellij.openapi.editor.HighlighterColors.TEXT;
+import static consulo.codeEditor.DefaultLanguageHighlighterColors.*;
+import static consulo.codeEditor.HighlighterColors.BAD_CHARACTER;
+import static consulo.codeEditor.HighlighterColors.TEXT;
 
 /**
  * Auxiliary class for extracting data from YouTrack intellisense responses.
@@ -43,30 +43,16 @@ public class YouTrackIntellisense {
   private static final Logger LOG = Logger.getInstance(YouTrackIntellisense.class);
 
   public static final String INTELLISENSE_RESOURCE = "/rest/issue/intellisense";
-  private static final Map<String, TextAttributes> TEXT_ATTRIBUTES = ContainerUtil.newHashMap(
-    Pair.create("field", CONSTANT.getDefaultAttributes()),
-    Pair.create("keyword", KEYWORD.getDefaultAttributes()),
-    Pair.create("string", STRING.getDefaultAttributes()),
-    Pair.create("error", BAD_CHARACTER.getDefaultAttributes())
+  private static final Map<String, TextAttributes> TEXT_ATTRIBUTES = Map.of(
+    "field", CONSTANT.getDefaultAttributes(),
+    "keyword", KEYWORD.getDefaultAttributes(),
+    "string", STRING.getDefaultAttributes(),
+    "error", BAD_CHARACTER.getDefaultAttributes()
   );
   private static final int CACHE_SIZE = 30;
 
-  private static class SizeLimitedCache<K, V> extends LinkedHashMap<K, V> {
-    private final int myMaxSize;
-
-    private SizeLimitedCache(int max) {
-      super((int)(max / 0.75) + 1, true);
-      myMaxSize = max;
-    }
-
-    @Override
-    protected boolean removeEldestEntry(Map.Entry<K, V> eldest, K key, V value) {
-      return size() > myMaxSize;
-    }
-  }
-
   private static final Map<Pair<String, Integer>, Response> ourCache =
-    Collections.synchronizedMap(new SizeLimitedCache<Pair<String, Integer>, Response>(CACHE_SIZE));
+    Collections.synchronizedMap(Maps.newLinkedHashMap(map -> map.size() > CACHE_SIZE));
 
   @Nonnull
   private static TextAttributes getAttributeByStyleClass(@Nonnull String styleClass) {
@@ -108,7 +94,7 @@ public class YouTrackIntellisense {
     else {
       response = ourCache.get(lookup);
     }
-    LOG.debug("Cache " + (response != null? "hit" : "miss"));
+    LOG.debug("Cache " + (response != null ? "hit" : "miss"));
     if (response == null) {
       final String url = String.format("%s?filter=%s&caret=%d", INTELLISENSE_RESOURCE, URLEncoder.encode(query, "utf-8"), caret);
       final long startTime = System.currentTimeMillis();

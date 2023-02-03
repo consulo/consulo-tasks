@@ -1,18 +1,17 @@
 package com.intellij.tasks.generic;
 
-import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.xmlb.annotations.Tag;
 import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.annotation.Tag;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * @author Mikhail Golubev
@@ -20,13 +19,13 @@ import java.util.Map;
 @Tag("JsonResponseHandler")
 public final class JsonPathResponseHandler extends SelectorBasedResponseHandler {
 
-  private static final Map<Class<?>, String> JSON_TYPES = ContainerUtil.newHashMap(
-    new Pair<Class<?>, String>(Map.class, "JSON object"),
-    new Pair<Class<?>, String>(List.class, "JSON array"),
-    new Pair<Class<?>, String>(String.class, "JSON string"),
-    new Pair<Class<?>, String>(Integer.class, "JSON number"),
-    new Pair<Class<?>, String>(Double.class, "JSON number"),
-    new Pair<Class<?>, String>(Boolean.class, "JSON boolean")
+  private static final Map<Class<?>, String> JSON_TYPES = Map.of(
+    Map.class, "JSON object",
+    List.class, "JSON array",
+    String.class, "JSON string",
+    Integer.class, "JSON number",
+    Double.class, "JSON number",
+    Boolean.class, "JSON boolean"
   );
 
   private final Map<String, JsonPath> myCompiledCache = new HashMap<String, JsonPath>();
@@ -83,14 +82,9 @@ public final class JsonPathResponseHandler extends SelectorBasedResponseHandler 
     @SuppressWarnings("unchecked")
     List<Object> list = (List<Object>)extractValueAndCheckType(getSelector(TASKS), response, List.class);
     if (list == null) {
-      return ContainerUtil.emptyList();
+      return List.of();
     }
-    return ContainerUtil.map2List(list, new Function<Object, Object>() {
-      @Override
-      public Object fun(Object o) {
-        return o.toString();
-      }
-    }).subList(0, Math.min(list.size(), max));
+    return ContainerUtil.map2List(list, (Function<Object, Object>)Object::toString).subList(0, Math.min(list.size(), max));
   }
 
   @Nullable

@@ -16,7 +16,7 @@
 package com.intellij.tasks.jira;
 
 import com.google.gson.*;
-import com.intellij.tasks.impl.TaskUtil;
+import consulo.task.util.TaskUtil;
 
 import java.lang.reflect.Type;
 import java.util.Date;

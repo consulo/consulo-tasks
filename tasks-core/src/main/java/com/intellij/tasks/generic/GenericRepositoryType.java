@@ -1,34 +1,42 @@
 package com.intellij.tasks.generic;
 
+import com.intellij.tasks.TasksIcons;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.AllIcons;
+import consulo.localize.LocalizeValue;
+import consulo.project.Project;
+import consulo.task.BaseRepositoryType;
+import consulo.task.TaskRepository;
+import consulo.task.TaskRepositorySubtype;
+import consulo.task.ui.TaskRepositoryEditor;
+import consulo.ui.image.Image;
+import consulo.util.jdom.JDOMUtil;
+import consulo.util.xml.serializer.XmlSerializer;
+import org.jdom.Document;
+
+import javax.annotation.Nonnull;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import org.jdom.Document;
-import com.intellij.icons.AllIcons;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.JDOMUtil;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskRepositorySubtype;
-import com.intellij.tasks.config.TaskRepositoryEditor;
-import com.intellij.tasks.impl.BaseRepositoryType;
-import com.intellij.util.Consumer;
-import com.intellij.util.xmlb.XmlSerializer;
-import consulo.ui.image.Image;
-import icons.TasksIcons;
+import java.util.function.Consumer;
 
 /**
  * User: Evgeny.Zakrevsky
  * Date: 10/4/12
  */
+@ExtensionImpl
 public class GenericRepositoryType extends BaseRepositoryType<GenericRepository> {
 
   @Nonnull
   @Override
-  public String getName() {
+  public String getId() {
     return "Generic";
+  }
+
+  @Nonnull
+  @Override
+  public LocalizeValue getPresentableName() {
+    return LocalizeValue.localizeTODO("Generic");
   }
 
   @Nonnull
@@ -67,19 +75,27 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
   }
 
   public class GenericSubtype implements TaskRepositorySubtype {
-    private final String myName;
+    private final String myId;
     private final Image myIcon;
 
-    GenericSubtype(String name, Image icon) {
-      myName = name;
+    GenericSubtype(String id, Image icon) {
+      myId = id;
       myIcon = icon;
     }
 
+    @Nonnull
     @Override
-    public String getName() {
-      return myName + " [G]";
+    public String getId() {
+      return myId;
     }
 
+    @Nonnull
+    @Override
+    public LocalizeValue getPresentableName() {
+      return LocalizeValue.localizeTODO(myId + " [G]");
+    }
+
+    @Nonnull
     @Override
     public Image getIcon() {
       return myIcon;
@@ -89,7 +105,7 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
     public TaskRepository createRepository() {
       Document document;
       try {
-        String configFileName = myName.toLowerCase() + ".xml";
+        String configFileName = myId.toLowerCase() + ".xml";
         //URL resourceUrl = ResourceUtil.getResource(GenericRepositoryType.class, "connectors", configFileName);
         URL resourceUrl = GenericRepository.class.getResource("connectors/" + configFileName);
         if (resourceUrl == null) {
@@ -103,7 +119,7 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
       GenericRepository repository = XmlSerializer.deserialize(document.getRootElement(), GenericRepository.class);
       if (repository != null) {
         repository.setRepositoryType(GenericRepositoryType.this);
-        repository.setSubtypeName(getName());
+        repository.setSubtypeId(getId());
       }
       return repository;
     }

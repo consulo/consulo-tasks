@@ -2,8 +2,8 @@ package com.intellij.tasks.generic;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.util.xmlb.annotations.Attribute;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.util.xml.serializer.annotation.Attribute;
+import consulo.util.xml.serializer.annotation.Tag;
 
 /**
  * @author Mikhail Golubev

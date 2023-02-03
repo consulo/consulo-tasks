@@ -1,33 +1,34 @@
 package com.intellij.tasks.jira.jql.codeinsight;
 
-import static com.intellij.patterns.PlatformPatterns.psiElement;
+import com.intellij.tasks.jira.jql.JqlLanguage;
+import com.intellij.tasks.jira.jql.JqlTokenTypes;
+import com.intellij.tasks.jira.jql.psi.*;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.completion.*;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.editor.completion.lookup.ParenthesesInsertHandler;
+import consulo.language.impl.DebugUtil;
+import consulo.language.pattern.FilterPattern;
+import consulo.language.pattern.PsiElementPattern;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.filter.ElementFilter;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.ProcessingContext;
+import consulo.logging.Logger;
+import consulo.util.lang.StringUtil;
+import consulo.util.lang.function.Condition;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.codeInsight.completion.CompletionContributor;
-import com.intellij.codeInsight.completion.CompletionParameters;
-import com.intellij.codeInsight.completion.CompletionResultSet;
-import com.intellij.codeInsight.completion.CompletionType;
-import com.intellij.codeInsight.completion.util.ParenthesesInsertHandler;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.patterns.PsiElementPattern;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.filters.ElementFilter;
-import com.intellij.psi.filters.position.FilterPattern;
-import com.intellij.psi.impl.DebugUtil;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.tasks.jira.jql.JqlTokenTypes;
-import com.intellij.tasks.jira.jql.psi.*;
-import com.intellij.util.ProcessingContext;
-import consulo.codeInsight.completion.CompletionProvider;
+
+import static consulo.language.pattern.PlatformPatterns.psiElement;
 
 /**
  * @author Mikhail Golubev
  */
+@ExtensionImpl
 public class JqlCompletionContributor extends CompletionContributor {
   private static final Logger LOG = Logger.getInstance(JqlCompletionContributor.class);
 
@@ -98,8 +99,8 @@ public class JqlCompletionContributor extends CompletionContributor {
   private static final PsiElementPattern.Capture<PsiElement> AFTER_FIELD_IN_CLAUSE =
     psiElement().and(rightAfterElement(
       psiElement(JqlIdentifier.class).
-        andNot(psiElement().inside(JqlFunctionCall.class)).
-        andNot(psiElement().inside(JqlOrderBy.class))));
+                                       andNot(psiElement().inside(JqlFunctionCall.class)).
+                                       andNot(psiElement().inside(JqlOrderBy.class))));
 
 
   /**
@@ -120,58 +121,69 @@ public class JqlCompletionContributor extends CompletionContributor {
    * e.g. "status changed on |"
    */
   private static final PsiElementPattern.Capture<PsiElement> AFTER_KEYWORD_IN_HISTORY_PREDICATE = psiElement().
-    inside(JqlHistoryPredicate.class). // do not consider "by" inside "order by"
-    afterLeaf(psiElement().withElementType(JqlTokenTypes.HISTORY_PREDICATES));
+                                                                                                                inside(JqlHistoryPredicate.class). // do not consider "by" inside "order by"
+                                                                                                                                                     afterLeaf(
+    psiElement().withElementType(JqlTokenTypes.HISTORY_PREDICATES));
 
   /**
    * e.g. "duedate > |" or "type was in |"
    */
   private static final PsiElementPattern.Capture<PsiElement> AFTER_OPERATOR_EXCEPT_IS = psiElement().
-    inside(JqlTerminalClause.class).
-    afterLeaf(
-      psiElement().andOr(
-        psiElement().withElementType(JqlTokenTypes.SIMPLE_OPERATORS),
-        psiElement(JqlTokenTypes.WAS_KEYWORD),
-        psiElement(JqlTokenTypes.IN_KEYWORD),
-        // "not" is considered only as part of other complex operators
-        // "is" and "is not" are not suitable also
-        psiElement(JqlTokenTypes.NOT_KEYWORD).
-          afterLeaf(psiElement(JqlTokenTypes.WAS_KEYWORD))));
+                                                                                                      inside(JqlTerminalClause.class).
+                                                                                                      afterLeaf(
+                                                                                                        psiElement().andOr(
+                                                                                                          psiElement().withElementType(
+                                                                                                            JqlTokenTypes.SIMPLE_OPERATORS),
+                                                                                                          psiElement(JqlTokenTypes.WAS_KEYWORD),
+                                                                                                          psiElement(JqlTokenTypes.IN_KEYWORD),
+                                                                                                          // "not" is considered only as part of other complex operators
+                                                                                                          // "is" and "is not" are not suitable also
+                                                                                                          psiElement(JqlTokenTypes.NOT_KEYWORD)
+                                                                                                            .
+                                                                                                              afterLeaf(psiElement(
+                                                                                                                JqlTokenTypes.WAS_KEYWORD))));
   /**
    * e.g. "foo is |" or "foo is not |"
    */
   private static final PsiElementPattern.Capture<PsiElement> AFTER_IS_OPERATOR = psiElement().
-    inside(JqlTerminalClause.class).andOr(
+                                                                                               inside(JqlTerminalClause.class).andOr(
     psiElement().afterLeaf(psiElement(JqlTokenTypes.IS_KEYWORD)),
     psiElement().afterLeaf(psiElement(JqlTokenTypes.NOT_KEYWORD).
-      afterLeaf(psiElement(JqlTokenTypes.IS_KEYWORD)))
+                                                                  afterLeaf(psiElement(JqlTokenTypes.IS_KEYWORD)))
   );
 
   /**
    * e.g. "commentary ~ 'spam' order by |" or "assignee = currentUser() order by duedate desc, |"
    */
   private static final PsiElementPattern.Capture<PsiElement> BEGINNING_OF_SORT_KEY = psiElement().
-    inside(JqlOrderBy.class).
-    andOr(
-      psiElement().afterLeaf(psiElement(JqlTokenTypes.COMMA)),
-      psiElement().afterLeaf(psiElement(JqlTokenTypes.BY_KEYWORD))
-    );
+                                                                                                   inside(JqlOrderBy.class).
+                                                                                                   andOr(
+                                                                                                     psiElement().afterLeaf(psiElement(
+                                                                                                       JqlTokenTypes.COMMA)),
+                                                                                                     psiElement().afterLeaf(psiElement(
+                                                                                                       JqlTokenTypes.BY_KEYWORD))
+                                                                                                   );
 
   /**
    * e.g. "status = 'in progress' order by reported |"
    */
   private static final PsiElementPattern.Capture<PsiElement> AFTER_FIELD_IN_SORT_KEY = psiElement().
-    afterLeaf(psiElement().withElementType(JqlTokenTypes.VALID_FIELD_NAMES).inside(JqlSortKey.class));
+                                                                                                     afterLeaf(psiElement().withElementType(
+                                                                                                       JqlTokenTypes.VALID_FIELD_NAMES)
+                                                                                                                           .inside(
+                                                                                                                             JqlSortKey.class));
 
   private static final PsiElementPattern.Capture<PsiElement> INSIDE_LIST = psiElement().
-    inside(JqlList.class).
-    afterLeaf(
-      psiElement().andOr(
-        psiElement(JqlTokenTypes.LPAR),
-        psiElement(JqlTokenTypes.COMMA)
-        // e.g. assignee in ('mark', 'bob', currentUser() | )
-      ).andNot(psiElement().inside(JqlFunctionCall.class))
-    );
+                                                                                         inside(JqlList.class).
+                                                                                         afterLeaf(
+                                                                                           psiElement().andOr(
+                                                                                             psiElement(JqlTokenTypes.LPAR),
+                                                                                             psiElement(JqlTokenTypes.COMMA)
+                                                                                             // e.g. assignee in ('mark', 'bob', currentUser() | )
+                                                                                           )
+                                                                                                       .andNot(psiElement().inside(
+                                                                                                         JqlFunctionCall.class))
+                                                                                         );
 
   public JqlCompletionContributor() {
     addKeywordsCompletion();
@@ -207,9 +219,9 @@ public class JqlCompletionContributor extends CompletionContributor {
            psiElement().afterLeaf(
              psiElement().andOr(
                psiElement(JqlTokenTypes.NOT_KEYWORD).
-                 andNot(psiElement().afterLeaf(
-                   psiElement(JqlTokenTypes.IS_KEYWORD))).
-                 andNot(psiElement().withParent(JqlNotClause.class)),
+                                                      andNot(psiElement().afterLeaf(
+                                                        psiElement(JqlTokenTypes.IS_KEYWORD))).
+                                                      andNot(psiElement().withParent(JqlNotClause.class)),
                psiElement(JqlTokenTypes.WAS_KEYWORD))),
            new JqlKeywordCompletionProvider("in"));
     extend(CompletionType.BASIC,
@@ -244,6 +256,12 @@ public class JqlCompletionContributor extends CompletionContributor {
            new JqlKeywordCompletionProvider("empty", "null"));
   }
 
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return JqlLanguage.INSTANCE;
+  }
+
   private static class JqlKeywordCompletionProvider implements CompletionProvider {
     private final String[] myKeywords;
 
@@ -253,21 +271,20 @@ public class JqlCompletionContributor extends CompletionContributor {
 
     @Override
     public void addCompletions(@Nonnull CompletionParameters parameters,
-                                  ProcessingContext context,
-                                  @Nonnull CompletionResultSet result) {
+                               ProcessingContext context,
+                               @Nonnull CompletionResultSet result) {
       for (String keyword : myKeywords) {
         result.addElement(LookupElementBuilder.create(keyword).withBoldness(true));
       }
     }
   }
 
-  private static class JqlFunctionCompletionProvider implements CompletionProvider
-  {
+  private static class JqlFunctionCompletionProvider implements CompletionProvider {
 
     @Override
-	public void addCompletions(@Nonnull CompletionParameters parameters,
-                                  ProcessingContext context,
-                                  @Nonnull CompletionResultSet result) {
+    public void addCompletions(@Nonnull CompletionParameters parameters,
+                               ProcessingContext context,
+                               @Nonnull CompletionResultSet result) {
       JqlFieldType operandType;
       boolean listFunctionExpected;
       PsiElement curElem = parameters.getPosition();
@@ -296,7 +313,7 @@ public class JqlCompletionContributor extends CompletionContributor {
       }
       for (String functionName : JqlStandardFunction.allOfType(operandType, listFunctionExpected)) {
         result.addElement(LookupElementBuilder.create(functionName)
-          .withInsertHandler(ParenthesesInsertHandler.NO_PARAMETERS));
+                                              .withInsertHandler(ParenthesesInsertHandler.NO_PARAMETERS));
       }
     }
 
@@ -325,9 +342,9 @@ public class JqlCompletionContributor extends CompletionContributor {
     }
 
     @Override
-	public void addCompletions(@Nonnull CompletionParameters parameters,
-                                  ProcessingContext context,
-                                  @Nonnull CompletionResultSet result) {
+    public void addCompletions(@Nonnull CompletionParameters parameters,
+                               ProcessingContext context,
+                               @Nonnull CompletionResultSet result) {
       for (String field : JqlStandardField.allOfType(myFieldType)) {
         result.addElement(LookupElementBuilder.create(field));
       }

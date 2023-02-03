@@ -16,29 +16,38 @@
 
 package com.intellij.tasks.trello;
 
+import com.intellij.tasks.TasksIcons;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.localize.LocalizeValue;
+import consulo.project.Project;
+import consulo.task.BaseRepositoryType;
+import consulo.task.TaskRepository;
+import consulo.task.ui.TaskRepositoryEditor;
+import consulo.ui.image.Image;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.openapi.project.Project;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.config.TaskRepositoryEditor;
-import com.intellij.tasks.impl.BaseRepositoryType;
-import com.intellij.util.Consumer;
-import consulo.ui.image.Image;
-import icons.TasksIcons;
+import java.util.function.Consumer;
 
 /**
  * @author Mikhail Golubev
  */
+@ExtensionImpl
 public class TrelloRepositoryType extends BaseRepositoryType<TrelloRepository> {
   public static final String DEVELOPER_KEY = "d6ec3709f7141007e150de64d4701181";
   public static final String CLIENT_AUTHORIZATION_URL =
-    "https://trello.com/1/authorize?key=" + DEVELOPER_KEY +"&name=JetBrains&expiration=never&response_type=token";
+    "https://trello.com/1/authorize?key=" + DEVELOPER_KEY + "&name=JetBrains&expiration=never&response_type=token";
 
   @Nonnull
   @Override
-  public String getName() {
+  public String getId() {
     return "Trello";
+  }
+
+  @Nonnull
+  @Override
+  public LocalizeValue getPresentableName() {
+    return LocalizeValue.of("Trello");
   }
 
   @Nonnull

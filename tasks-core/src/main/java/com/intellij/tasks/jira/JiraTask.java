@@ -16,24 +16,17 @@
 
 package com.intellij.tasks.jira;
 
-import java.util.Date;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.intellij.tasks.Comment;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskState;
-import com.intellij.tasks.TaskType;
-import com.intellij.tasks.jira.model.JiraComment;
+import com.intellij.tasks.TasksIcons;
 import com.intellij.tasks.jira.model.JiraIssue;
 import com.intellij.tasks.jira.model.JiraIssueType;
 import com.intellij.tasks.jira.model.JiraStatus;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.task.*;
 import consulo.ui.image.Image;
-import icons.TasksIcons;
+import consulo.util.collection.ContainerUtil;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Date;
 
 /**
  * @author Dmitry Avdeev
@@ -65,12 +58,7 @@ public class JiraTask extends Task {
 
   @Nonnull
   public Comment[] getComments() {
-    return ContainerUtil.map2Array(myJiraIssue.getComments(), Comment.class, new Function<JiraComment, Comment>() {
-      @Override
-      public Comment fun(JiraComment comment) {
-        return new JiraCommentAdapter(comment);
-      }
-    });
+    return ContainerUtil.map2Array(myJiraIssue.getComments(), Comment.class, JiraCommentAdapter::new);
   }
 
   @Nonnull
@@ -79,8 +67,8 @@ public class JiraTask extends Task {
     String iconUrl = issueType.getIconUrl();
     // iconUrl will be null in JIRA versions prior 5.x.x
     final Image icon = iconUrl == null
-                      ? TasksIcons.Jira
-                      : isClosed() ? CachedIconLoader.getDisabledIcon(iconUrl) : CachedIconLoader.getIcon(iconUrl);
+      ? TasksIcons.Jira
+      : isClosed() ? CachedIconLoader.getDisabledIcon(iconUrl) : CachedIconLoader.getIcon(iconUrl);
     return icon != null ? icon : TasksIcons.Other;
   }
 

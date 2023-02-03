@@ -17,9 +17,9 @@
 package com.intellij.tasks.trello.model;
 
 import javax.annotation.Nonnull;
-import com.intellij.util.xmlb.annotations.Attribute;
-import com.intellij.util.xmlb.annotations.Tag;
-import com.intellij.util.xmlb.annotations.Transient;
+import consulo.util.xml.serializer.annotation.Attribute;
+import consulo.util.xml.serializer.annotation.Tag;
+import consulo.util.xml.serializer.annotation.Transient;
 
 /**
  * @author Mikhail Golubev

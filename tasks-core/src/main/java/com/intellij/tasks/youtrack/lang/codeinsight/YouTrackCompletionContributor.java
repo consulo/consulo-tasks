@@ -1,21 +1,27 @@
 package com.intellij.tasks.youtrack.lang.codeinsight;
 
-import com.intellij.codeInsight.completion.*;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.openapi.application.Application;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.impl.DebugUtil;
 import com.intellij.tasks.youtrack.YouTrackIntellisense;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
+import com.intellij.tasks.youtrack.lang.YouTrackLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.Application;
+import consulo.application.ApplicationManager;
+import consulo.codeEditor.Editor;
+import consulo.document.Document;
+import consulo.language.Language;
+import consulo.language.editor.completion.CompletionContributor;
+import consulo.language.editor.completion.CompletionParameters;
+import consulo.language.editor.completion.CompletionResultSet;
+import consulo.language.editor.completion.lookup.InsertHandler;
+import consulo.language.editor.completion.lookup.InsertionContext;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.impl.DebugUtil;
+import consulo.language.psi.PsiFile;
+import consulo.logging.Logger;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.StringUtil;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -27,6 +33,7 @@ import static com.intellij.tasks.youtrack.YouTrackIntellisense.CompletionItem;
 /**
  * @author Mikhail Golubev
  */
+@ExtensionImpl
 public class YouTrackCompletionContributor extends CompletionContributor {
   private static final Logger LOG = Logger.getInstance(YouTrackCompletionContributor.class);
   private static final int TIMEOUT = 2000; // ms
@@ -58,15 +65,11 @@ public class YouTrackCompletionContributor extends CompletionContributor {
       final List<CompletionItem> suggestions = future.get(TIMEOUT, TimeUnit.MILLISECONDS);
       // actually backed by original CompletionResultSet
       result = result.withPrefixMatcher(extractPrefix(parameters)).caseInsensitive();
-      result.addAllElements(ContainerUtil.map(suggestions, new Function<CompletionItem, LookupElement>() {
-        @Override
-        public LookupElement fun(CompletionItem item) {
-          return LookupElementBuilder.create(item, item.getOption())
-            .withTypeText(item.getDescription(), true)
-            .withInsertHandler(INSERT_HANDLER)
-            .withBoldness(item.getStyleClass().equals("keyword"));
-        }
-      }));
+      result.addAllElements(ContainerUtil.map(suggestions, item -> LookupElementBuilder.create(item, item.getOption())
+                                                                                       .withTypeText(item.getDescription(), true)
+                                                                                       .withInsertHandler(INSERT_HANDLER)
+                                                                                       .withBoldness(item.getStyleClass()
+                                                                                                         .equals("keyword"))));
     }
     catch (Exception ignored) {
       //noinspection InstanceofCatchParameter
@@ -105,6 +108,12 @@ public class YouTrackCompletionContributor extends CompletionContributor {
       prefixStart++;
     }
     return StringUtil.trimLeading(text.substring(prefixStart, caretOffset));
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return YouTrackLanguage.INSTANCE;
   }
 
 

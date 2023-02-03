@@ -16,10 +16,9 @@
 package com.intellij.tasks.jira.model.api2;
 
 import com.intellij.tasks.jira.model.*;
-import com.intellij.util.containers.ContainerUtil;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Date;
 import java.util.List;
 
@@ -109,7 +108,7 @@ public class JiraIssueApi2 extends JiraIssue {
   @Nonnull
   @Override
   public List<JiraComment> getComments() {
-    return fields.comment == null ? ContainerUtil.<JiraComment>emptyList() : fields.comment.getComments();
+    return fields.comment == null ? List.of() : fields.comment.getComments();
   }
 
   @Nonnull

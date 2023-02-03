@@ -1,27 +1,21 @@
 package com.intellij.tasks.generic;
 
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.editor.event.DocumentAdapter;
-import com.intellij.openapi.editor.event.DocumentEvent;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ProjectManager;
-import com.intellij.openapi.util.Computable;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.XmlElementFactory;
-import com.intellij.psi.xml.XmlTag;
-import com.intellij.tasks.Task;
-import com.intellij.ui.EditorTextField;
-import com.intellij.ui.LanguageTextField;
-import com.intellij.ui.components.JBScrollPane;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.ui.FormBuilder;
-import com.intellij.util.xmlb.annotations.Tag;
-import com.intellij.xml.util.XmlUtil;
-import org.intellij.lang.regexp.RegExpLanguage;
+import consulo.component.util.pointer.NamedPointer;
+import consulo.document.event.DocumentAdapter;
+import consulo.document.event.DocumentEvent;
+import consulo.language.Language;
+import consulo.language.LanguagePointerUtil;
+import consulo.language.editor.ui.awt.EditorTextField;
+import consulo.language.editor.ui.awt.LanguageTextField;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.task.Task;
+import consulo.ui.ex.awt.JBScrollPane;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.annotation.Tag;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +30,9 @@ import java.util.regex.Pattern;
  */
 @Tag("RegExResponseHandler")
 public final class RegExResponseHandler extends ResponseHandler {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.tasks.generic.RegExResponseHandler");
+  private static final NamedPointer<Language> ourRegExpPointer = LanguagePointerUtil.createPointer("RegExp");
+
+  private static final Logger LOG = Logger.getInstance(RegExResponseHandler.class);
   private static final String ID_PLACEHOLDER = "{id}";
   private static final String SUMMARY_PLACEHOLDER = "{summary}";
 
@@ -71,9 +67,10 @@ public final class RegExResponseHandler extends ResponseHandler {
   @Nonnull
   @Override
   public JComponent getConfigurationComponent(@Nonnull Project project) {
-    FormBuilder builder = FormBuilder.createFormBuilder();
+    consulo.ui.ex.awt.FormBuilder builder = consulo.ui.ex.awt.FormBuilder.createFormBuilder();
     final EditorTextField taskPatternText;
-    taskPatternText = new LanguageTextField(RegExpLanguage.INSTANCE, project, myTaskRegex, false);
+
+    taskPatternText = new LanguageTextField(ourRegExpPointer.get(), project, myTaskRegex, false);
     taskPatternText.addDocumentListener(new DocumentAdapter() {
       @Override
       public void documentChanged(DocumentEvent e) {
@@ -103,17 +100,6 @@ public final class RegExResponseHandler extends ResponseHandler {
     for (int i = 0; i < max && matcher.find(); i++) {
       String id = matcher.group(placeholders.indexOf(ID_PLACEHOLDER) + 1);
       String summary = matcher.group(placeholders.indexOf(SUMMARY_PLACEHOLDER) + 1);
-      // temporary workaround to make AssemblaIntegrationTestPass
-      final String finalSummary = summary;
-      summary = ApplicationManager.getApplication().runReadAction(new Computable<String>() {
-        @Override
-        public String compute() {
-          XmlElementFactory factory = XmlElementFactory.getInstance(ProjectManager.getInstance().getDefaultProject());
-          XmlTag text = factory.createTagFromText("<a>" + finalSummary + "</a>");
-          String trimmedText = text.getValue().getTrimmedText();
-          return XmlUtil.decode(trimmedText);
-        }
-      });
       tasks.add(new GenericTask(id, summary, myRepository));
     }
     return tasks.toArray(new Task[tasks.size()]);
@@ -127,7 +113,7 @@ public final class RegExResponseHandler extends ResponseHandler {
 
   private static List<String> getPlaceholders(String value) {
     if (value == null) {
-      return ContainerUtil.emptyList();
+      return List.of();
     }
 
     List<String> vars = new ArrayList<String>();

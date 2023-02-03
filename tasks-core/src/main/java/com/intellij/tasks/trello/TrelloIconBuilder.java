@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.intellij.tasks.trello.model.TrelloLabel;
-import icons.TasksIcons;
+import com.intellij.tasks.TasksIcons;
 
 public class TrelloIconBuilder {
   private final Map<Set<TrelloLabel.LabelColor>, Image> CACHE = new HashMap<Set<TrelloLabel.LabelColor>, Image>();

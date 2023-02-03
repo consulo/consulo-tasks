@@ -1,26 +1,26 @@
 package com.intellij.tasks.jira;
 
 import com.google.gson.JsonObject;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.io.StreamUtil;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskState;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
 import com.intellij.tasks.jira.model.JiraIssue;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.xmlb.annotations.Tag;
+import consulo.logging.Logger;
+import consulo.task.Task;
+import consulo.task.TaskState;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.io.StreamUtil;
+import consulo.util.lang.Comparing;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.annotation.Tag;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.io.InputStream;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author Dmitry Avdeev
@@ -83,12 +83,7 @@ public class JiraRepository extends BaseRepositoryImpl {
       }
     }
     List<JiraIssue> issues = myRestApiVersion.findIssues(jqlQuery, max);
-    return ContainerUtil.map2Array(issues, Task.class, new Function<JiraIssue, Task>() {
-      @Override
-      public JiraTask fun(JiraIssue issue) {
-        return new JiraTask(issue, JiraRepository.this);
-      }
-    });
+    return ContainerUtil.map2Array(issues, Task.class, (Function<JiraIssue, Task>)issue -> new JiraTask(issue, JiraRepository.this));
   }
 
 

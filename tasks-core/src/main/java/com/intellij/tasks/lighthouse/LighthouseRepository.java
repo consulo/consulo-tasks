@@ -1,5 +1,24 @@
 package com.intellij.tasks.lighthouse;
 
+import com.intellij.tasks.TasksIcons;
+import com.intellij.tasks.impl.BaseRepositoryImpl;
+import consulo.logging.Logger;
+import consulo.task.*;
+import consulo.ui.image.Image;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.Comparing;
+import consulo.util.lang.StringUtil;
+import consulo.util.lang.ref.Ref;
+import consulo.util.xml.serializer.annotation.Tag;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,32 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.tasks.Comment;
-import com.intellij.tasks.Task;
-import com.intellij.tasks.TaskRepository;
-import com.intellij.tasks.TaskRepositoryType;
-import com.intellij.tasks.TaskType;
-import com.intellij.tasks.impl.BaseRepository;
-import com.intellij.tasks.impl.BaseRepositoryImpl;
-import com.intellij.util.NullableFunction;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.xmlb.annotations.Tag;
-import consulo.ui.image.Image;
-import icons.TasksIcons;
 
 /**
  * @author Dennis.Ushakov
@@ -104,11 +97,7 @@ public class LighthouseRepository extends BaseRepositoryImpl {
 
       List<Element> children = element.getChildren("ticket");
 
-      List<Task> taskList = ContainerUtil.mapNotNull(children, new NullableFunction<Element, Task>() {
-        public Task fun(Element o) {
-          return createIssue(o);
-        }
-      });
+      List<Task> taskList = ContainerUtil.mapNotNull(children, o -> createIssue(o));
       tasks.addAll(taskList);
       page++;
     }

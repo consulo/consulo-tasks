@@ -16,27 +16,28 @@
 
 package com.intellij.tasks.trello;
 
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.ModalityState;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.tasks.config.BaseRepositoryEditor;
 import com.intellij.tasks.trello.model.TrelloBoard;
 import com.intellij.tasks.trello.model.TrelloList;
-import com.intellij.ui.DocumentAdapter;
-import com.intellij.ui.ListCellRendererWrapper;
-import com.intellij.ui.components.JBLabel;
-import com.intellij.util.Consumer;
-import com.intellij.util.ui.FormBuilder;
+import consulo.application.Application;
+import consulo.application.ApplicationManager;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.task.ui.BaseRepositoryEditor;
+import consulo.ui.ModalityState;
+import consulo.ui.ex.awt.ComboBox;
+import consulo.ui.ex.awt.FormBuilder;
+import consulo.ui.ex.awt.JBLabel;
+import consulo.ui.ex.awt.ListCellRendererWrapper;
+import consulo.ui.ex.awt.event.DocumentAdapter;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Mikhail Golubev
@@ -182,9 +183,9 @@ public class TrelloRepositoryEditor extends BaseRepositoryEditor<TrelloRepositor
     myListLabel = new JBLabel("List:", SwingConstants.RIGHT);
     myListLabel.setLabelFor(myListComboBox);
     return FormBuilder.createFormBuilder()
-      .addLabeledComponent(myBoardLabel, myBoardComboBox)
-      .addLabeledComponent(myListLabel, myListComboBox)
-      .getPanel();
+                      .addLabeledComponent(myBoardLabel, myBoardComboBox)
+                      .addLabeledComponent(myListLabel, myListComboBox)
+                      .getPanel();
   }
 
   @Override
@@ -197,7 +198,7 @@ public class TrelloRepositoryEditor extends BaseRepositoryEditor<TrelloRepositor
 
   private abstract class Downloader<T> implements Runnable {
 
-    private final ModalityState myModalityState = ModalityState.current();
+    private final ModalityState myModalityState = Application.get().getCurrentModalityState();
 
     protected abstract T download() throws Exception;
 

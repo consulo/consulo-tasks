@@ -1,13 +1,13 @@
 package com.intellij.tasks.pivotal;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.tasks.config.BaseRepositoryEditor;
-import com.intellij.ui.components.JBLabel;
-import com.intellij.util.Consumer;
-import com.intellij.util.ui.FormBuilder;
-import javax.annotation.Nullable;
+import consulo.project.Project;
+import consulo.task.ui.BaseRepositoryEditor;
+import consulo.ui.ex.awt.FormBuilder;
+import consulo.ui.ex.awt.JBLabel;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
+import java.util.function.Consumer;
 
 /**
  * @author Dennis.Ushakov
@@ -19,8 +19,8 @@ public class PivotalTrackerRepositoryEditor extends BaseRepositoryEditor<Pivotal
   private JBLabel myAPIKeyLabel;
 
   public PivotalTrackerRepositoryEditor(final Project project,
-                                    final PivotalTrackerRepository repository,
-                                    Consumer<PivotalTrackerRepository> changeListener) {
+                                        final PivotalTrackerRepository repository,
+                                        Consumer<PivotalTrackerRepository> changeListener) {
     super(project, repository, changeListener);
     myUserNameText.setVisible(false);
     myUsernameLabel.setVisible(false);
@@ -49,7 +49,7 @@ public class PivotalTrackerRepositoryEditor extends BaseRepositoryEditor<Pivotal
     myAPIKey = new JTextField();
     installListener(myAPIKey);
     return FormBuilder.createFormBuilder().addLabeledComponent(myProjectIDLabel, myProjectId).addLabeledComponent(myAPIKeyLabel, myAPIKey)
-      .getPanel();
+                      .getPanel();
   }
 
   @Override

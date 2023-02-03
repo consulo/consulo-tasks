@@ -1,14 +1,10 @@
 package com.intellij.tasks.jira.jql.codeinsight;
 
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.containers.Convertor;
-import com.intellij.util.containers.MultiMap;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.collection.MultiMap;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Mikhail Golubev
@@ -65,6 +61,7 @@ public enum JqlStandardField {
 
   private final String myName;
   private final JqlFieldType myType;
+
   JqlStandardField(String name, JqlFieldType type) {
     myName = name;
     myType = type;
@@ -79,21 +76,15 @@ public enum JqlStandardField {
   }
 
   private static final JqlStandardField[] VALUES = values();
-  private static final Map<String, JqlStandardField> NAME_LOOKUP = ContainerUtil.newMapFromValues(
-    ContainerUtil.iterate(VALUES),
-    new Convertor<JqlStandardField, String>() {
-      @Override
-      public String convert(JqlStandardField field) {
-        return field.getName();
-      }
-    }
-  );
+  private static final Map<String, JqlStandardField> NAME_LOOKUP =
+    Arrays.stream(VALUES).collect(Collectors.toMap(JqlStandardField::getName, it -> it));
 
   public static JqlStandardField byName(String name) {
     return NAME_LOOKUP.get(name);
   }
 
   private static final MultiMap<JqlFieldType, String> TYPE_LOOKUP = new MultiMap<JqlFieldType, String>();
+
   static {
     for (JqlStandardField field : VALUES) {
       TYPE_LOOKUP.putValue(field.getType(), field.getName());
@@ -101,15 +92,10 @@ public enum JqlStandardField {
   }
 
   public static Collection<String> allOfType(JqlFieldType type) {
-    return type == JqlFieldType.UNKNOWN? ALL_FIELD_NAMES : new ArrayList<String>(TYPE_LOOKUP.get(type));
+    return type == JqlFieldType.UNKNOWN ? ALL_FIELD_NAMES : new ArrayList<String>(TYPE_LOOKUP.get(type));
   }
 
-  public static final List<String> ALL_FIELD_NAMES = ContainerUtil.map2List(VALUES, new Function<JqlStandardField, String>() {
-    @Override
-    public String fun(JqlStandardField field) {
-      return field.myName;
-    }
-  });
+  public static final List<String> ALL_FIELD_NAMES = ContainerUtil.map2List(VALUES, field -> field.myName);
 
   public static JqlFieldType typeOf(String name) {
     for (Map.Entry<JqlFieldType, Collection<String>> entry : TYPE_LOOKUP.entrySet()) {

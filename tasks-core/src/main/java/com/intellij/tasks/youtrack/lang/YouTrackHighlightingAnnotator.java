@@ -1,15 +1,17 @@
 package com.intellij.tasks.youtrack.lang;
 
-import com.intellij.lang.annotation.Annotation;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.ExternalAnnotator;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.PsiFile;
 import com.intellij.tasks.youtrack.YouTrackIntellisense;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.language.Language;
+import consulo.language.editor.annotation.Annotation;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.ExternalAnnotator;
+import consulo.language.psi.PsiFile;
+import consulo.logging.Logger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import static com.intellij.tasks.youtrack.lang.YouTrackHighlightingAnnotator.Que
 /**
  * @author Mikhail Golubev
  */
+@ExtensionImpl
 public class YouTrackHighlightingAnnotator extends ExternalAnnotator<QueryInfo, List<HighlightRange>> {
   private static Logger LOG = Logger.getInstance(YouTrackHighlightingAnnotator.class);
 
@@ -62,6 +65,12 @@ public class YouTrackHighlightingAnnotator extends ExternalAnnotator<QueryInfo, 
         infoAnnotation.setEnforcedTextAttributes(range.getTextAttributes());
       }
     }
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return YouTrackLanguage.INSTANCE;
   }
 
   public static class QueryInfo {

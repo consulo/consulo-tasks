@@ -1,23 +1,21 @@
 package com.intellij.tasks.generic;
 
-import com.intellij.codeInsight.completion.CompletionParameters;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.openapi.util.Condition;
-import com.intellij.tasks.TaskManager;
-import com.intellij.tasks.config.BaseRepositoryEditor;
-import com.intellij.ui.EditorTextField;
-import com.intellij.ui.TextFieldWithAutoCompletion;
-import com.intellij.ui.components.JBCheckBox;
-import com.intellij.ui.components.JBLabel;
-import com.intellij.util.Consumer;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.net.HTTPMethod;
-import com.intellij.util.ui.FormBuilder;
-import com.intellij.util.ui.UIUtil;
+import consulo.http.HTTPMethod;
+import consulo.language.editor.completion.CompletionParameters;
+import consulo.language.editor.ui.awt.EditorTextField;
+import consulo.language.editor.ui.awt.TextFieldWithAutoCompletion;
+import consulo.project.Project;
+import consulo.task.TaskManager;
+import consulo.task.ui.BaseRepositoryEditor;
+import consulo.ui.ex.awt.ComboBox;
+import consulo.ui.ex.awt.JBCheckBox;
+import consulo.ui.ex.awt.JBLabel;
+import consulo.ui.ex.awt.UIUtil;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.function.Condition;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,11 +23,10 @@ import java.awt.event.ActionListener;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
-import static com.intellij.tasks.generic.GenericRepositoryUtil.concat;
-import static com.intellij.tasks.generic.GenericRepositoryUtil.createPlaceholdersList;
-import static com.intellij.tasks.generic.GenericRepositoryUtil.prettifyVariableName;
-import static com.intellij.ui.TextFieldWithAutoCompletion.StringsCompletionProvider;
+import static com.intellij.tasks.generic.GenericRepositoryUtil.*;
+import static consulo.language.editor.ui.awt.TextFieldWithAutoCompletion.StringsCompletionProvider;
 
 /**
  * @author Evgeny.Zakrevsky
@@ -184,7 +181,7 @@ public class GenericRepositoryEditor<T extends GenericRepository> extends BaseRe
   @Override
   protected JComponent createCustomPanel() {
     myField2Variable = new IdentityHashMap<JTextField, TemplateVariable>();
-    FormBuilder builder = FormBuilder.createFormBuilder();
+    consulo.ui.ex.awt.FormBuilder builder = consulo.ui.ex.awt.FormBuilder.createFormBuilder();
     for (final TemplateVariable variable : myRepository.getTemplateVariables()) {
       if (variable.isShownOnFirstTab()) {
         JTextField field = variable.isHidden() ? new JPasswordField(variable.getValue()) : new JTextField(variable.getValue());

@@ -1,6 +1,6 @@
 package com.intellij.tasks.youtrack;
 
-import com.intellij.openapi.ui.Messages;
+import consulo.ui.ex.awt.Messages;
 
 import javax.swing.*;
 

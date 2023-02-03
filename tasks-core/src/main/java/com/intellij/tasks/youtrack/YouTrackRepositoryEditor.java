@@ -1,23 +1,23 @@
 package com.intellij.tasks.youtrack;
 
-import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiFile;
-import com.intellij.tasks.TaskState;
-import com.intellij.tasks.config.BaseRepositoryEditor;
 import com.intellij.tasks.youtrack.lang.YouTrackLanguage;
-import com.intellij.ui.EditorTextField;
-import com.intellij.ui.LanguageTextField;
-import com.intellij.ui.components.JBLabel;
-import com.intellij.util.Consumer;
-import com.intellij.util.ui.FormBuilder;
-import javax.annotation.Nullable;
+import consulo.language.editor.DaemonCodeAnalyzer;
+import consulo.language.editor.ui.awt.EditorTextField;
+import consulo.language.editor.ui.awt.LanguageTextField;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiFile;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.task.TaskState;
+import consulo.task.ui.BaseRepositoryEditor;
+import consulo.ui.ex.awt.FormBuilder;
+import consulo.ui.ex.awt.JBLabel;
+import consulo.util.lang.StringUtil;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * @author Dmitry Avdeev

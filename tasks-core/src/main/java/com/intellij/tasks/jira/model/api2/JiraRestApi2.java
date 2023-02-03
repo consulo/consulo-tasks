@@ -1,7 +1,7 @@
 package com.intellij.tasks.jira.model.api2;
 
 import com.google.gson.reflect.TypeToken;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.tasks.jira.JiraRepository;
 import com.intellij.tasks.jira.JiraRestApi;
 import com.intellij.tasks.jira.JiraUtil;
