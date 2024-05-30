@@ -2,8 +2,8 @@ package com.intellij.tasks.generic;
 
 import com.intellij.tasks.TasksIcons;
 import consulo.annotation.component.ExtensionImpl;
-import consulo.application.AllIcons;
 import consulo.localize.LocalizeValue;
+import consulo.platform.base.icon.PlatformIconGroup;
 import consulo.project.Project;
 import consulo.task.BaseRepositoryType;
 import consulo.task.TaskRepository;
@@ -42,7 +42,7 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
   @Nonnull
   @Override
   public Image getIcon() {
-    return AllIcons.General.Web;
+    return PlatformIconGroup.nodesPpweb();
   }
 
   @Nonnull
@@ -61,7 +61,7 @@ public class GenericRepositoryType extends BaseRepositoryType<GenericRepository>
   public TaskRepositoryEditor createEditor(final GenericRepository repository,
                                            final Project project,
                                            final Consumer<GenericRepository> changeListener) {
-    return new GenericRepositoryEditor<GenericRepository>(project, repository, changeListener);
+    return new GenericRepositoryEditor<>(project, repository, changeListener);
   }
 
   @Override
