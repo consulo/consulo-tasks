@@ -3,7 +3,7 @@ package com.intellij.tasks.generic;
 import consulo.util.xml.serializer.annotation.Attribute;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Editable variable which name can be used as placeholder and auto completed in EditorFields of

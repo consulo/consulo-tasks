@@ -14,7 +14,7 @@ import consulo.ui.ex.awt.FormBuilder;
 import consulo.ui.ex.awt.JBLabel;
 import consulo.util.lang.StringUtil;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 import java.util.Map;
 import java.util.function.Consumer;

@@ -1,6 +1,6 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.language.ast.ASTNode;
 import com.intellij.tasks.jira.jql.JqlTokenTypes;
@@ -8,7 +8,7 @@ import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlOperand;
 import com.intellij.tasks.jira.jql.psi.JqlWasClause;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev

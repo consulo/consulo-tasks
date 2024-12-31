@@ -7,7 +7,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.util.PsiTreeUtil;
 import com.intellij.tasks.jira.jql.psi.*;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import static consulo.codeEditor.DefaultLanguageHighlighterColors.CONSTANT;
 

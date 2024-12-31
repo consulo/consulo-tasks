@@ -12,7 +12,7 @@ import consulo.util.lang.StringUtil;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Collections;

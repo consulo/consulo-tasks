@@ -14,8 +14,8 @@ import consulo.util.lang.VersionComparatorUtil;
 import consulo.util.xml.serializer.annotation.Tag;
 import org.apache.axis.utils.StringUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import javax.xml.rpc.ServiceException;
 import java.math.BigInteger;
 import java.net.MalformedURLException;

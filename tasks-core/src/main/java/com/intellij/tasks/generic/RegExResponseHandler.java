@@ -14,8 +14,8 @@ import consulo.ui.ex.awt.JBScrollPane;
 import consulo.util.lang.StringUtil;
 import consulo.util.xml.serializer.annotation.Tag;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;

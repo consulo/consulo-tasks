@@ -10,8 +10,8 @@ import consulo.language.editor.annotation.ExternalAnnotator;
 import consulo.language.psi.PsiFile;
 import consulo.logging.Logger;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 

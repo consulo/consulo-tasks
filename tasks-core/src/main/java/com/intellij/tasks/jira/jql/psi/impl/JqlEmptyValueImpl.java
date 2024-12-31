@@ -3,7 +3,7 @@ package com.intellij.tasks.jira.jql.psi.impl;
 import consulo.language.ast.ASTNode;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlEmptyValue;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev

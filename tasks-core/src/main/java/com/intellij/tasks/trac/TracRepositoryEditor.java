@@ -20,7 +20,7 @@ import consulo.task.ui.BaseRepositoryEditor;
 import consulo.ui.ex.awt.FormBuilder;
 import consulo.ui.ex.awt.JBLabel;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 import java.util.function.Consumer;
 

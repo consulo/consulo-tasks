@@ -2,7 +2,7 @@ package com.intellij.tasks.jira;
 
 
 import consulo.util.lang.VersionComparatorUtil;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

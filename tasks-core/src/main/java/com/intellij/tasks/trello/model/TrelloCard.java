@@ -20,8 +20,8 @@ import com.google.gson.annotations.SerializedName;
 import consulo.util.collection.ContainerUtil;
 import consulo.util.xml.serializer.annotation.Attribute;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.*;
 
 import static com.intellij.tasks.trello.model.TrelloLabel.LabelColor;

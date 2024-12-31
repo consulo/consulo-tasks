@@ -4,7 +4,7 @@ import com.intellij.tasks.jira.jql.psi.JqlAndClause;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import consulo.language.ast.ASTNode;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev

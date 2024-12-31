@@ -1,8 +1,8 @@
 package com.intellij.tasks.jira.model.api20alpha1;
 
 import com.intellij.tasks.jira.model.*;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import java.util.Date;
 import java.util.List;

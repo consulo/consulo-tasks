@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import consulo.util.xml.serializer.annotation.Attribute;
 import consulo.util.xml.serializer.annotation.Tag;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * Only required fields are declared.

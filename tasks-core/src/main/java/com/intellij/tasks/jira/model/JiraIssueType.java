@@ -15,7 +15,7 @@
  */
 package com.intellij.tasks.jira.model;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev

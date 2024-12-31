@@ -4,8 +4,8 @@ import consulo.task.util.gson.Mandatory;
 import consulo.task.util.gson.RestModel;
 import consulo.util.xml.serializer.annotation.Attribute;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev

@@ -15,7 +15,7 @@
  */
 package com.intellij.tasks.jira.model;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 

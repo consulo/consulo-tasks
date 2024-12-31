@@ -14,7 +14,7 @@ import consulo.util.jdom.JDOMUtil;
 import consulo.util.xml.serializer.XmlSerializer;
 import org.jdom.Document;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev

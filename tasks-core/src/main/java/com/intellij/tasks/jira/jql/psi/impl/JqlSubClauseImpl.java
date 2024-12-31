@@ -5,8 +5,8 @@ import com.intellij.tasks.jira.jql.psi.JqlClause;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlSubClause;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev

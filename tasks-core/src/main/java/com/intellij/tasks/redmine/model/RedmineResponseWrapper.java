@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import consulo.task.util.gson.Mandatory;
 import consulo.task.util.gson.RestModel;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 
 /**

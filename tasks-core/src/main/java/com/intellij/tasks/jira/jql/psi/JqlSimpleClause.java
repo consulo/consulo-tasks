@@ -1,6 +1,6 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * Simple clauses such as EQ, NE, GT, LT, GE, LE, CONTAINS, NOT_CONTAINS, IN, NOT_IN, IS and IS_NOT

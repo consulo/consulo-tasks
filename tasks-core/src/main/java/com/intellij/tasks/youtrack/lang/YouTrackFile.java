@@ -1,6 +1,6 @@
 package com.intellij.tasks.youtrack.lang;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.language.file.FileViewProvider;
 import consulo.language.impl.psi.PsiFileBase;

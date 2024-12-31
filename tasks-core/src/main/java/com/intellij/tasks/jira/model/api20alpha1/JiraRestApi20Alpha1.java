@@ -8,7 +8,7 @@ import com.intellij.tasks.jira.JiraUtil;
 import com.intellij.tasks.jira.model.JiraIssue;
 import com.intellij.tasks.jira.model.JiraResponseWrapper;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

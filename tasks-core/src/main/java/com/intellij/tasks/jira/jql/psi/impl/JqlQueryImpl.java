@@ -1,11 +1,11 @@
 package com.intellij.tasks.jira.jql.psi.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.language.ast.ASTNode;
 import com.intellij.tasks.jira.jql.psi.*;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Mikhail Golubev

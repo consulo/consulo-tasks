@@ -1,6 +1,6 @@
 package com.intellij.tasks.jira.jql.psi;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev

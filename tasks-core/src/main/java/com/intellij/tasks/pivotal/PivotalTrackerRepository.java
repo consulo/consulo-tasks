@@ -20,8 +20,8 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.util.ArrayList;

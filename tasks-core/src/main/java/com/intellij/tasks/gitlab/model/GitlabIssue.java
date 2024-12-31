@@ -1,7 +1,7 @@
 package com.intellij.tasks.gitlab.model;
 
 import com.google.gson.annotations.SerializedName;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.Date;
 

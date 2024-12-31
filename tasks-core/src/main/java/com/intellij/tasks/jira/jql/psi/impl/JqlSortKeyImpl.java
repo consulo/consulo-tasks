@@ -6,7 +6,7 @@ import com.intellij.tasks.jira.jql.JqlTokenTypes;
 import com.intellij.tasks.jira.jql.psi.JqlElementVisitor;
 import com.intellij.tasks.jira.jql.psi.JqlSortKey;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Mikhail Golubev

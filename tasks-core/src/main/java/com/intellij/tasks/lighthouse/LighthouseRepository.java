@@ -17,8 +17,8 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
