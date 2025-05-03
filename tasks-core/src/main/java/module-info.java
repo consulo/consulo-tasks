@@ -22,4 +22,6 @@ module com.intellij.tasks {
 
   opens com.intellij.tasks.jira to consulo.util.xml.serializer;
   opens com.intellij.tasks.impl to consulo.util.xml.serializer;
+  opens com.intellij.tasks.jira.model to consulo.util.xml.serializer, com.google.gson;
+  opens com.intellij.tasks.jira.model.api2 to com.google.gson;
 }
