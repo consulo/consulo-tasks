@@ -24,7 +24,7 @@ public class JiraRepositoryType extends BaseRepositoryType<JiraRepository> {
 
   @Nonnull
   public String getId() {
-    return "Jira";
+    return "JIRA"; // must equals to @Tag from repository
   }
 
   @Nonnull
