@@ -21,4 +21,5 @@ module com.intellij.tasks {
   requires forms.rt;
 
   opens com.intellij.tasks.jira to consulo.util.xml.serializer;
+  opens com.intellij.tasks.impl to consulo.util.xml.serializer;
 }
