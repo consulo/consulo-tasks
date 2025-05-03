@@ -19,4 +19,6 @@ module com.intellij.tasks {
   // TODO remove
   requires java.desktop;
   requires forms.rt;
+
+  opens com.intellij.tasks.jira to consulo.util.xml.serializer;
 }
