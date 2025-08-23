@@ -3,6 +3,7 @@ package com.intellij.tasks.youtrack;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
 import consulo.logging.Logger;
 import consulo.task.*;
+import consulo.task.icon.TaskIconGroup;
 import consulo.task.util.TaskUtil;
 import consulo.ui.image.Image;
 import consulo.util.collection.ContainerUtil;
@@ -245,7 +246,14 @@ public class YouTrackRepository extends BaseRepositoryImpl {
       @Nonnull
       @Override
       public Image getIcon() {
-        return getType().getIcon(isIssue());
+        switch (getType()) {
+          case BUG:
+            return TaskIconGroup.bug();
+          case EXCEPTION:
+            return TaskIconGroup.exception();
+          default:
+            return TaskIconGroup.task();
+        }
       }
 
       @Nonnull
