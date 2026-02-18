@@ -1,6 +1,5 @@
 package com.intellij.tasks.generic;
 
-import consulo.http.HTTPMethod;
 import consulo.language.editor.completion.CompletionParameters;
 import consulo.language.editor.ui.awt.EditorTextField;
 import consulo.language.editor.ui.awt.TextFieldWithAutoCompletion;
@@ -13,9 +12,9 @@ import consulo.ui.ex.awt.JBLabel;
 import consulo.ui.ex.awt.UIUtil;
 import consulo.util.collection.ContainerUtil;
 import consulo.util.lang.function.Condition;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -228,9 +227,9 @@ public class GenericRepositoryEditor<T extends GenericRepository> extends BaseRe
     myRepository.setTasksListUrl(myTasksListURLText.getText());
     myRepository.setSingleTaskUrl(mySingleTaskURLText.getText());
 
-    myRepository.setLoginMethodType(HTTPMethod.valueOf((String)myLoginMethodTypeComboBox.getSelectedItem()));
-    myRepository.setTasksListMethodType(HTTPMethod.valueOf((String)myTasksListMethodTypeComboBox.getSelectedItem()));
-    myRepository.setSingleTaskMethodType(HTTPMethod.valueOf((String)mySingleTaskMethodComboBox.getSelectedItem()));
+    myRepository.setLoginMethodType(consulo.http.HttpMethod.valueOf((String)myLoginMethodTypeComboBox.getSelectedItem()));
+    myRepository.setTasksListMethodType(consulo.http.HttpMethod.valueOf((String)myTasksListMethodTypeComboBox.getSelectedItem()));
+    myRepository.setSingleTaskMethodType(consulo.http.HttpMethod.valueOf((String)mySingleTaskMethodComboBox.getSelectedItem()));
 
     myRepository.setDownloadTasksInSeparateRequests(myDownloadTasksInSeparateRequests.isSelected());
    for (Map.Entry<JTextField, TemplateVariable> entry : myField2Variable.entrySet()) {

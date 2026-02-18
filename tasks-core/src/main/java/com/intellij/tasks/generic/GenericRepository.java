@@ -1,7 +1,6 @@
 package com.intellij.tasks.generic;
 
 import com.intellij.tasks.impl.BaseRepositoryImpl;
-import consulo.http.HTTPMethod;
 import consulo.logging.Logger;
 import consulo.task.Task;
 import consulo.task.TaskRepositorySubtype;
@@ -71,9 +70,9 @@ public class GenericRepository extends BaseRepositoryImpl {
   private String myTasksListUrl = "";
   private String mySingleTaskUrl;
 
-  private HTTPMethod myLoginMethodType = HTTPMethod.GET;
-  private HTTPMethod myTasksListMethodType = HTTPMethod.GET;
-  private HTTPMethod mySingleTaskMethodType = HTTPMethod.GET;
+  private consulo.http.HttpMethod myLoginMethodType = consulo.http.HttpMethod.GET;
+  private consulo.http.HttpMethod myTasksListMethodType = consulo.http.HttpMethod.GET;
+  private consulo.http.HttpMethod mySingleTaskMethodType = consulo.http.HttpMethod.GET;
 
   private ResponseType myResponseType = ResponseType.XML;
 
@@ -127,9 +126,9 @@ public class GenericRepository extends BaseRepositoryImpl {
     myTasksListUrl = "";
     mySingleTaskUrl = "";
     myDownloadTasksInSeparateRequests = false;
-    myLoginMethodType = HTTPMethod.GET;
-    myTasksListMethodType = HTTPMethod.GET;
-    mySingleTaskMethodType = HTTPMethod.GET;
+    myLoginMethodType = consulo.http.HttpMethod.GET;
+    myTasksListMethodType = consulo.http.HttpMethod.GET;
+    mySingleTaskMethodType = consulo.http.HttpMethod.GET;
     myResponseType = ResponseType.XML;
     myTemplateVariables = new ArrayList<TemplateVariable>();
     myResponseHandlersMap = new EnumMap<ResponseType, ResponseHandler>(ResponseType.class);
@@ -233,8 +232,8 @@ public class GenericRepository extends BaseRepositoryImpl {
     return responseBody;
   }
 
-  private HttpMethod getHttpMethod(String requestUrl, HTTPMethod type) {
-    HttpMethod method = type == HTTPMethod.GET ? new GetMethod(requestUrl) : GenericRepositoryUtil.getPostMethodFromURL(requestUrl);
+  private HttpMethod getHttpMethod(String requestUrl, consulo.http.HttpMethod type) {
+    HttpMethod method = type == consulo.http.HttpMethod.GET ? new GetMethod(requestUrl) : GenericRepositoryUtil.getPostMethodFromURL(requestUrl);
     configureHttpMethod(method);
     return method;
   }
@@ -292,27 +291,27 @@ public class GenericRepository extends BaseRepositoryImpl {
     return mySingleTaskUrl;
   }
 
-  public void setLoginMethodType(final HTTPMethod loginMethodType) {
+  public void setLoginMethodType(final consulo.http.HttpMethod loginMethodType) {
     myLoginMethodType = loginMethodType;
   }
 
-  public void setTasksListMethodType(final HTTPMethod tasksListMethodType) {
+  public void setTasksListMethodType(final consulo.http.HttpMethod tasksListMethodType) {
     myTasksListMethodType = tasksListMethodType;
   }
 
-  public void setSingleTaskMethodType(HTTPMethod singleTaskMethodType) {
+  public void setSingleTaskMethodType(consulo.http.HttpMethod singleTaskMethodType) {
     mySingleTaskMethodType = singleTaskMethodType;
   }
 
-  public HTTPMethod getLoginMethodType() {
+  public consulo.http.HttpMethod getLoginMethodType() {
     return myLoginMethodType;
   }
 
-  public HTTPMethod getTasksListMethodType() {
+  public consulo.http.HttpMethod getTasksListMethodType() {
     return myTasksListMethodType;
   }
 
-  public HTTPMethod getSingleTaskMethodType() {
+  public consulo.http.HttpMethod getSingleTaskMethodType() {
     return mySingleTaskMethodType;
   }
 

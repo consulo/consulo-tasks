@@ -1,7 +1,6 @@
 package com.intellij.tasks.pivotal;
 
 import com.intellij.tasks.impl.BaseRepositoryImpl;
-import consulo.http.HTTPMethod;
 import consulo.logging.Logger;
 import consulo.task.*;
 import consulo.task.util.TaskUtil;
@@ -12,6 +11,8 @@ import consulo.util.lang.Comparing;
 import consulo.util.lang.StringUtil;
 import consulo.util.lang.ref.Ref;
 import consulo.util.xml.serializer.annotation.Tag;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -20,15 +21,12 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,7 +96,7 @@ public class PivotalTrackerRepository extends BaseRepositoryImpl {
       url += "&limit=" + encodeUrl(String.valueOf(max));
     }
     LOG.info("Getting all the stories with url: " + url);
-    final HttpMethod method = doREST(url, HTTPMethod.GET);
+    final HttpMethod method = doREST(url, consulo.http.HttpMethod.GET);
     final InputStream stream = method.getResponseBodyAsStream();
     final Element element = new SAXBuilder(false).build(stream).getRootElement();
 
@@ -243,12 +241,12 @@ public class PivotalTrackerRepository extends BaseRepositoryImpl {
     return TaskUtil.parseDate(date);
   }
 
-  private HttpMethod doREST(final String request, final HTTPMethod type) throws Exception {
+  private HttpMethod doREST(final String request, final consulo.http.HttpMethod type) throws Exception {
     final HttpClient client = getHttpClient();
     client.getParams().setContentCharset("UTF-8");
     final String uri = getUrl() + request;
-    final HttpMethod method = type == HTTPMethod.POST ? new PostMethod(uri) :
-                              type == HTTPMethod.PUT ? new PutMethod(uri) : new GetMethod(uri);
+    final HttpMethod method = type == consulo.http.HttpMethod.POST ? new PostMethod(uri) :
+                              type == consulo.http.HttpMethod.PUT ? new PutMethod(uri) : new GetMethod(uri);
     configureHttpMethod(method);
     client.executeMethod(method);
     return method;
@@ -261,7 +259,7 @@ public class PivotalTrackerRepository extends BaseRepositoryImpl {
     if (realId == null) return null;
     final String url = API_URL + "/projects/" + myProjectId + "/stories/" + realId;
     LOG.info("Retrieving issue by id: " + url);
-    final HttpMethod method = doREST(url, HTTPMethod.GET);
+    final HttpMethod method = doREST(url, consulo.http.HttpMethod.GET);
     final InputStream stream = method.getResponseBodyAsStream();
     final Element element = new SAXBuilder(false).build(stream).getRootElement();
     return element.getName().equals("story") ? createIssue(element) : null;
@@ -334,7 +332,7 @@ public class PivotalTrackerRepository extends BaseRepositoryImpl {
     String url = API_URL + "/projects/" + myProjectId + "/stories/" + realId;
     url +="?" + encodeUrl("story[current_state]") + "=" + encodeUrl("started");
     LOG.info("Updating issue state by id: " + url);
-    final HttpMethod method = doREST(url, HTTPMethod.PUT);
+    final HttpMethod method = doREST(url, consulo.http.HttpMethod.PUT);
     final InputStream stream = method.getResponseBodyAsStream();
     final Element element = new SAXBuilder(false).build(stream).getRootElement();
     final Task story = element.getName().equals("story") ? createIssue(element) : null;
