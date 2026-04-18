@@ -3231,7 +3231,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub implem
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {username, password, issue_id, comment, new java.lang.Boolean(fixed)});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {username, password, issue_id, comment, Boolean.valueOf(fixed)});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
