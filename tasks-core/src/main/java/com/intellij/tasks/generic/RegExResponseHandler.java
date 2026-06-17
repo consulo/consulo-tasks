@@ -1,10 +1,8 @@
 package com.intellij.tasks.generic;
 
-import consulo.component.util.pointer.NamedPointer;
 import consulo.document.event.DocumentAdapter;
 import consulo.document.event.DocumentEvent;
 import consulo.language.Language;
-import consulo.language.LanguagePointerUtil;
 import consulo.language.editor.ui.awt.EditorTextField;
 import consulo.language.editor.ui.awt.LanguageTextField;
 import consulo.logging.Logger;
@@ -30,8 +28,6 @@ import java.util.regex.Pattern;
  */
 @Tag("RegExResponseHandler")
 public final class RegExResponseHandler extends ResponseHandler {
-  private static final NamedPointer<Language> ourRegExpPointer = LanguagePointerUtil.createPointer("RegExp");
-
   private static final Logger LOG = Logger.getInstance(RegExResponseHandler.class);
   private static final String ID_PLACEHOLDER = "{id}";
   private static final String SUMMARY_PLACEHOLDER = "{summary}";
@@ -70,7 +66,7 @@ public final class RegExResponseHandler extends ResponseHandler {
     consulo.ui.ex.awt.FormBuilder builder = consulo.ui.ex.awt.FormBuilder.createFormBuilder();
     final EditorTextField taskPatternText;
 
-    taskPatternText = new LanguageTextField(ourRegExpPointer.get(), project, myTaskRegex, false);
+    taskPatternText = new LanguageTextField(Language.findLanguageByID("RegExp"), project, myTaskRegex, false);
     taskPatternText.addDocumentListener(new DocumentAdapter() {
       @Override
       public void documentChanged(DocumentEvent e) {
