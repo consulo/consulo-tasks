@@ -15,8 +15,8 @@ import java.awt.event.ItemListener;
 import java.util.function.Consumer;
 
 /**
- * User: evgeny.zakrevsky
- * Date: 9/21/12
+ * @author evgeny.zakrevsky
+ * @since 2012-09-21
  */
 public class MantisRepositoryEditor extends BaseRepositoryEditor<MantisRepository> {
   private static final Logger LOG = Logger.getInstance(MantisRepositoryEditor.class);

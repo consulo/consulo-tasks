@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * User: Evgeny.Zakrevsky
- * Date: 10/4/12
+ * @author Evgeny.Zakrevsky
+ * @since 2012-10-04
  */
 @ExtensionImpl
 public class GenericRepositoryType extends BaseRepositoryType<GenericRepository> {

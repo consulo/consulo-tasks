@@ -99,7 +99,7 @@ public class YouTrackIntellisense {
       final String url = String.format("%s?filter=%s&caret=%d", INTELLISENSE_RESOURCE, URLEncoder.encode(query, "utf-8"), caret);
       final long startTime = System.currentTimeMillis();
       response = new Response(myRepository.doREST(url, false).getResponseBodyAsStream());
-      LOG.debug(String.format("Intellisense request to YouTrack took %d ms to complete", System.currentTimeMillis() - startTime));
+      LOG.debug(String.format("IntelliSense request to YouTrack took %d ms to complete", System.currentTimeMillis() - startTime));
       ourCache.put(lookup, response);
     }
     return response;

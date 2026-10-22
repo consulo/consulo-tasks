@@ -1,13 +1,16 @@
 <consulo-plugin url="https://github.com/consulo/consulo-tasks">
-  <id>com.intellij.tasks</id>
-  <name>Common Task Servers</name>
-  <description>Implementation of Jira, Youtrack, Lighthouse, Pivotal, Redmine, Trac, FogBuz, Mantic, Trello, Gitlab task tracking
-  </description>
-  <version>SNAPSHOT</version>
-  <vendor>JetBrains</vendor>
+    <id>com.intellij.tasks</id>
+    <name>Common Task Servers</name>
+    <description>
+        Implementation of Jira, YouTrack, Lighthouse, Pivotal, Redmine, Trac, FogBugz, Mantis, Trello, GitLab task trackers
+    </description>
+    <version>SNAPSHOT</version>
+    <vendors>
+        <vendor>JetBrains</vendor>
+    </vendors>
 
-  <depends>consulo.library.flexmark</depends>
-  <tags>
-    <tag>issue.managment</tag>
-  </tags>
+    <depends>consulo.library.flexmark</depends>
+    <tags>
+        <tag>issue.managment</tag>
+    </tags>
 </consulo-plugin>
