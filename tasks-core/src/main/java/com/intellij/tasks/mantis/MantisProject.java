@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * User: evgeny.zakrevsky
- * Date: 9/24/12
+ * @author evgeny.zakrevsky
+ * @since 2012-09-24
  */
 public class MantisProject {
   public final static MantisProject ALL_PROJECTS = new MantisProject(0, "All Projects");

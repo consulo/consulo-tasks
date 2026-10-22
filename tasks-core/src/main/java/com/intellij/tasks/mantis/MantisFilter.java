@@ -1,8 +1,8 @@
 package com.intellij.tasks.mantis;
 
 /**
- * User: evgeny.zakrevsky
- * Date: 9/24/12
+ * @author evgeny.zakrevsky
+ * @since 2012-09-24
  */
 public class MantisFilter {
   public final static MantisFilter LAST_TASKS = new MantisFilter(0, "[Last tasks]");

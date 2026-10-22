@@ -21,9 +21,9 @@ public class JqlFunctionCallImpl extends JqlElementImpl implements JqlFunctionCa
   @Nonnull
   @Override
   public JqlIdentifier getFunctionName() {
-    JqlIdentifier idenifier = findChildByClass(JqlIdentifier.class);
-    assert idenifier != null;
-    return idenifier;
+    JqlIdentifier identifier = findChildByClass(JqlIdentifier.class);
+    assert identifier != null;
+    return identifier;
   }
 
   @Nonnull
