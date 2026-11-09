@@ -1,0 +1,15 @@
+<consulo-plugin url="https://github.com/consulo/consulo-tasks">
+    <id>com.intellij.tasks</id>
+    <name>Common Task Servers</name>
+    <description>
+        Retired. Jira and GitHub trackers are part of their own plugins now.
+    </description>
+    <version>SNAPSHOT</version>
+    <vendors>
+        <vendor>JetBrains</vendor>
+    </vendors>
+
+    <tags>
+        <tag>issue.managment</tag>
+    </tags>
+</consulo-plugin>
